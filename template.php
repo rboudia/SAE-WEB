@@ -65,7 +65,7 @@ main {
 <body>
 <header>
     <div style="text-align: center;"> 
-        <h1>Site de Alaa-eddine</h1></div>
+        <h1>Site de tout le monde</h1></div>
         <nav> 
     <?php
         $menuComponent->affiche();
