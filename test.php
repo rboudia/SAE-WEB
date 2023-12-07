@@ -6,7 +6,7 @@
    	</head>
 
 	<body>
-		<p>Bonjour</p>
+		<p>Bonjour 1</p>
 	</body>
 	
 </html>
