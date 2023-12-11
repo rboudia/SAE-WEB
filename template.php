@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Site de tout le monde</title>
+    <title>Site de tout le Monde </title>
     <style>
         * {
     margin: 0;
