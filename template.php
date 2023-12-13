@@ -29,7 +29,7 @@
     </main>
 
 <footer>
-    <p>Mentions légales</p>
+    <p>Mentions légales site</p>
 </footer>
 
 </body>
