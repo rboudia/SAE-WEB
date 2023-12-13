@@ -26,6 +26,16 @@
         }
     echo $tampon;
 ?>
+<div class="main-acc">
+            <div class="section1">
+                <p class="texte_classement">Le meilleur Tower-Defense de l'année</p>
+                
+                <p class="details">ebhgrhvbgelzgbelzrbvlezgrblezbgzlebvrgblezgerbrfyuvbrlub</p>
+            </div>
+            <div class="section2">
+                <img src = "paysage.jpg" class = "imageAcc"></img>
+            </div>
+        </div>
     </main>
 
 <footer>

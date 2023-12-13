@@ -3,7 +3,7 @@ class VueCompMenu {
     private $menuHTML;
 
     public function __construct() {
-        $this->menuHTML .= '<a href="">Acceuil</a>';
+        $this->menuHTML .= '<a href="index.php">Acceuil</a>';
         $this->menuHTML .= '<a href="">Informations jeu</a>';
         $this->menuHTML .= '<a href="">Stratégie</a>';
         $this->menuHTML .= '<a href="index.php?module=joueur">Liste des joueurs</a>';

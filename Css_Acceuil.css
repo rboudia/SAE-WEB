@@ -58,3 +58,42 @@ footer {
 main {
     flex: 1;
 }
+
+.main-acc {
+    display: flex;
+}
+
+.section1 {
+    flex: 1;
+    height: 450px; 
+    margin: 50px;
+    background-color: #7f7066;
+}
+
+.texte_classement {
+    color: whitesmoke;
+    text-align: center;
+    line-height: 100px;
+    font-size: 35px;
+    font-weight: bold;
+}
+
+.details {
+    color: whitesmoke;
+    text-align: center;
+    line-height: 100px;
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.section2 {
+    flex: 1;
+    height: 450px; 
+    margin: 50px;
+}
+
+.imageAcc {
+    max-width: 100%; /* Assurez-vous que l'image ne dépasse pas la largeur du conteneur */
+    height: 450px; /* Garantit que la hauteur s'ajuste automatiquement pour maintenir les proportions */
+    display: block; 
+}
