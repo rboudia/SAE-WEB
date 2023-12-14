@@ -5,15 +5,59 @@ class VueEnnemi extends VueGenerique {
 
     function affiche_liste($tab) {
         foreach($tab as $element) {
-            echo "<li>$element[type_ennemi]";
+            ?>
+            <li><?= $element['type_ennemi'] ?> <a href="index.php?module=ennemi&action=details&id=<?= $element['id_ennemi'] ?>"> détails</a></li>
+            <?php
         }
     }
 
-    public function bienvenue() {
-        ?>
-		Bienvenue sur le site <br>
-		<?php
+    function affiche_detail($detailEnnemi) {
+        if (isset($detailEnnemi['butin'])) {
+			?>
+			<table>
+				<tr>
+					<td>Id</td> <td> <?= $detailEnnemi['id_ennemi'] ?></td>
+				</tr>
+				<tr>
+					<td>Type ennemi</td> <td> <?= $detailEnnemi['type_ennemi'] ?></td>
+				</tr>
+				<tr>
+					<td>PV</td> <td> <?= $detailEnnemi['pv'] ?></td>
+				</tr>
+				<tr>
+					<td>Point de défense</td> <td> <?= $detailEnnemi['point_defense'] ?></td>
+				</tr>
+				<tr>
+					<td>Dégat base</td> <td> <?= $detailEnnemi['degat_base'] ?></td>
+				</tr>
+				<tr>
+					<td>Butin</td> <td> <?= $detailEnnemi['butin'] ?></td>
+				</tr>
+                <tr>
+					<td>Imunnite</td> <td> <?= $detailEnnemi['immunite'] ?></td>
+				</tr>
+                <tr>
+					<td>Capacite obstacle</td> <td> <?= $detailEnnemi['capacite_obstacle'] ?></td>
+				</tr>
+                <tr>
+					<td>Strategie attaque</td> <td> <?= $detailEnnemi['strategie_attaque'] ?></td>
+				</tr>
+                <tr>
+					<td>Strategie déplacement</td> <td> <?= $detailEnnemi['strategie_deplacement'] ?></td>
+				</tr>
+                <tr>
+					<td><img src=<?= $detailEnnemi['image']?> width="50" height="50"/></td>
+				</tr>
+			</table>
+			<?php
+        } else {
+            ?>
+			<div>Aucune description n'a été trouvée pour cette equipe.</div>
+			<?php
+        }
     }
+
+    
 
     function menu(){
 		if(isset($_SESSION['erreur'])){
@@ -31,5 +75,11 @@ class VueEnnemi extends VueGenerique {
 		<?php
 
 	}
+
+    public function bienvenue() {
+        ?>
+		Bienvenue sur le site <br>
+		<?php
+    }
 }
 ?>

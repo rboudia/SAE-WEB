@@ -18,6 +18,10 @@ class ContEnnemi {
         $this->vue->affiche_liste($this->modele->getListe());
     }
 
+    function id_ennemi($idEnnemi) {
+        $this->vue->affiche_detail($this->modele->getDetail($idEnnemi));
+    }
+
     function exec(){
 
         switch ($this->action){
@@ -29,6 +33,11 @@ class ContEnnemi {
             case "liste":
                 $this->vue->menu();
                 $this->liste();
+                break;
+            case "details":
+                $this->vue->menu();
+                $id = isset($_GET['id']) ? $_GET['id'] : "Error" ;
+                $this->id_ennemi($id);
                 break;
             default:
                 $_SESSION["erreur"] = "Erreur action incorrecte.";

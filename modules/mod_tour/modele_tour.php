@@ -2,7 +2,7 @@
 
 require_once 'Connexion.php';
 
-class ModeleEnnemi extends Connexion {
+class ModeleTour extends Connexion {
 
     private $connexion;
 
@@ -12,13 +12,13 @@ class ModeleEnnemi extends Connexion {
     }
 
     function getListe() {
-        $requete = $this->connexion->getBdd()->query("SELECT id_ennemi,type_ennemi from ennemi");
+        $requete = $this->connexion->getBdd()->query("SELECT id_defense,type_defense from defense");
         $tableau = $requete->fetchAll();
         return $tableau;
     }
 
-    function getDetail($idEnnemi){
-        $requete = $this->connexion->getBdd()->query("SELECT * FROM ennemi WHERE id_ennemi = '$idEnnemi'");
+    function getDetail($idDefense){
+        $requete = $this->connexion->getBdd()->query("SELECT * FROM defense WHERE id_defense = '$idDefense'");
         $bio = $requete->fetch(PDO::FETCH_ASSOC);
         return $bio;
     }
