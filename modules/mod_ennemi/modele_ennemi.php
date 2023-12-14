@@ -12,9 +12,15 @@ class ModeleEnnemi extends Connexion {
     }
 
     function getListe() {
-        $requete = $this->connexion->getBdd()->query("SELECT id_ennemi,type_ennemi,pv,point_defense,degat_base,degat_obstacle,butin,immunite,capacite_obstacle,strategie_attaque,strategie_deplacement from ennemi");
+        $requete = $this->connexion->getBdd()->query("SELECT id_ennemi,type_ennemi from ennemi");
         $tableau = $requete->fetchAll();
         return $tableau;
+    }
+
+    function getDetail($idEnnemi){
+        $requete = $this->connexion->getBdd()->query("SELECT * FROM ennemi WHERE id_ennemi = '$idEnnemi'");
+        $bio = $requete->fetch(PDO::FETCH_ASSOC);
+        return $bio;
     }
 }
 
