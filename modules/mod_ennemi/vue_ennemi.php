@@ -40,10 +40,13 @@ class VueEnnemi extends VueGenerique {
 					<td>Capacite obstacle</td> <td> <?= $detailEnnemi['capacite_obstacle'] ?></td>
 				</tr>
                 <tr>
-					<td>Strategie attaque</td> <td> <?= $detailEnnemi['butin'] ?></td>
+					<td>Strategie attaque</td> <td> <?= $detailEnnemi['strategie_attaque'] ?></td>
 				</tr>
                 <tr>
-					<td>Strategie déplacement</td> <td> <?= $detailEnnemi['butin'] ?></td>
+					<td>Strategie déplacement</td> <td> <?= $detailEnnemi['strategie_deplacement'] ?></td>
+				</tr>
+                <tr>
+					<td><img src=<?= $detailEnnemi['image']?> width="50" height="50"/></td>
 				</tr>
 			</table>
 			<?php

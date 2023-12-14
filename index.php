@@ -4,6 +4,7 @@
     require_once 'modules/mod_equipes/mod_equipes.php';
     require_once 'modules/mod_connexion/mod_connexion.php';
     require_once 'modules/mod_ennemi/mod_ennemi.php';
+    require_once 'modules/mod_tour/mod_tour.php';
     require_once 'composants/CompMenu/comp_menu.php';
 
     Connexion::initConnexion();
@@ -32,6 +33,10 @@
         case 'ennemi':
             $modEnnemi = new ModEnnemi();
             $tampon = $modEnnemi->getAffichage();
+            break;
+        case 'tour':
+            $modTour = new ModTour();
+            $tampon = $modTour->getAffichage();
             break;
     }
     $menuComponent = new CompMenu();
