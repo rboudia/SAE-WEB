@@ -15,7 +15,8 @@ class VueConnexion extends VueGenerique {
             }
             ?>
             <form method="post" action="index.php?module=connexion&action=inscription" class="animationFormulaireIns">
-                Nom d'utilisateur: <input type="text" name="login" required><br>
+                Pseudo: <input type="text" name="pseudo" required><br>
+                Login: <input type="text" name="login" required><br>
                 Mot de passe: <input type="password" name="mdp" required><br>
                 <input type="submit" value="S'inscrire">
             </form>
@@ -28,7 +29,7 @@ class VueConnexion extends VueGenerique {
             $utilisateur = $_SESSION['user'];
             ?>
             <div>
-                <li>Vous êtes déjà connecté sous l'identifiant <?= $utilisateur['login'] ?> !</li>
+                <li>Vous êtes déjà connecté sous le pseudo <?= $utilisateur['pseudo'] ?> !</li>
                 <li><a href="index.php?module=connexion&action=deconnexion">Déconnexion</a></li>
             </div>
             <?php
