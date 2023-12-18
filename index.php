@@ -6,6 +6,8 @@
     require_once 'modules/mod_connexion/mod_connexion.php';
     require_once 'modules/mod_ennemi/mod_ennemi.php';
     require_once 'modules/mod_defense/mod_defense.php';
+    require_once 'modules/mod_defi/mod_defi.php';
+
     require_once 'composants/CompMenu/comp_menu.php';
 
     Connexion::initConnexion();
@@ -40,6 +42,10 @@
         case 'defense':
             $modDefense = new ModDefense();
             $tampon = $modDefense->getAffichage();
+            break;
+        case 'defi':
+            $modDefi = new ModDefi();
+            $tampon = $modDefi->getAffichage();
             break;
     }
     $menuComponent = new CompMenu();

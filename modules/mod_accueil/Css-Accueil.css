@@ -12,10 +12,12 @@ body, html {
     height: 600px;
     margin-top: 100px;
     flex: 1;
+    position: relative;
 }
 
 .rectangle1 {
     background-color: #7f7066;
+    border-radius: 25px;
 }
 
 .rectangle2 {
@@ -23,6 +25,7 @@ body, html {
     background-size: cover;
     transition: transform 0.3s ease-out;
     animation: vibration 0.5s ; 
+    border-radius: 25px;
 }
 
 
@@ -38,3 +41,16 @@ body, html {
     75% { transform: translate(5px, -5px); }
     100% { transform: translate(-5px, 5px); }
 }
+
+.text-container {
+    text-align: center;
+}
+
+.styled-text {
+    font-weight: bold;
+    color: white;
+    font-family: sans-serif; 
+    font-size: 35px;
+    margin-top: 25px;
+}
+

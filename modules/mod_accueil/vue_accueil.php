@@ -17,8 +17,10 @@ class VueAccueil extends VueGenerique {
 
         <div class="flex-container">
             <div class="rectangle rectangle1">
+			<div class="text-container">
+            <p class="styled-text">Le meilleur Tower-Defense de l'année !</p>
+        </div>
 
-			
             </div>
 
             <div class="rectangle rectangle2">
