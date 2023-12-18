@@ -26,17 +26,22 @@ class ModeleConnexion extends Connexion {
 	    }
 	}
 
-    public function ajouterUtilisateur($pseudo, $login, $mdp) {
-	try {
-        $stmt = self::$bdd->prepare("INSERT INTO joueur (pseudo, login, mdp) VALUES (:pseudo, :login, md5(:mdp))");
-		$stmt->bindParam(':pseudo', $pseudo,PDO::PARAM_STR);
-        $stmt->bindParam(':login', $login,PDO::PARAM_STR);
-        $stmt->bindParam(':mdp', $mdp,PDO::PARAM_STR);
-         return $stmt->execute(); 
-    } catch (PDOException $e) {
-          die('Erreur lors de l\'ajout du joueur : ' . $e->getMessage());
-     }
-}
+	public function ajouterUtilisateur($pseudo, $login, $mdp) {
+		try {
+			$jeton = 0;
+			$stmt = self::$bdd->prepare("INSERT INTO joueur (pseudo, login, mdp, jeton) VALUES (:pseudo, :login, md5(:mdp), :jeton)");
+			$stmt->bindParam(':pseudo', $pseudo, PDO::PARAM_STR);
+			$stmt->bindParam(':login', $login, PDO::PARAM_STR);
+			$stmt->bindParam(':mdp', $mdp, PDO::PARAM_STR);
+			$stmt->bindParam(':jeton', $jeton, PDO::PARAM_INT);
+			return $stmt->execute(); 
+		} catch (PDOException $e) {
+			die('Erreur lors de l\'ajout du joueur : ' . $e->getMessage());
+		}
+	}
+	
+
+
 
 public function verifierMotDePasse($login, $mdp) {
 	try {

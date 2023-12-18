@@ -34,6 +34,7 @@ class ContEnnemi {
                 $this->vue->menu();
                 $this->liste();
                 break;
+                
             case "details":
                 $this->vue->menu();
                 $id = isset($_GET['id']) ? $_GET['id'] : "Error" ;
