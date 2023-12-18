@@ -10,7 +10,7 @@
 <body>
 <header>
     <div class="header-container">
-        <img src="Logo.png" alt="Logo" style="width: 175px; height: auto;">
+        <img src="images/Logo.png" alt="Logo" style="width: 175px; height: auto;">
         <nav>
             <?php
             $menuComponent->affiche();
