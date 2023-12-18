@@ -1,0 +1,40 @@
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+}
+
+.flex-container {
+    display: flex;
+}
+
+.rectangle {
+    height: 600px;
+    margin-top: 100px;
+    flex: 1;
+}
+
+.rectangle1 {
+    background-color: #7f7066;
+}
+
+.rectangle2 {
+    background: url('https://www.fantasy-gate.fr/wp-content/uploads/zU7a7W/2021/08/difference-monde-fantasy-monde-fantastique.jpg') no-repeat center center;
+    background-size: cover;
+    transition: transform 0.3s ease-out;
+    animation: vibration 0.5s ; 
+}
+
+
+.rectangle2:hover {
+    transform: translate(-5px, -5px); 
+    animation: none; 
+}
+
+
+@keyframes vibration {
+    25% { transform: translate(5px, 5px); }
+    50% { transform: translate(-5px, -5px); }
+    75% { transform: translate(5px, -5px); }
+    100% { transform: translate(-5px, 5px); }
+}
