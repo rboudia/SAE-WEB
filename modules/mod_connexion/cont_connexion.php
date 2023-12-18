@@ -16,23 +16,27 @@ class ContConnexion {
 
 	public function inscription() {
 	    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-		$login = isset($_POST['login']) ? $_POST['login'] : '';
-		$mdp = isset($_POST['mdp']) ? $_POST['mdp'] : '';
+            $pseudo = isset($_POST['pseudo']) ? $_POST['pseudo'] : '';
+		    $login = isset($_POST['login']) ? $_POST['login'] : '';
+		    $mdp = isset($_POST['mdp']) ? $_POST['mdp'] : '';
 
-		if (!empty($login) && !empty($mdp)) {
+		if (!empty($pseudo) && !empty($login) && !empty($mdp)) {
 		    $login_existant = $this->modele_connexion->verifierLoginExistant($login);
+		    $pseudo_existant = $this->modele_connexion->verifierPseudoExistant($pseudo);
 
+            if ($pseudo_existant) {
+		        $_SESSION["erreur"] = "Ce pseudo est déjà utilisé. Veuillez choisir un autre.";
+		    }else{
 		    if ($login_existant) {
 		        $_SESSION["erreur"] = "Ce login est déjà utilisé. Veuillez choisir un autre.";
 		    } else {
-		        $mot_de_passe_hash = password_hash($mdp, PASSWORD_DEFAULT);
-
-		        if ($this->modele_connexion->ajouterUtilisateur($login, $mot_de_passe_hash)) {
+		        if ($this->modele_connexion->ajouterUtilisateur($pseudo, $login, $mdp)) {
                     $_SESSION["msg"] ="Inscription réussie";
                 } else {
                     $_SESSION["erreur"] = "Erreur lors de l'inscription.";
 }
 		    }
+        }
 		} else {
                     $_SESSION["erreur"] = "Veuillez remplir tous les champs du formulaire.";
             }
@@ -49,7 +53,7 @@ class ContConnexion {
     
 		$utilisateur = $this->modele_connexion->verifierLoginExistant($login);
     
-            if ($utilisateur !== null && password_verify($mot_de_passe, $utilisateur['mdp'])) {
+            if ($utilisateur !== null && $this->modele_connexion->verifierMotDePasse($login, $mot_de_passe)) {
                 $_SESSION['user'] = $utilisateur;
 
             } else {
