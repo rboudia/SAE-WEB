@@ -5,7 +5,7 @@
     require_once 'modules/mod_strategie/mod_strategie.php';
     require_once 'modules/mod_connexion/mod_connexion.php';
     require_once 'modules/mod_ennemi/mod_ennemi.php';
-    require_once 'modules/mod_tour/mod_tour.php';
+    require_once 'modules/mod_defense/mod_defense.php';
     require_once 'composants/CompMenu/comp_menu.php';
 
     Connexion::initConnexion();
@@ -37,9 +37,9 @@
             $modEnnemi = new ModEnnemi();
             $tampon = $modEnnemi->getAffichage();
             break;
-        case 'tour':
-            $modTour = new ModTour();
-            $tampon = $modTour->getAffichage();
+        case 'defense':
+            $modDefense = new ModDefense();
+            $tampon = $modDefense->getAffichage();
             break;
     }
     $menuComponent = new CompMenu();

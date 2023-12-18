@@ -2,7 +2,7 @@
 
 require_once 'Connexion.php';
 
-class ModeleTour extends Connexion {
+class ModeleDefense extends Connexion {
 
     private $connexion;
 

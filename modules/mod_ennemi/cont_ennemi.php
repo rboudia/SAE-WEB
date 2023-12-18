@@ -11,11 +11,15 @@ class ContEnnemi {
     function __construct() {
         $this->vue = new VueEnnemi();
         $this->modele = new ModeleEnnemi();
-        $this->action = isset($_GET['action']) ? $_GET['action'] : "bienvenue" ;
+        $this->action = isset($_GET['action']) ? $_GET['action'] : "liste_sans" ;
     }
 
     function liste() {
         $this->vue->affiche_liste($this->modele->getListe());
+    }
+
+    function liste_sans() {
+        $this->vue->affiche_liste_sans($this->modele->getListe());
     }
 
     function id_ennemi($idEnnemi) {
@@ -25,14 +29,12 @@ class ContEnnemi {
     function exec(){
 
         switch ($this->action){
-            case "bienvenue":
-                $this->vue->bienvenue();
-                $this->vue->menu();
-                break;
-            
             case "liste":
                 $this->vue->menu();
                 $this->liste();
+                break;
+            case "liste_sans":
+                $this->liste_sans();
                 break;
             case "details":
                 $this->vue->menu();
