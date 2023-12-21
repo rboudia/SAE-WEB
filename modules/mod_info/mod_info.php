@@ -1,4 +1,4 @@
- <?php
+<?php
     require_once 'cont_info.php';
     
     class ModInfo{
