@@ -46,7 +46,7 @@ class VueConnexion extends VueGenerique {
                 }
                 ?>
                 <form class="animationFormulaireConn" method="post" action="index.php?module=connexion&action=connexion">
-                    Nom d'utilisateur: <input type="text" name="login" required><br>
+                    Login: <input type="text" name="login" required><br>
                     Mot de passe: <input type="password" name="mdp" required><br>
                     <input type="submit" value="Se connecter">
                 </form>

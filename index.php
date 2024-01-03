@@ -1,5 +1,6 @@
 <?php
     session_start();
+    require_once 'modules/mod_profil/mod_profil.php';
     require_once 'modules/mod_accueil/mod_accueil.php';
     require_once 'modules/mod_info/mod_info.php';
     require_once 'modules/mod_strategie/mod_strategie.php';
@@ -47,6 +48,10 @@
             $modDefi = new ModDefi();
             $tampon = $modDefi->getAffichage();
             break;
+        case "profil":
+            $modProfil = new ModProfil();
+            $tampon = $modProfil->getAffichage();
+            break;  
     }
     $menuComponent = new CompMenu();
     require_once 'template.php';
