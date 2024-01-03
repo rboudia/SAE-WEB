@@ -66,7 +66,7 @@ class VueJoueurs extends VueGenerique{
             unset($_SESSION['erreur']);
         }
 		?>
-		<form action="index.php?module=joueur&action=ajout" method="POST">
+		<form action="index.php?module=profil&action=ajout" method="POST">
     		<input type="text" name="nom" placeholder="Nom">
     		<input type="text" name="description" placeholder="Description">
     		<input type="submit" value="ajouter">

@@ -4,7 +4,7 @@ class ModeleConnexion extends Connexion {
     
 	public function verifierLoginExistant($login) {
 	    try {
-		$query = self::$bdd->prepare("SELECT id_joueur, login, pseudo, mdp FROM joueur WHERE login = :login");
+		$query = self::$bdd->prepare("SELECT id_joueur, login, pseudo, mdp, photo_profil, jeton FROM joueur WHERE login = :login");
 		$query->bindParam(':login', $login, PDO::PARAM_STR);
 		$query->execute();
 		$resultat =  $query->fetch(PDO::FETCH_ASSOC);
@@ -39,9 +39,6 @@ class ModeleConnexion extends Connexion {
 			die('Erreur lors de l\'ajout du joueur : ' . $e->getMessage());
 		}
 	}
-	
-
-
 
 public function verifierMotDePasse($login, $mdp) {
 	try {

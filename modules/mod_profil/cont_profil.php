@@ -20,25 +20,25 @@ class ContProfil {
 
     public function changermdp() {
 	    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $pseudo = isset($_POST['pseudo']) ? $_POST['pseudo'] : '';
-		    $login = isset($_POST['login']) ? $_POST['login'] : '';
-		    $mdp = isset($_POST['mdp']) ? $_POST['mdp'] : '';
+            $ancienmdp = isset($_POST['ancienmdp']) ? $_POST['ancienmdp'] : '';
+		    $nouveaumdp = isset($_POST['nouveaumdp']) ? $_POST['nouveaumdp'] : '';
+		    $confirmermdp = isset($_POST['confirmermdp']) ? $_POST['confirmermdp'] : '';
 
-		if (!empty($pseudo) && !empty($login) && !empty($mdp)) {
-		    $login_existant = $this->modele_connexion->verifierLoginExistant($login);
-		    $pseudo_existant = $this->modele_connexion->verifierPseudoExistant($pseudo);
-
-            if ($pseudo_existant) {
-		        $_SESSION["erreur"] = "Ce pseudo est déjà utilisé. Veuillez choisir un autre.";
+		if (!empty($ancienmdp) && !empty($nouveaumdp) && !empty($confirmermdp)) {
+            $login = $_SESSION['user'];
+		    $mdpvalide = $this->modele->verifierMotDePasse($login['id_joueur'], $ancienmdp);
+            if (!$mdpvalide) {
+		        $_SESSION["erreur"] = "Mot de passe incorrect.";
 		    }else{
-		    if ($login_existant) {
-		        $_SESSION["erreur"] = "Ce login est déjà utilisé. Veuillez choisir un autre.";
+                if ($nouveaumdp != $confirmermdp) {
+		        $_SESSION["erreur"] = "Les mots de passe ne sont pas les mêmes.";
 		    } else {
-		        if ($this->modele_connexion->ajouterUtilisateur($pseudo, $login, $mdp)) {
-                    $_SESSION["msg"] ="Inscription réussie";
+		        if ($this->modele->changerMotDePasse($login['id_joueur'], $nouveaumdp)) {
+                    $_SESSION["msg"] ="Mot de passe mis à jour.";
+                    $_SESSION['user']['mdp'] = $nouveaumdp;
                 } else {
                     $_SESSION["erreur"] = "Erreur lors de l'inscription.";
-}
+                }
 		    }
         }
 		} else {
@@ -50,8 +50,50 @@ class ContProfil {
                 }
 	}
 
+    public function modif($ancienjoueur) {
+	    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $pseudo = isset($_POST['pseudo']) ? $_POST['pseudo'] : '';
+		    $login = isset($_POST['login']) ? $_POST['login'] : '';
+		    $photo_profil = isset($_POST['photo_profil']) ? $_POST['photo_profil'] : 'chemin';
+
+            if (!empty($pseudo) && !empty($login)) {
+                $login_existant = $this->modele->verifierLoginExistant($login);
+                $pseudo_existant = $this->modele->verifierPseudoExistant($pseudo);
+                if ( $ancienjoueur["login"] !== $login) {
+                    if ($login_existant) {
+                        $_SESSION["erreur"] = "Ce login est déjà utilisé. Veuillez choisir un autre.";
+                        return;
+                    } 
+                }
+                if ( $ancienjoueur["pseudo"] !== $pseudo) {
+                    if ($pseudo_existant) {
+                        $_SESSION["erreur"] = "Ce pseudo est déjà utilisé. Veuillez choisir un autre.";
+                        return;
+                    }         
+                } 
+                if ($this->modele->changerInfo($ancienjoueur['id_joueur'], $pseudo, $login, $photo_profil)) {
+                    $_SESSION["msg"] ="Informations mis à jour.";
+                    $_SESSION['user']['login'] = $login;
+                    $_SESSION['user']['pseudo'] = $pseudo;
+                    $_SESSION['user']['photo_profil'] = $photo_profil;
+                    $this->vue->affiche_detail($this->modele->getDetail(($_SESSION['user']['id_joueur'])));
+                    
+
+                } else {
+                    $_SESSION["erreur"] = "Erreur lors de la mise à jour.";
+                }
+                    
+        
+            } else {
+                $_SESSION["erreur"] = "Veuillez remplir tous les champs du formulaire.";
+            }
+	    }else {
+            $this->vue->formulaireModification($ancienjoueur);
+        }
+	}
+
     public function form_changer() {
-        $this->vue_connexion->form_changer();
+        $this->vue->form_changer();
   }
 
     function exec(){
@@ -63,12 +105,17 @@ class ContProfil {
                 break;
             
             case "changermdp":
-                $this->id_ennemi($utilisateur["id_joueur"]);
+                $this->changermdp();
                 break;
 
-            case "form_changer":
-                $this->id_ennemi($utilisateur["id_joueur"]);
+            case "afficher":
+                $this->form_changer();
                 break;                
+
+            case "modifier":
+                $utilisateur = $_SESSION['user'];
+                $this->modif($utilisateur);
+                break;
 
             default:
                 $_SESSION["erreur"] = "Erreur action incorrecte.";
