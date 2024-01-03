@@ -36,6 +36,7 @@ class ContProfil {
 		        if ($this->modele->changerMotDePasse($login['id_joueur'], $nouveaumdp)) {
                     $_SESSION["msg"] ="Mot de passe mis à jour.";
                     $_SESSION['user']['mdp'] = $nouveaumdp;
+                    $this->vue->affiche_detail($this->modele->getDetail(($_SESSION['user']['id_joueur'])));
                 } else {
                     $_SESSION["erreur"] = "Erreur lors de l'inscription.";
                 }
