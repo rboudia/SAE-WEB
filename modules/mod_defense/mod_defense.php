@@ -1,12 +1,12 @@
 <?php
-    require_once 'cont_tour.php';
+    require_once 'cont_defense.php';
 
-    class ModTour {
+    class ModDefense {
 
         private $controleur;
     
         function __construct() {
-            $this->controleur = new ContTour();
+            $this->controleur = new ContDefense();
             $this->controleur->exec();
         }
     
@@ -14,6 +14,5 @@
             return $this->controleur->getAffichage();
         }
     
-        }
-
+    }
 ?>

@@ -1,43 +1,45 @@
 <?php
-require_once 'modele_tour.php';
-require_once 'vue_tour.php';
+require_once 'modele_defense.php';
+require_once 'vue_defense.php';
 
-class ContTour {
+class ContDefense {
 
     private $vue;
     private $modele;
     private $action;
 
     function __construct() {
-        $this->vue = new VueTour();
-        $this->modele = new ModeleTour();
-        $this->action = isset($_GET['action']) ? $_GET['action'] : "bienvenue" ;
+        $this->vue = new VueDefense();
+        $this->modele = new ModeleDefense();
+        $this->action = isset($_GET['action']) ? $_GET['action'] : "liste_sans" ;
     }
 
     function liste() {
         $this->vue->affiche_liste($this->modele->getListe());
     }
 
-    function id_ennemi($idEnnemi) {
-        $this->vue->affiche_detail($this->modele->getDetail($idEnnemi));
+    function liste_sans() {
+        $this->vue->affiche_liste_sans($this->modele->getListe());
+    }
+
+    function id_defense($idDefense) {
+        $this->vue->affiche_detail($this->modele->getDetail($idDefense));
     }
 
     function exec(){
 
         switch ($this->action){
-            case "bienvenue":
-                $this->vue->bienvenue();
-                $this->vue->menu();
-                break;
-            
             case "liste":
                 $this->vue->menu();
                 $this->liste();
                 break;
+            case "liste_sans":
+                $this->liste_sans();
+                break;
             case "details":
                 $this->vue->menu();
                 $id = isset($_GET['id']) ? $_GET['id'] : "Error" ;
-                $this->id_ennemi($id);
+                $this->id_defense($id);
                 break;
             default:
                 $_SESSION["erreur"] = "Erreur action incorrecte.";

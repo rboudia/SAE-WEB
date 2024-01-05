@@ -11,6 +11,14 @@ class VueEnnemi extends VueGenerique {
         }
     }
 
+	function affiche_liste_sans($tab) {
+        foreach($tab as $element) {
+            ?>
+            <li><?= $element['type_ennemi'] ?></li>
+            <?php
+        }
+    }
+
     function affiche_detail($detailEnnemi) {
         if (isset($detailEnnemi['butin'])) {
 			?>
@@ -68,18 +76,14 @@ class VueEnnemi extends VueGenerique {
         }
 		?>
 		<ul>
-		<li>Retourner à la première page<a href="index.php?module=debut">ici</a></li>
-        <li><a href="index.php?module=ennemi&action=bienvenue">bienvenue</a></li>
-        <li><a href="index.php?module=ennemi&action=liste">liste</a></li>
+			<li><a href="index.php?module=info">Retour aux informations du jeu</a></li>
+			<?php if($_GET['action']=='details') {
+				?>
+        	<li><a href="index.php?module=ennemi&action=liste">Retour à la liste des ennemis</a></li>
+			<?php } ?>
         </ul>
 		<?php
 
 	}
-
-    public function bienvenue() {
-        ?>
-		Bienvenue sur le site <br>
-		<?php
-    }
 }
 ?>
