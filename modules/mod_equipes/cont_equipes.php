@@ -1,4 +1,4 @@
-<?php
+<?php 
 require_once 'modele_equipes.php';
 require_once 'vue_equipes.php';
 

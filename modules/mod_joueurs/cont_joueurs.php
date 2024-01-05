@@ -1,4 +1,4 @@
-<?php
+<?php 
 require_once 'modele_joueurs.php';
 require_once 'vue_joueurs.php';
 

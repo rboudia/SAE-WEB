@@ -1,4 +1,4 @@
-<?php  
+<?php
     require_once 'cont_joueurs.php';  
     class ModJoueurs{
 

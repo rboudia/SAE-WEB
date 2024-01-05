@@ -1,4 +1,4 @@
-<?php
+<?php 
 require_once 'vue_generique.php';
 
 class VueEquipes extends VueGenerique{
