@@ -115,7 +115,7 @@ class VueProfil extends VueGenerique{
 	
 					<div class="formMod">
 						<label for="mdp">Mot de passe:</label>
-						<span class="masked-password"><?= str_repeat('*', strlen($detailJoueur['mdp'])) ?></span>
+						<span class="mdpCache"><?= str_repeat('*', strlen($detailJoueur['mdp'])) ?></span>
 						<a class="chgmntMdp" href="index.php?module=profil&action=afficher">Changer le mot de passe</a>
 					</div>
 	

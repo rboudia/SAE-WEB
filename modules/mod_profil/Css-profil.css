@@ -139,7 +139,7 @@ input {
     border-radius: 5px;
 }
 
-.masked-password {
+.mdpCache {
     color: #777;
 }
 
