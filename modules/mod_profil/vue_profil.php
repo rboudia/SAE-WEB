@@ -10,89 +10,128 @@ class VueProfil extends VueGenerique{
     }
 
 	function affiche_detail($detailJoueur) {
-        if (isset($_SESSION['user'])) {
+		if (isset($_SESSION['user'])) {
 			?>
-			<table>
-				<tr>
-					<td>Id</td> <td> <?= $detailJoueur['id_joueur'] ?></td>
-				</tr>
-				<tr>
-					<td>Pseudo</td> <td> <?= $detailJoueur['pseudo'] ?></td>
-				</tr>
-				<tr>
-					<td>Login</td> <td> <?= $detailJoueur['login'] ?></td>
-				</tr>
-				<tr>
-					<td>Mot de passe</td> <td><?= str_repeat('*', strlen($detailJoueur['mdp'])) ?> 	<a href="index.php?module=profil&action=afficher">Changer votre mot de passe</a>
-</td>
-				</tr>
-				<tr>
-					<td>Photo de profil</td> <td> <?= $detailJoueur['photo_profil'] ?></td>
-				</tr>
-				<tr>
-					<td>Jeton</td> <td> <?= $detailJoueur['jeton'] ?></td>
-				</tr>
-			</table>
-			<ul>
-			<li><a href="index.php?module=profil&action=modifier">Modifier</a></li>
-			</ul>
+			<link rel="stylesheet" type="text/css" href="modules\mod_profil\Css-profil.css">
+			<div class="contenuProfil">
+				<div class="headerProfil">
+					<h2>Profil de <?= $detailJoueur['pseudo'] ?></h2>
+				</div>
+				<div class="contProf">
+					<div class="profile-details">
+						<div class="details">
+							<span class="detail-label">Id</span>
+							<span class="detail-val"><?= $detailJoueur['id_joueur'] ?></span>
+						</div>
+						<div class="details">
+							<span class="detail-label">Pseudo</span>
+							<span class="detail-val"><?= $detailJoueur['pseudo'] ?></span>
+						</div>
+						<div class="details">
+							<span class="detail-label">Login</span>
+							<span class="detail-val"><?= $detailJoueur['login'] ?></span>
+						</div>
+						<div class="details">
+							<span class="detail-label">Mot de passe</span>
+							<span class="detail-val">
+								<?= str_repeat('*', strlen($detailJoueur['mdp'])) ?>
+								<a class="modifMdp" href="index.php?module=profil&action=afficher">Changer votre mot de passe</a>
+							</span>
+						</div>
+						<div class="details">
+							<span class="detail-label">Photo de profil</span>
+							<span class="detail-val"><?= $detailJoueur['photo_profil'] ?></span>
+						</div>
+						<div class="details">
+							<span class="detail-label">Jeton</span>
+							<span class="detail-val"><?= $detailJoueur['jeton'] ?></span>
+						</div>
+					</div>
+					<div class="actionProfil">
+						<a href="index.php?module=profil&action=modifier" class="mdp">Modifier le profil</a>
+					</div>
+				</div>
+			</div>
 			<?php
-        } else {
-            ?>
+		} else {
+			?>
 			<div>Aucune description n'a été trouvée.</div>
 			<?php
-        }
-    }
+		}
+	}
+	
 
 	public function form_changer() {
-        ?>
-        <div>
-            <h2>Changer votre mot de passe</h2>
-            <?php if(isset($_SESSION['erreur'])){
-                ?>
-                <div style="color:red; text-align: center;"><?=$_SESSION['erreur']?></div><br>
-                <?php
-                unset($_SESSION['erreur']);
-            }
-            ?>
-            <form method="post" action="index.php?module=profil&action=changermdp">
-                Ancien mot de passe: <input type="password" name="ancienmdp" required><br>
-                Nouveau mot de passe: <input type="password" name="nouveaumdp" required><br>
-                Confirmer mot de passe: <input type="password" name="confirmermdp" required><br>
-                <input type="submit" value="Confirmer">
-            </form>
-        </div>
-        <?php
-    }
+		?>
+		<link rel="stylesheet" type="text/css" href="modules\mod_profil\Css-profil.css">
+		<div class="changementDeMdp">
+			<h2>Changer votre mot de passe</h2>
+			<?php if(isset($_SESSION['erreur'])) { ?>
+				<div class="MessErreur"><?=$_SESSION['erreur']?></div>
+			<?php unset($_SESSION['erreur']); } ?>
+	
+			<form method="post" action="index.php?module=profil&action=changermdp" class="formulaireChangmnt">
+				<div class="formMdp">
+					<label for="ancienmdp">Ancien mot de passe:</label>
+					<input type="password" name="ancienmdp" id="ancienmdp" required>
+				</div>
+	
+				<div class="formMdp">
+					<label for="nouveaumdp">Nouveau mot de passe:</label>
+					<input type="password" name="nouveaumdp" id="nouveaumdp" required>
+				</div>
+	
+				<div class="formMdp">
+					<label for="confirmermdp">Confirmer mot de passe:</label>
+					<input type="password" name="confirmermdp" id="confirmermdp" required>
+				</div>
+	
+				<input type="submit" value="Confirmer" class="boutonConfirmation">
+			</form>
+		</div>
+		<?php
+	}
+	
 
 	function formulaireModification($detailJoueur) {
 		if (isset($_SESSION['user'])) {
-			if(isset($_SESSION['erreur'])){
-                ?>
-                <div style="color:red; text-align: center;"><?=$_SESSION['erreur']?></div><br>
-                <?php
-                unset($_SESSION['erreur']);
-            }
-            ?>
-			
-			<form action="index.php?module=profil&action=modifier" method="post">
-				<label for="pseudo">Pseudo:</label>
-				<input type="text" id="pseudo" name="pseudo" value="<?= $detailJoueur['pseudo'] ?>" required><br>
+			?>
+			<link rel="stylesheet" type="text/css" href="modules\mod_profil\Css-profil.css">
+			<div class="formModif">
+				<?php if(isset($_SESSION['erreur'])) { ?>
+					<div class="MessErreur"><?=$_SESSION['erreur']?></div>
+				<?php unset($_SESSION['erreur']); } ?>
 	
-				<label for="login">Login:</label>
-				<input type="text" id="login" name="login" value="<?= $detailJoueur['login'] ?>" required><br>
+				<form action="index.php?module=profil&action=modifier" method="post" class="modification-form">
+					<div class="formMod">
+						<label for="pseudo">Pseudo:</label>
+						<input type="text" id="pseudo" name="pseudo" value="<?= $detailJoueur['pseudo'] ?>" required>
+					</div>
 	
-				<label for="mdp">Mot de passe:</label>
-				<label for="mdp"><?= str_repeat('*', strlen($detailJoueur['mdp'])) ?></label><br>
+					<div class="formMod">
+						<label for="login">Login:</label>
+						<input type="text" id="login" name="login" value="<?= $detailJoueur['login'] ?>" required>
+					</div>
 	
-				<label for="photo_profil">URL de la Photo de profil:</label>
-				<input type="text" id="photo_profil" name="photo_profil" value="<?= $detailJoueur['photo_profil'] ?>"><br>
+					<div class="formMod">
+						<label for="mdp">Mot de passe:</label>
+						<span class="mdpCache"><?= str_repeat('*', strlen($detailJoueur['mdp'])) ?></span>
+						<a class="chgmntMdp" href="index.php?module=profil&action=afficher">Changer le mot de passe</a>
+					</div>
 	
-				<label for="jeton">Jeton:</label>
-				<label for="jeton"><?= $detailJoueur['jeton'] ?></label><br>
+					<div class="formMod">
+						<label for="photo_profil">URL de la Photo de profil:</label>
+						<input type="text" id="photo_profil" name="photo_profil" value="<?= $detailJoueur['photo_profil'] ?>">
+					</div>
 	
-				<input type="submit" value="Modifier">
-			</form>
+					<div class="formMod">
+						<label for="jeton">Jeton:</label>
+						<span class="jetonJoueur"><?= $detailJoueur['jeton'] ?></span>
+					</div>
+	
+					<input type="submit" value="Modifier" class="boutonConfirmation">
+				</form>
+			</div>
 			<?php
 		} else {
 			?>
@@ -100,6 +139,7 @@ class VueProfil extends VueGenerique{
 			<?php
 		}
 	}
+	
 	
 }
 
