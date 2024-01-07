@@ -2,7 +2,7 @@
 
 require_once 'Connexion.php';
 
-class ModeleJoueurs extends Connexion{
+class ModeleClassement extends Connexion{
 
     private $connexion;
 
@@ -33,6 +33,15 @@ class ModeleJoueurs extends Connexion{
         $_SESSION["ajout"] = 'Ajouter avec succès';
         else
         $_SESSION["ajout"] = 'Erreur ajout';
+    }
+
+    function getTop5Players() {
+        $requete = $this->connexion->getBdd()->query('SELECT id_joueur, status, vague_atteinte, pv_base, nb_ennemis_tues, argent_restant
+                FROM partie
+                ORDER BY status DESC, vague_atteinte DESC, pv_base DESC, nb_ennemis_tues DESC, argent_restant DESC
+                LIMIT 5');
+        $tableau = $requete->fetchAll();    z
+        return $tableau;
     }
 
 }

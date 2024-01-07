@@ -1,16 +1,16 @@
 <?php 
-require_once 'modele_joueurs.php';
-require_once 'vue_joueurs.php';
+require_once 'modele_classement.php';
+require_once 'vue_classement.php';
 
-class ContJoueurs {
+class ContClassement {
 
     private $vue;
     private $modele;
     private $action;
 
     function __construct() {
-        $this->vue = new VueJoueurs();
-        $this->modele = new ModeleJoueurs();
+        $this->vue = new VueClassement();
+        $this->modele = new ModeleClassement();
         $this->action = isset($_GET['action']) ? $_GET['action'] : "bienvenue" ;
     }
 

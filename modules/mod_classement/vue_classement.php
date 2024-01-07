@@ -1,7 +1,7 @@
 <?php 
 require_once 'vue_generique.php';
 
-class VueJoueurs extends VueGenerique{
+class VueClassement extends VueGenerique{
 
 
 	public function affiche_liste($elements) {
@@ -11,7 +11,7 @@ class VueJoueurs extends VueGenerique{
 			<?php
         foreach ($elements as $element) { 
             ?>
-            <li> <?= $element['id'] ?> <a href="index.php?module=joueur&action=details&id=<?= $element['id'] ?> "> <?=$element['nom']?></a></li> 
+            <li> <?= $element['id'] ?> <a href="index.php?module=classement&action=details&id=<?= $element['id'] ?> "> <?=$element['nom']?></a></li> 
             <?php }
         ?> </ul> <?php
     }
@@ -48,9 +48,9 @@ class VueJoueurs extends VueGenerique{
 		?>
 		<ul>
 		<li>Retourner à la première page<a href="index.php?module=debut">ici</a></li>
-        <li><a href="index.php?module=joueur&action=bienvenue">bienvenue</a></li>
-        <li><a href="index.php?module=joueur&action=liste">liste</a></li>
-        <li><a href="index.php?module=joueur&action=ajout">ajouter</a></li>
+        <li><a href="index.php?module=classement&action=bienvenue">bienvenue</a></li>
+        <li><a href="index.php?module=classement&action=liste">liste</a></li>
+        <li><a href="index.php?module=classement&action=ajout">ajouter</a></li>
 		</ul>
 		<?php
 	}
@@ -81,7 +81,31 @@ class VueJoueurs extends VueGenerique{
 
 	public function bienvenue() {
         ?>
-		Bienvenue sur le site <br>
+		<section>
+			<h2>Classement</h2>
+			<table>
+				<thead>
+					<tr>
+						<th>Classement</th>
+						<th>Nom</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>1</td>
+						<td>BOUDIA</td>
+					</tr>
+					<tr>
+						<td>2</td>
+						<td>BOUKEBECHE</td>
+					</tr>
+					<tr>
+						<td>3</td>	
+						<td>BOUDJEMAI</td>
+					</tr>
+				</tbody>
+			</table>
+		</section>		
 		<?php
     }
 }

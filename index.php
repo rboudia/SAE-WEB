@@ -8,6 +8,7 @@
     require_once 'modules/mod_ennemi/mod_ennemi.php';
     require_once 'modules/mod_defense/mod_defense.php';
     require_once 'modules/mod_defi/mod_defi.php';
+    require_once 'modules/mod_classement/mod_classement.php';
 
     require_once 'composants/CompMenu/comp_menu.php';
 
@@ -51,6 +52,10 @@
         case "profil":
             $modProfil = new ModProfil();
             $tampon = $modProfil->getAffichage();
+            break; 
+        case "classement":
+            $modClassement = new ModClassement();
+            $tampon = $modClassement->getAffichage();
             break;  
     }
     $menuComponent = new CompMenu();

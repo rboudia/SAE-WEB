@@ -1,11 +1,11 @@
 <?php
-    require_once 'cont_joueurs.php';  
-    class ModJoueurs{
+    require_once 'cont_classement.php';  
+    class ModClassement{
 
         private $controleur;
 
         function __construct(){
-            $this->controleur = new ContJoueurs();
+            $this->controleur = new ContClassement();
             $this->controleur->exec();
 
         }

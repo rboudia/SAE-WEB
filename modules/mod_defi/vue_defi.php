@@ -44,6 +44,7 @@ class VueDefi extends VueGenerique {
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <link rel="stylesheet" type="text/css" href="modules/mod_defi/Css-Defi.css">
         </head>
+        
         <?php
         if(isset($_SESSION['erreur'])){
             ?>
@@ -51,23 +52,26 @@ class VueDefi extends VueGenerique {
             <?php
             unset($_SESSION['erreur']);
         }
+        ?>
+        <table class="styled-table">
+            <tr><th>Numéro</th><th>Défi</th><th>Réponse (Tout en minuscule)</th><th>Envoyer</th></tr>
+        <?php
         foreach($tab as $defi) {
             ?>
-            <form action="index.php?module=defi&action=traiterReponse" method="post">
+            <form action="i ndex.php?module=defi&action=traiterReponse" method="post">
             <input type="hidden" name="defiId" value="<?= $defi['id_defi'] ?>">
-            <table class="styled-table">
-            <tr><th>Numéro</th><th>Défi</th><th>Réponse (Tout en minuscule)</th><th>Envoyer</th></tr>
             <tr>
             <td><?= $defi['id_defi'] ?> </td>
             <td><?= $defi['defi'] ?> </td>
             <td><input type="text" name="reponse" placeholder="Votre réponse"></td>
             <td><button type="submit" name="envoyerReponse" class="styled-button">Envoyer Réponse</button></td>
             </tr>
-            </table>
+            
             </form>
             <?php
         }
-        ?>        
+        ?> 
+        </table>       
         </body>
         </html>
         <?php
