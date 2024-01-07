@@ -4,8 +4,15 @@ require_once 'vue_generique.php';
 class VueDefi extends VueGenerique {
 
     public function bienvenue() {    
+        if(isset($_SESSION['erreur'])){
+            ?>
+            <div style="color:red"><?=$_SESSION['erreur']?></div><br>
+            <?php
+            unset($_SESSION['erreur']);
+        }
         if (isset($_SESSION['user'])) {
         ?>
+    
             <div class="messBien">Bienvenue <?php $_SESSION['user']['pseudo'] ?> !</div>
             <div class="expli">
                 <div class="box">
@@ -38,15 +45,21 @@ class VueDefi extends VueGenerique {
             <link rel="stylesheet" type="text/css" href="modules/mod_defi/Css-Defi.css">
         </head>
         <?php
-
+        if(isset($_SESSION['erreur'])){
+            ?>
+            <div style="color:red"><?=$_SESSION['erreur']?></div><br>
+            <?php
+            unset($_SESSION['erreur']);
+        }
         foreach($tab as $defi) {
             ?>
             <form action="index.php?module=defi&action=traiterReponse" method="post">
-            <input type="hidden" name="defiId" value="<?php $defi['id_defi'] ?>">
+            <input type="hidden" name="defiId" value="<?= $defi['id_defi'] ?>">
             <table class="styled-table">
-            <tr><th>Défi</th><th>Réponse (Tout en minuscule)</th><th>Envoyer</th></tr>
+            <tr><th>Numéro</th><th>Défi</th><th>Réponse (Tout en minuscule)</th><th>Envoyer</th></tr>
             <tr>
-            <td><?php $defi['defi'] ?> </td>
+            <td><?= $defi['id_defi'] ?> </td>
+            <td><?= $defi['defi'] ?> </td>
             <td><input type="text" name="reponse" placeholder="Votre réponse"></td>
             <td><button type="submit" name="envoyerReponse" class="styled-button">Envoyer Réponse</button></td>
             </tr>

@@ -22,10 +22,11 @@ class ContDefi {
         $reponseCorrecte = $this->modele->verifierReponse($defiId, $reponse);
 
         if ($reponseCorrecte) {
-            echo "Bravo, la réponse est correcte !"; 
+            $_SESSION["msg"] = "Bravo, la réponse $defiId est correcte !"; 
         } else {
-            echo "Faux, la réponse est incorrecte."; 
+            $_SESSION["erreur"] = "Faux, la réponse $defiId est incorrecte."; 
         }
+        $this->vue->affiche_liste($this->modele->getListe());
     }
 
     function exec(){
@@ -43,11 +44,11 @@ class ContDefi {
                         $reponse = $_POST['reponse'];
                         $this->traiterReponse($defiId, $reponse);
                     } else {
-                        echo "Erreur !";
+                        $_SESSION["erreur"] = "Erreur !";
                     }
                 break;
             default:
-                echo "erreur";
+            $_SESSION["erreur"] = "erreur";
                 break;
         }
 
