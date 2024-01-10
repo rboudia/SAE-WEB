@@ -1,9 +1,7 @@
 <?php
-
     require_once 'Connexion.php';
 
-    class ModeleEnnemi extends Connexion {
-
+    class ModeleMap extends Connexion {
         private $connexion;
 
         function __construct() {
@@ -12,16 +10,15 @@
         }
 
         function getListe() {
-            $requete = $this->connexion->getBdd()->query("SELECT id_ennemi,type_ennemi from ennemi");
+            $requete = $this->connexion->getBdd()->query("SELECT id_map from map");
             $tableau = $requete->fetchAll();
             return $tableau;
         }
 
-        function getDetail($idEnnemi){
-            $requete = $this->connexion->getBdd()->query("SELECT * FROM ennemi WHERE id_ennemi = '$idEnnemi'");
+        function getDetail($idMap){
+            $requete = $this->connexion->getBdd()->query("SELECT * FROM map WHERE id_map = '$idMap'");
             $bio = $requete->fetch(PDO::FETCH_ASSOC);
             return $bio;
         }
     }
-
 ?>

@@ -6,7 +6,7 @@ class VueEnnemi extends VueGenerique {
     function affiche_liste($tab) {
         foreach($tab as $element) {
             ?>
-            <li><?= $element['type_ennemi'] ?> <a href="index.php?module=ennemi&action=details&id=<?= $element['id_ennemi'] ?>"> détails</a></li>
+            <center><li><?= $element['type_ennemi'] ?> <a href="index.php?module=ennemi&action=details&id=<?= $element['id_ennemi'] ?>"> détails</a></li></center>
             <?php
         }
     }
@@ -22,6 +22,38 @@ class VueEnnemi extends VueGenerique {
     function affiche_detail($detailEnnemi) {
         if (isset($detailEnnemi['butin'])) {
 			?>
+			<style>
+    table {
+            border-collapse: collapse;
+            width: 80%;
+            max-width: 600px;
+            margin: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        th, td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #3498db;
+            color: #fff;
+        }
+
+        td:nth-child(even) {
+            background-color: #ecf0f1;
+        }
+
+        td:nth-child(odd) {
+            background-color: #fff;
+        }
+</style>
+			<center>
 			<table>
 				<tr>
 					<td>Id</td> <td> <?= $detailEnnemi['id_ennemi'] ?></td>
@@ -57,6 +89,7 @@ class VueEnnemi extends VueGenerique {
 					<td><img src=<?= $detailEnnemi['image']?> width="50" height="50"/></td>
 				</tr>
 			</table>
+		</center>
 			<?php
         } else {
             ?>
@@ -83,7 +116,6 @@ class VueEnnemi extends VueGenerique {
 			<?php } ?>
         </ul>
 		<?php
-
 	}
 }
 ?>
