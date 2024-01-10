@@ -21,6 +21,7 @@ class ContDefi {
     function traiterReponse($defiId, $reponse) {
         $id_utilisateur = $this->getIdUtilisateur();
         $reponseCorrecte = $this->modele->traiterReponse($defiId, $reponse, $id_utilisateur);
+
         $this->liste();
 
         if ($reponseCorrecte) {
@@ -45,13 +46,13 @@ class ContDefi {
                  $this->liste();
                 break;
             case "traiterReponse":
-                    if (isset($_POST['defiId']) && isset($_POST['reponse'])) {
-                        $defiId = $_POST['defiId'];
-                        $reponse = $_POST['reponse'];
-                        $this->traiterReponse($defiId, $reponse);
-                    } else {
-                        $_SESSION["erreur"] = "Erreur !";
-                    }
+                if (isset($_POST['defiId']) && isset($_POST['reponse'])) {
+                    $defiId = $_POST['defiId'];
+                    $reponse = $_POST['reponse'];
+                    $this->traiterReponse($defiId, $reponse);
+                } else {
+                    $_SESSION["erreur"] = "Erreur !";
+                }
                 break;
             default:
             $_SESSION["erreur"] = "erreur";

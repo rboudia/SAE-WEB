@@ -77,10 +77,7 @@ class VueDefi extends VueGenerique {
         <?php
     }
     function mauvaiseReponse() {
-    
-        echo "
-            <!DOCTYPE html>
-            <html lang='fr'>
+        ?>
             <head>
                 <meta charset='UTF-8'>
                 <meta name='viewport' content='width=device-width, initial-scale=1.0'>
@@ -89,14 +86,13 @@ class VueDefi extends VueGenerique {
             <body>
                 <div class='messErr2'>Faux ! La réponse est incorrecte ou vous avez déjà répondu.</div>
             </body>
-            </html>";
+            </html>
+        <?php
     }
 
     function BonneReponse() {
-    
-        echo "
-            <!DOCTYPE html>
-            <html lang='fr'>
+        ?>
+
             <head>
                 <meta charset='UTF-8'>
                 <meta name='viewport' content='width=device-width, initial-scale=1.0'>
@@ -105,8 +101,8 @@ class VueDefi extends VueGenerique {
             <body>
                 <div class='messBrep'>Bravo, +2 jetons !</div>
             </body>
-            </html>";
+            </html>
+        <?php
     }
 }
-    }
     ?>
