@@ -19,16 +19,15 @@ class ContDefi {
     }
 
     function traiterReponse($defiId, $reponse) {
-        $reponseCorrecte = $this->modele->verifierReponse($defiId, $reponse);
+        $id_utilisateur = $this->getIdUtilisateur();
+        $reponseCorrecte = $this->modele->traiterReponse($defiId, $reponse, $id_utilisateur);
 
         if ($reponseCorrecte) {
-
-            $id_utilisateur = $this->getIdUtilisateur(); 
-            $this->modele->ajouterJetonUtilisateur($id_utilisateur);
-
-            echo "Bravo, la réponse est correcte !"; 
+            $this->liste();
+            $this->vue->BonneReponse();
         } else {
-            echo "Faux, la réponse est incorrecte."; 
+            $this->liste();
+            $this->vue->mauvaiseReponse();
         }
     }
 
