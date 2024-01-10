@@ -18,17 +18,29 @@ class ContDefi {
         $this->vue->affiche_liste($this->modele->getListe());
     }
 
-    function traiterReponse($defiId, $reponse) {
-        $id_utilisateur = $this->getIdUtilisateur();
-        $reponseCorrecte = $this->modele->traiterReponse($defiId, $reponse, $id_utilisateur);
-
-        $this->liste();
-
-        if ($reponseCorrecte) {
-            $this->vue->BonneReponse();
+    function traiterReponse() {
+        if (isset($_POST['defiId']) && isset($_POST['reponse'])) {
+            $defiId = $_POST['defiId'];
+            $reponse = $_POST['reponse'];
+            $id_utilisateur = $this->getIdUtilisateur();
+            $dejaRepondu = $this->modele->aDejaReponduCorrectement($defiId, $id_utilisateur);
+            
+            $this->liste();
+            if ($dejaRepondu) {
+                $this->vue->dejaRepondu();
+            }else{
+                $reponseCorrecte = $this->modele->verifierReponse($defiId, $reponse);
+                if ($reponseCorrecte) {
+                    $this->modele->ajouterJetonUtilisateur($id_utilisateur);
+                    $this->modele->enregistrerReponse($defiId, $id_utilisateur);
+                    $this->vue->bonneReponse();
+                } else {
+                    $this->vue->mauvaiseReponse();
+                }
+            }
         } else {
-            $this->vue->mauvaiseReponse();
-        }
+             $_SESSION["erreur"] = "Erreur !";
+         }
     }
 
     private function getIdUtilisateur() {
@@ -45,13 +57,7 @@ class ContDefi {
                  $this->liste();
                 break;
             case "traiterReponse":
-                if (isset($_POST['defiId']) && isset($_POST['reponse'])) {
-                    $defiId = $_POST['defiId'];
-                    $reponse = $_POST['reponse'];
-                    $this->traiterReponse($defiId, $reponse);
-                } else {
-                    $_SESSION["erreur"] = "Erreur !";
-                }
+                $this->traiterReponse();
                 break;
             default:
             $_SESSION["erreur"] = "erreur";

@@ -58,7 +58,7 @@ class VueDefi extends VueGenerique {
         <?php
         foreach($tab as $defi) {
             ?>
-            <form action="i ndex.php?module=defi&action=traiterReponse" method="post">
+            <form action="index.php?module=defi&action=traiterReponse" method="post">
             <input type="hidden" name="defiId" value="<?= $defi['id_defi'] ?>">
             <tr>
             <td><?= $defi['id_defi'] ?> </td>
@@ -84,15 +84,28 @@ class VueDefi extends VueGenerique {
                 <link rel='stylesheet' type='text/css' href='modules/mod_defi/Css-Defi.css'>
             </head>
             <body>
-                <div class='messErr2'>Faux ! La réponse est incorrecte ou vous avez déjà répondu.</div>
+                <div class='messErr2'>Faux ! La réponse est incorrecte.</div>
             </body>
             </html>
         <?php
     }
 
-    function BonneReponse() {
+    function dejaRepondu() {
         ?>
+            <head>
+                <meta charset='UTF-8'>
+                <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+                <link rel='stylesheet' type='text/css' href='modules/mod_defi/Css-Defi.css'>
+            </head>
+            <body>
+                <div class='messErr2'>Vous avez déjà répondu à cette question.</div>
+            </body>
+            </html>
+        <?php
+    }
 
+    function bonneReponse() {
+        ?>
             <head>
                 <meta charset='UTF-8'>
                 <meta name='viewport' content='width=device-width, initial-scale=1.0'>

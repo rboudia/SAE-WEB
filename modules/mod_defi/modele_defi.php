@@ -17,22 +17,6 @@ class ModeleDefi extends Connexion {
         return $tableau;
     }
 
-    function traiterReponse($defiId, $reponse, $id_utilisateur) {
-        $dejaRepondu = $this->aDejaReponduCorrectement($defiId, $id_utilisateur);
-
-        if (!$dejaRepondu) {
-            $reponseCorrecte = $this->verifierReponse($defiId, $reponse);
-
-            if ($reponseCorrecte) {
-                $this->ajouterJetonUtilisateur($id_utilisateur);
-                $this->enregistrerReponse($defiId, $id_utilisateur);
-            }
-
-            return $reponseCorrecte;
-        } else {
-            return false;
-        }
-    }
 
     function aDejaReponduCorrectement($defiId, $id_utilisateur) {
         $requete = $this->connexion->getBdd()->prepare("SELECT repondu FROM joueurDefi WHERE id_defi = ? AND id_joueur = ?");
