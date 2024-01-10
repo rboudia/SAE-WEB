@@ -28,6 +28,13 @@ class ModeleDefi extends Connexion {
             return false; 
         }
     }
+
+    function ajouterJetonUtilisateur($id_utilisateur) {
+        $requete = $this->connexion->getBdd()->prepare("UPDATE joueur SET jeton = jeton + 1 WHERE id_joueur = ?");
+        $requete->execute([$id_utilisateur]);
+    }
+
+
 }
 
 ?>

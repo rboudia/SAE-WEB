@@ -22,11 +22,20 @@ class ContDefi {
         $reponseCorrecte = $this->modele->verifierReponse($defiId, $reponse);
 
         if ($reponseCorrecte) {
+
+            $id_utilisateur = $this->getIdUtilisateur(); 
+            $this->modele->ajouterJetonUtilisateur($id_utilisateur);
+
             echo "Bravo, la réponse est correcte !"; 
         } else {
             echo "Faux, la réponse est incorrecte."; 
         }
     }
+
+    private function getIdUtilisateur() {
+        return isset($_SESSION['user']['id_joueur']) ? $_SESSION['user']['id_joueur'] : null;
+    }
+
 
     function exec(){
 
