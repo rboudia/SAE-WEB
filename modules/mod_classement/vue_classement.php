@@ -79,7 +79,8 @@ class VueClassement extends VueGenerique{
         }
 	}
 
-	public function bienvenue() {
+	public function classement($tab) {
+		$num = 1;
         ?>
 		<section>
 			<h2>Classement</h2>
@@ -87,22 +88,33 @@ class VueClassement extends VueGenerique{
 				<thead>
 					<tr>
 						<th>Classement</th>
-						<th>Nom</th>
+						<th>Pseudo</th>
+						<th>Status</th>
+						<th>Vague atteinte</th>
+						<th>Ennemis tués</th>
+						<th>Pv de la base</th>
+						<th>Argent restant</th>
 					</tr>
 				</thead>
 				<tbody>
-					<tr>
-						<td>1</td>
-						<td>BOUDIA</td>
-					</tr>
-					<tr>
-						<td>2</td>
-						<td>BOUKEBECHE</td>
-					</tr>
-					<tr>
-						<td>3</td>	
-						<td>BOUDJEMAI</td>
-					</tr>
+				<?php
+        foreach($tab as $defi) {
+            ?>
+            <tr>
+				<td><?= $num ?></td>
+				<td><?= $defi['pseudo'] ?></td>
+				<td><?= $defi['status'] ?></td>
+				<td><?= $defi['vague_atteinte'] ?></td>
+				<td><?= $defi['nb_ennemis_tues'] ?></td>
+				<td><?= $defi['pv_base'] ?></td>
+				<td><?= $defi['argent_restant'] ?></td>
+			</tr>
+            </form>
+            <?php
+			$num = $num + 1;
+        }
+        ?> 
+
 				</tbody>
 			</table>
 		</section>		

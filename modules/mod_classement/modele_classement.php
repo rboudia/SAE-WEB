@@ -11,39 +11,44 @@ class ModeleClassement extends Connexion{
         $this->connexion::initConnexion();
     }
 
-    function getListe(){
-        $requete = $this->connexion->getBdd()->query("SELECT id, nom FROM listeJoueur");
-        $tableau = $requete->fetchAll();
-        return $tableau;
-    }
-
-    function getDetail($idJoueur){
-        $requete = $this->connexion->getBdd()->query("SELECT id, nom, description FROM listeJoueur WHERE id = '$idJoueur'");
-        $bio = $requete->fetch(PDO::FETCH_ASSOC);
-        return $bio;
-    }
-
-    function ajouterJoueur($nom, $bio){
-
-        $requete = $this->connexion->getBdd()->prepare('INSERT INTO listeJoueur (nom, description) VALUES (:nom, :bio)');
-
-        $resultat = $requete->execute(array(':nom' => $nom, ':bio' => $bio));
-        
-        if ($resultat)
-        $_SESSION["ajout"] = 'Ajouter avec succès';
-        else
-        $_SESSION["ajout"] = 'Erreur ajout';
-    }
-
     function getTop5Players() {
-        $requete = $this->connexion->getBdd()->query('SELECT id_joueur, status, vague_atteinte, pv_base, nb_ennemis_tues, argent_restant
-                FROM partie
-                ORDER BY status DESC, vague_atteinte DESC, pv_base DESC, nb_ennemis_tues DESC, argent_restant DESC
-                LIMIT 5');
-        $tableau = $requete->fetchAll();    z
+        $requete = $this->connexion->getBdd()->query('WITH PartiClasse AS (
+            SELECT
+              joueur.pseudo,
+              partie.status,
+              partie.vague_atteinte,
+              partie.pv_base,
+              partie.nb_ennemis_tues,
+              partie.argent_restant,
+              RANK() OVER (PARTITION BY joueur.id_joueur
+                           ORDER BY partie.status DESC,
+                                    partie.vague_atteinte DESC,
+                                    partie.nb_ennemis_tues DESC,
+                                    partie.pv_base DESC,
+                                    partie.argent_restant DESC) AS rnk
+            FROM joueur
+            INNER JOIN partie ON joueur.id_joueur = partie.id_joueur
+          )
+            SELECT
+            pseudo,
+            status,
+            vague_atteinte,
+            pv_base,
+            nb_ennemis_tues,
+            argent_restant
+            FROM PartiClasse
+            WHERE rnk = 1
+            ORDER BY status DESC,
+            vague_atteinte DESC,
+            nb_ennemis_tues DESC,
+            pv_base DESC,
+            argent_restant DESC
+            LIMIT 5;
+        ');
+
+        $tableau = $requete->fetchAll(); 
         return $tableau;
     }
-
 }
 
 ?>
