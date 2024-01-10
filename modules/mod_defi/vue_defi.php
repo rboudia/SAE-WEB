@@ -76,5 +76,37 @@ class VueDefi extends VueGenerique {
         </html>
         <?php
     }
+    function mauvaiseReponse() {
+    
+        echo "
+            <!DOCTYPE html>
+            <html lang='fr'>
+            <head>
+                <meta charset='UTF-8'>
+                <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+                <link rel='stylesheet' type='text/css' href='modules/mod_defi/Css-Defi.css'>
+            </head>
+            <body>
+                <div class='messErr2'>Faux ! La réponse est incorrecte ou vous avez déjà répondu.</div>
+            </body>
+            </html>";
+    }
+
+    function BonneReponse() {
+    
+        echo "
+            <!DOCTYPE html>
+            <html lang='fr'>
+            <head>
+                <meta charset='UTF-8'>
+                <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+                <link rel='stylesheet' type='text/css' href='modules/mod_defi/Css-Defi.css'>
+            </head>
+            <body>
+                <div class='messBrep'>Bravo, +2 jetons !</div>
+            </body>
+            </html>";
+    }
 }
-?>
+    }
+    ?>

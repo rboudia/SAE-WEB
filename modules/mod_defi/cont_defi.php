@@ -19,15 +19,21 @@ class ContDefi {
     }
 
     function traiterReponse($defiId, $reponse) {
-        $reponseCorrecte = $this->modele->verifierReponse($defiId, $reponse);
+        $id_utilisateur = $this->getIdUtilisateur();
+        $reponseCorrecte = $this->modele->traiterReponse($defiId, $reponse, $id_utilisateur);
+        $this->liste();
 
         if ($reponseCorrecte) {
-            $_SESSION["msg"] = "Bravo, la réponse $defiId est correcte !"; 
+            $this->vue->BonneReponse();
         } else {
-            $_SESSION["erreur"] = "Faux, la réponse $defiId est incorrecte."; 
+            $this->vue->mauvaiseReponse();
         }
-        $this->vue->affiche_liste($this->modele->getListe());
     }
+
+    private function getIdUtilisateur() {
+        return isset($_SESSION['user']['id_joueur']) ? $_SESSION['user']['id_joueur'] : null;
+    }
+
 
     function exec(){
 

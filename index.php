@@ -7,6 +7,7 @@
     require_once 'modules/mod_connexion/mod_connexion.php';
     require_once 'modules/mod_ennemi/mod_ennemi.php';
     require_once 'modules/mod_defense/mod_defense.php';
+    require_once 'modules/mod_map/mod_map.php';
     require_once 'modules/mod_defi/mod_defi.php';
     require_once 'modules/mod_classement/mod_classement.php';
 
@@ -44,6 +45,10 @@
         case 'defense':
             $modDefense = new ModDefense();
             $tampon = $modDefense->getAffichage();
+            break;
+        case 'map':
+            $modMap = new ModMap();
+            $tampon = $modMap->getAffichage();
             break;
         case 'defi':
             $modDefi = new ModDefi();
