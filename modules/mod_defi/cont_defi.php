@@ -37,7 +37,6 @@ class ContDefi {
 
 
     function exec(){
-
         switch ($this->action){
             case "bienvenue":
                 $this->vue->bienvenue();
