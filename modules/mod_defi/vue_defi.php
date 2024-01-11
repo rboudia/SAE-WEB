@@ -76,7 +76,9 @@ class VueDefi extends VueGenerique {
         </html>
         <?php
     }
-    function mauvaiseReponse() {
+
+    function mauvaiseReponse($reponse) {
+        $reponse = 2 - $reponse 
         ?>
             <head>
                 <meta charset='UTF-8'>
@@ -84,13 +86,13 @@ class VueDefi extends VueGenerique {
                 <link rel='stylesheet' type='text/css' href='modules/mod_defi/Css-Defi.css'>
             </head>
             <body>
-                <div class='messErr2'>Faux ! La réponse est incorrecte.</div>
+                <div class='messErr2'>Faux ! La réponse est incorrecte. Il vous reste <?= $reponse ?> essai(s) </div>
             </body>
             </html>
         <?php
     }
 
-    function dejaRepondu() {
+    function mauvaiseDerniereReponse() {
         ?>
             <head>
                 <meta charset='UTF-8'>
@@ -98,7 +100,21 @@ class VueDefi extends VueGenerique {
                 <link rel='stylesheet' type='text/css' href='modules/mod_defi/Css-Defi.css'>
             </head>
             <body>
-                <div class='messErr2'>Vous avez déjà répondu à cette question.</div>
+                <div class='messErr2'>Faux ! La réponse est incorrecte. Vous n'avez plus d'essais... </div>
+            </body>
+            </html>
+        <?php
+    }
+
+    function dejaReponduCorrectement() {
+        ?>
+            <head>
+                <meta charset='UTF-8'>
+                <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+                <link rel='stylesheet' type='text/css' href='modules/mod_defi/Css-Defi.css'>
+            </head>
+            <body>
+                <div class='messErr2'>Vous avez déjà répondu correctement à cette question.</div>
             </body>
             </html>
         <?php
