@@ -26,12 +26,10 @@ class ContDefi {
             $dejaRepondu = $this->modele->aDejaReponduCorrectement($defiId, $id_utilisateur);
 
             $this->liste();
-            var_dump($dejaRepondu);
             if ($dejaRepondu === null) {
                 $this->modele->enregistrerReponse($defiId, $id_utilisateur, 0);
                 $dejaRepondu = $this->modele->aDejaReponduCorrectement($defiId, $id_utilisateur);
             }
-            var_dump($dejaRepondu);
             if ($dejaRepondu['repondu'] == 4) {
                 $this->vue->dejaReponduCorrectement();
             }else{
