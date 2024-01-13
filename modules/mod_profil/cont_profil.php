@@ -63,12 +63,14 @@ class ContProfil {
                 if ( $ancienjoueur["login"] !== $login) {
                     if ($login_existant) {
                         $_SESSION["erreur"] = "Ce login est déjà utilisé. Veuillez choisir un autre.";
+                        $this->vue->formulaireModification($ancienjoueur);
                         return;
                     } 
                 }
                 if ( $ancienjoueur["pseudo"] !== $pseudo) {
                     if ($pseudo_existant) {
                         $_SESSION["erreur"] = "Ce pseudo est déjà utilisé. Veuillez choisir un autre.";
+                        $this->vue->formulaireModification($ancienjoueur);
                         return;
                     }         
                 } 
