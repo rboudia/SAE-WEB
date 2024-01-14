@@ -7,6 +7,7 @@ class VueCompMenu {
         $this->menuHTML .= '<a href="index.php?module=info">Informations jeu</a>';
         $this->menuHTML .= '<a href="index.php?module=strategie">Stratégie</a>';
         $this->menuHTML .= '<a href="index.php?module=defi">Défi</a>';
+        $this->menuHTML .= '<a href="index.php?module=partie">Partie</a>';
         $this->menuHTML .= '<a href="index.php?module=classement">Classement</a>';
 
         if (isset($_SESSION['user'])) {

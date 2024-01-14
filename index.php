@@ -10,6 +10,7 @@
     require_once 'modules/mod_map/mod_map.php';
     require_once 'modules/mod_defi/mod_defi.php';
     require_once 'modules/mod_classement/mod_classement.php';
+    require_once 'modules/mod_partie/mod_partie.php';
 
     require_once 'composants/CompMenu/comp_menu.php';
 
@@ -61,6 +62,10 @@
         case "classement":
             $modClassement = new ModClassement();
             $tampon = $modClassement->getAffichage();
+            break;
+        case "partie":
+            $modPartie = new ModPartie();
+            $tampon = $modPartie->getAffichage();
             break;  
     }
     $menuComponent = new CompMenu();

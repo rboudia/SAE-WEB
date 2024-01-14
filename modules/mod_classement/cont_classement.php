@@ -24,7 +24,7 @@ class ContClassement {
 
             default:
                 $_SESSION["erreur"] = "Erreur action incorrecte.";
-                $this->vue->menu();                
+                $this->vue->classement($this->modele->getTop5Players());
                 break;
         }
     }
