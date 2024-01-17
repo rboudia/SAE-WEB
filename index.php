@@ -11,6 +11,7 @@
     require_once 'modules/mod_defi/mod_defi.php';
     require_once 'modules/mod_classement/mod_classement.php';
     require_once 'modules/mod_partie/mod_partie.php';
+    require_once 'modules/mod_message/mod_message.php';
 
     require_once 'composants/CompMenu/comp_menu.php';
 
@@ -66,6 +67,10 @@
         case "partie":
             $modPartie = new ModPartie();
             $tampon = $modPartie->getAffichage();
+            break;
+        case "message":
+            $modMessage = new ModMessage();
+            $tampon = $modMessage->getAffichage();
             break;  
     }
     $menuComponent = new CompMenu();
