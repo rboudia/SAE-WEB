@@ -27,15 +27,20 @@ class ContStrategie {
             $choix = isset($_POST['choix']) ? $_POST['choix'] : '';
 		    $sug = isset($_POST['sug']) ? $_POST['sug'] : '';
             $date = $_POST["date"];
+            $id_utilisateur = $this->getIdUtilisateur();
 
             if (!empty($choix) && !empty($sug) && !empty($date)) {
                 
-                if ($this->modele->ajouterSuggestion($utilisateur['id_joueur'], $choix, $sug, $date)) {
-                    $_SESSION["msg"] ="Suggestion envoyé.";
-                    $this->vue->affiche_suggestion();
-                    
+                if ($this->modele->verifJeton($id_utilisateur)) {
+                    if($this->modele->ajouterSuggestion($id_utilisateur, $choix, $sug, $date)) {
+                        $_SESSION["msg"] ="Suggestion envoyé.";
+                        $this->modele->ajouterJetonUtilisateur($id_utilisateur);
+                        $this->vue->affiche_suggestion();
+                    }else {
+                        $_SESSION["erreur"] = "Erreur lors de l'envoie'.";
+                    }
                 } else {
-                    $_SESSION["erreur"] = "Erreur lors de l'envoie'.";
+                    $_SESSION["erreur"] = "Pas assez de jeton.";
                 }
         
             } else {
@@ -47,6 +52,10 @@ class ContStrategie {
         if(isset($_SESSION["erreur"])){
             $this->vue->affiche_suggestion();
         }
+    }
+
+    private function getIdUtilisateur() {
+        return isset($_SESSION['user']['id_joueur']) ? $_SESSION['user']['id_joueur'] : null;
     }
 
     function exec(){

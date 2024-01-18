@@ -33,9 +33,24 @@ class ModeleStrategie extends Connexion{
         $requete = $this->connexion->getBdd()->prepare("INSERT INTO suggestion (suggestion, type, date, id_joueur) VALUES (?, ?, ?, ?)");
         $requete->execute([$sug, $choix, $date, $utilisateur]);
         return $requete->rowCount() > 0;
-
     }
+    
+    public function verifJeton($idJoueur) {
+        $requete = "SELECT jeton FROM joueur WHERE id_joueur = ?";
+        $stmt = $this->connexion->getBdd()->prepare($requete);
+        $stmt->execute([$idJoueur]);
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
 
+        if ($result && $result['jeton'] > 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    function ajouterJetonUtilisateur($id_utilisateur) {
+        $requete = $this->connexion->getBdd()->prepare("UPDATE joueur SET jeton = jeton - 1 WHERE id_joueur = ?");
+        $requete->execute([$id_utilisateur]);
+    }
 }
 
 ?>
