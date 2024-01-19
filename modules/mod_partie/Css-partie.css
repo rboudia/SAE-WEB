@@ -1,0 +1,201 @@
+.conteneur {
+    max-width: 600px;
+    height: 250px;
+    margin: 0 auto;
+    margin-top: 5px;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+.titre-principal {
+    color: #3498db;
+    text-align: center;
+}
+
+.titre-secondaire {
+    color: #2c3e50;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.formulaire {
+    text-align: center;
+}
+
+.label-formulaire {
+    display: block;
+    margin-bottom: 8px;
+    color: #7f8c8d;
+}
+
+.champ-texte {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    box-sizing: border-box;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.bouton-submit {
+    background-color: #3498db;
+    color: #fff;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.bouton-submit:hover {
+    background-color: #2980b9;
+}
+
+.liste-parties {
+    list-style-type: none;
+    padding: 0;
+}
+
+.partie-item {
+    margin: auto;
+    max-width: 150px;
+    margin-top: 5px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 10px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.partie-link {
+    text-decoration: none;
+    color: #3498db;
+    font-weight: bold;
+}
+
+.connexion-message {
+    margin: auto;
+    margin-top: 5px;
+    max-width: 585px;
+    background-color: #f2dede;
+    color: #a94442;
+    border: 1px solid #ebccd1;
+    border-radius: 4px;
+    padding: 15px;
+}
+
+.connexion-link {
+    text-decoration: none;
+    color: #3498db;
+    font-weight: bold;
+}
+
+.classement-section {
+    margin: auto;
+    margin-top: 20px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 15px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    width: 75%;
+}
+
+.classement-title {
+    color: #2c3e50;
+}
+
+.classement-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+.classement-header, .classement-data {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+.classement-row:hover {
+    background-color: #f9f9f9;
+}
+
+.classement-link {
+    text-decoration: none;
+    color: #3498db;
+    font-weight: bold;
+}
+
+.menu-liste {
+    list-style-type: none;
+    padding: 0;
+}
+
+.menu-item {
+    margin-top: 10px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 10px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.menu-link {
+    text-decoration: none;
+    color: #3498db;
+    font-weight: bold;
+}
+
+.erreur-message {
+    background-color: #f2dede;
+    color: #a94442;
+    border: 1px solid #ebccd1;
+    border-radius: 4px;
+    padding: 15px;
+}
+
+
+.detail-table {
+    margin-top: 20px;
+    width: 50%; 
+    border-collapse: collapse;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.detail-label, .detail-data {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+.detail-row:hover {
+    background-color: #f9f9f9;
+}
+
+@media screen and (max-width: 600px) {
+    .conteneur {
+        max-width: 100%;
+        height: auto;
+        margin-top: 10px;
+        padding: 10px;
+    }
+
+    .formulaire, .connexion-message, .classement-section, .menu-item, .detail-table {
+        width: 100%;
+        max-width: 100%;
+    }
+
+    .classement-section {
+        margin-top: 10px;
+    }
+
+    .classement-title, .menu-item {
+        font-size: 16px;
+    }
+}
