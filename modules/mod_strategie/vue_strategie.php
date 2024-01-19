@@ -80,7 +80,7 @@ class VueStrategie extends VueGenerique{
         <h1>Suggestion de stratégie :</h1>
         <h2>Vous avez la possibilité de suggérer de nouvelles stratégies pour les 
         <br>tours ou les obstacles, écrivez-la dans un court texte pour que nous 
-        <br>puissions la traiter :</h2>
+        <br>puissions la traiter (Cela vous coûtera 1 jeton) :</h2>
 
         <form  method="post" action="index.php?module=strategie&action=suggestion">
 
@@ -122,8 +122,8 @@ class VueStrategie extends VueGenerique{
 		<li><a href="index.php?module=strategie">Retour aux stratégies</a></li>
 			<?php if($_GET['action']=='suggestion') {
 				?>
-        	<li><a href="index.php?module=strategie&action=ennemi">Retour à la liste des ennemis</a></li>
-        	<li><a href="index.php?module=strategie&action=tour">Retour à la liste des défenses</a></li>
+        	<li><a href="index.php?module=strategie&action=ennemi">Retour à la liste de suggestion des ennemis</a></li>
+        	<li><a href="index.php?module=strategie&action=tour">Retour à la liste de suggestion des tour</a></li>
 			<?php } ?>
         </ul>
 		<?php

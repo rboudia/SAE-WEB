@@ -26,13 +26,14 @@ class ModeleConnexion extends Connexion {
 	    }
 	}
 
-	public function ajouterUtilisateur($pseudo, $login, $mdp) {
+	public function ajouterUtilisateur($pseudo, $login, $mdp, $logo) {
 		try {
 			$jeton = 0;
-			$stmt = self::$bdd->prepare("INSERT INTO joueur (pseudo, login, mdp, jeton) VALUES (:pseudo, :login, md5(:mdp), :jeton)");
+			$stmt = self::$bdd->prepare("INSERT INTO joueur (pseudo, login, mdp, photo_profil, jeton) VALUES (:pseudo, :login, md5(:mdp), :logo, :jeton)");
 			$stmt->bindParam(':pseudo', $pseudo, PDO::PARAM_STR);
 			$stmt->bindParam(':login', $login, PDO::PARAM_STR);
 			$stmt->bindParam(':mdp', $mdp, PDO::PARAM_STR);
+			$stmt->bindParam(':logo', $logo, PDO::PARAM_STR);
 			$stmt->bindParam(':jeton', $jeton, PDO::PARAM_INT);
 			return $stmt->execute(); 
 		} catch (PDOException $e) {

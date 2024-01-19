@@ -40,7 +40,7 @@ class VueProfil extends VueGenerique{
 						</div>
 						<div class="details">
 							<span class="detail-label">Photo de profil</span>
-							<span class="detail-val"><?= $detailJoueur['photo_profil'] ?></span>
+							<span class="detail-val"><img src="<?php echo htmlspecialchars($detailJoueur['photo_profil']); ?>" alt="Logo de <?php echo htmlspecialchars($detailJoueur['pseudo']); ?>" style="max-width: 100px; height: auto;"></span>
 						</div>
 						<div class="details">
 							<span class="detail-label">Jeton</span>
@@ -102,7 +102,7 @@ class VueProfil extends VueGenerique{
 					<div class="MessErreur"><?=$_SESSION['erreur']?></div>
 				<?php unset($_SESSION['erreur']); } ?>
 	
-				<form action="index.php?module=profil&action=modifier" method="post" class="modification-form">
+				<form action="index.php?module=profil&action=modifier" method="post" class="modification-form" enctype="multipart/form-data">
 					<div class="formMod">
 						<label for="pseudo">Pseudo:</label>
 						<input type="text" id="pseudo" name="pseudo" value="<?= $detailJoueur['pseudo'] ?>" required>
@@ -120,8 +120,10 @@ class VueProfil extends VueGenerique{
 					</div>
 	
 					<div class="formMod">
-						<label for="photo_profil">URL de la Photo de profil:</label>
-						<input type="text" id="photo_profil" name="photo_profil" value="<?= $detailJoueur['photo_profil'] ?>">
+						<label for="photo_profil">URL de la Photo de profil:</label><br>
+						<img src="<?php echo htmlspecialchars($detailJoueur['photo_profil']); ?>" alt="Logo de <?php echo htmlspecialchars($detailJoueur['pseudo']); ?>" style="max-width: 100px; height: auto;">
+						<input type="file" name="logo" accept="image/*"><br> 
+
 					</div>
 	
 					<div class="formMod">

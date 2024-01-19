@@ -80,9 +80,9 @@ class ModeleProfil extends Connexion{
     
             $nombreDeLignesAffectees = $query->rowCount();
             
-            return ($nombreDeLignesAffectees > 0);
+            return true;
         } catch (PDOException $e) {
-            die('Erreur lors de la modification du mot de passe : ' . $e->getMessage());
+            return false;
         }
     }
 
