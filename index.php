@@ -12,6 +12,7 @@
     require_once 'modules/mod_classement/mod_classement.php';
     require_once 'modules/mod_partie/mod_partie.php';
     require_once 'modules/mod_message/mod_message.php';
+    require_once 'modules/mod_ami/mod_ami.php';
 
     require_once 'composants/CompMenu/comp_menu.php';
 
@@ -71,7 +72,11 @@
         case "message":
             $modMessage = new ModMessage();
             $tampon = $modMessage->getAffichage();
-            break;  
+            break;
+        case "ami":
+            $modAmi = new ModAmi();
+            $tampon = $modAmi->getAffichage();
+            break;
     }
     $menuComponent = new CompMenu();
     require_once 'template.php';
