@@ -5,11 +5,17 @@ class VueStrategie extends VueGenerique{
 
 	public function bienvenue() {
         ?>
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <link rel="stylesheet" href="modules/mod_strategie/Css-Strategie.css">
+        </head>
+        <body>
 
-		<h1>Stratégie : Sélectionnez un item pour consulter ses stratégies :</h1> 
+        <h1>Stratégie : Sélectionnez un item pour consulter ses stratégies :</h1> 
 		<div> 
-		<a href="index.php?module=strategie&action=tour">Tour</a> 
-		<a href="index.php?module=strategie&action=ennemi">Ennemi </a> 
+		    <a href="index.php?module=strategie&action=tour">Tour</a> 
+		    <a href="index.php?module=strategie&action=ennemi">Ennemi</a> 
 		</div>
 
 		<?php
@@ -17,66 +23,91 @@ class VueStrategie extends VueGenerique{
 
 	function affiche_listeEnnemi($tab) {
         ?>
-        <h1>Stratégie des ennemies :</h1>
+        <!DOCTYPE html>
+        <html lang="fr">
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <link rel="stylesheet" href="modules/mod_strategie/Css-Strategie.css">
+        </head>
+        <body>
 
-       <table>
-           <tr><th>Nom</th><th>Description</th></tr>
-       <?php
-       foreach($tab as $liste) {
-           ?>
-           <tr>
-           <td><?= $liste['nom'] ?> </td>
-           <td><?= $liste['description'] ?> </td>
-           </tr>
-           </form>
-           <?php
-       }
-       ?> 
-       </table>       
-       <?php
-       if (isset($_SESSION['user'])) {
+        <h1>Stratégie des ennemis :</h1>
+
+        <table>
+            <tr><th>Nom</th><th>Description</th></tr>
+            <?php
+            foreach($tab as $liste) {
+            ?>
+                <tr>
+                    <td><?= $liste['nom'] ?> </td>
+                    <td><?= $liste['description'] ?> </td>
+                </tr>
+            <?php
+            }
+            ?> 
+        </table>       
+        <?php
+        if (isset($_SESSION['user'])) {
         ?>
             <div>
-                <p><a href="index.php?module=strategie&action=suggestion">Suggérer une strategie</a></p>
+                <p><a href="index.php?module=strategie&action=suggestion">Suggérer une stratégie</a></p>
             </div>
-           <?php
-        }else{
-             ?> <div>Pour accéder aux défis, veuillez vous <a href="index.php?module=connexion&action=connexion"> connecter</a> SVP !</div> <?php ;
-        };
+        <?php
+        } else {
+        ?>
+            <div>Pour accéder aux défis, veuillez vous <a href="index.php?module=connexion&action=connexion"> connecter</a> SVP !</div>
+        <?php
+        }
     }
 
 	function affiche_listeDefense($tab) {
         ?>
-        <h1>Stratégie des defenses :</h1>
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <link rel="stylesheet" href="modules/mod_strategie/Css-Strategie.css">
+        </head>
+        <body>
 
-       <table>
-           <tr><th>Nom</th><th>Description</th></tr>
-       <?php
-       foreach($tab as $liste) {
-           ?>
-           <tr>
-           <td><?= $liste['nom'] ?> </td>
-           <td><?= $liste['description'] ?> </td>
-           </tr>
-           </form>
-           <?php
-       }
-       ?> 
-       </table>       
-       <?php
-       if (isset($_SESSION['user'])) {
+        <h1>Stratégie des défenses :</h1>
+
+        <table>
+            <tr><th>Nom</th><th>Description</th></tr>
+            <?php
+            foreach($tab as $liste) {
+            ?>
+                <tr>
+                    <td><?= $liste['nom'] ?> </td>
+                    <td><?= $liste['description'] ?> </td>
+                </tr>
+            <?php
+            }
+            ?> 
+        </table>       
+        <?php
+        if (isset($_SESSION['user'])) {
         ?>
             <div>
-                <p><a href="index.php?module=strategie&action=suggestion">Suggérer une strategie</a></p>
+                <p><a href="index.php?module=strategie&action=suggestion">Suggérer une stratégie</a></p>
             </div>
-           <?php
-        }else{
-             ?> <div>Pour accéder aux défis, veuillez vous <a href="index.php?module=connexion&action=connexion"> connecter</a> SVP !</div> <?php ;
-        };
+        <?php
+        } else {
+        ?>
+            <div>Pour accéder aux défis, veuillez vous <a href="index.php?module=connexion&action=connexion"> connecter</a> SVP !</div>
+        <?php
+        }
     }
 
     function affiche_suggestion() {
         ?>
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <link rel="stylesheet" href="modules/mod_strategie/Css-Strategie.css">
+        </head>
+        <body>
+
         <h1>Suggestion de stratégie :</h1>
         <h2>Vous avez la possibilité de suggérer de nouvelles stratégies pour les 
         <br>tours ou les obstacles, écrivez-la dans un court texte pour que nous 
@@ -111,6 +142,14 @@ class VueStrategie extends VueGenerique{
 
 
 	function menu(){
+        ?>
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <link rel="stylesheet" href="modules/mod_strategie/Css-Strategie.css">
+        </head>
+        <body>
+        <?php
 		if(isset($_SESSION['erreur'])){
             ?>
             <div style="color:red"><?=$_SESSION['erreur']?></div><br>
@@ -119,17 +158,15 @@ class VueStrategie extends VueGenerique{
         }
 		?>
 		<ul>
-		<li><a href="index.php?module=strategie">Retour aux stratégies</a></li>
-			<?php if($_GET['action']=='suggestion') {
-				?>
-        	<li><a href="index.php?module=strategie&action=ennemi">Retour à la liste de suggestion des ennemis</a></li>
-        	<li><a href="index.php?module=strategie&action=tour">Retour à la liste de suggestion des tour</a></li>
-			<?php } ?>
+            <li><a href="index.php?module=strategie">Retour aux stratégies</a></li>
+            <?php if($_GET['action']=='suggestion') {
+            ?>
+            <li><a href="index.php?module=strategie&action=ennemi">Retour à la liste de suggestion des ennemis</a></li>
+            <li><a href="index.php?module=strategie&action=tour">Retour à la liste de suggestion des tours</a></li>
+            <?php } ?>
         </ul>
-		<?php
-
+        <?php
 	}
 	
 }
-
 ?>

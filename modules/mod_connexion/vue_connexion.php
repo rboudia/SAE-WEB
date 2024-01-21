@@ -30,15 +30,16 @@ class VueConnexion extends VueGenerique {
         if (isset($_SESSION['user'])) {
             $utilisateur = $_SESSION['user'];
             ?>
-            <div>
-                <li>Vous êtes connecté sous le pseudo <?= $utilisateur['pseudo'] ?> !</li>
-                <li><a href="index.php?module=connexion&action=deconnexion">Déconnexion</a></li>
+        
+            <link rel="stylesheet" type="text/css" href="modules/mod_connexion/Css.css">
+            <div id="connexion-info">
+                Vous êtes connecté sous le pseudo <?= $utilisateur['pseudo'] ?> ! <br>
+                <a href="index.php?module=connexion&action=deconnexion">Déconnexion</a>
             </div>
             <?php
         } else {
             ?>
             <div>
-                <link rel="stylesheet" type="text/css" href="modules/mod_connexion/Css.css">
                 <h2 class="connexion">Connexion</h2>
                 <?php if(isset($_SESSION['erreur'])){
                     ?>
@@ -47,6 +48,8 @@ class VueConnexion extends VueGenerique {
                     unset($_SESSION['erreur']);
                 }
                 ?>
+                <link rel="stylesheet" type="text/css" href="modules/mod_connexion/Css.css">
+
                 <form class="animationFormulaireConn" method="post" action="index.php?module=connexion&action=connexion">
                     Login: <input type="text" name="login" required><br>
                     Mot de passe: <input type="password" name="mdp" required><br>
