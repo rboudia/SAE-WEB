@@ -13,47 +13,61 @@ class ContConnexion {
         $this->action = isset($_GET['action']) ? $_GET['action'] : '';
     }
 
+    function isValidExtension($file) {
+        $exts = ['gif', 'png', 'jpg'];
+        $info = pathinfo($file);
+        
+        if (in_array($info['extension'], $exts))
+         return true;
+        return false;
+       }
+
 
 	public function inscription() {
 	    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $pseudo = isset($_POST['pseudo']) ? $_POST['pseudo'] : '';
 		    $login = isset($_POST['login']) ? $_POST['login'] : '';
 		    $mdp = isset($_POST['mdp']) ? $_POST['mdp'] : '';
-            $logo = $this->telechargementImage();
+            $filename = $_FILES['logo']['name'];
+            $error = $this->isValidExtension ($filename);
+            if ($error === false){
+                $_SESSION["erreur"] = "Fichier invalide.";
+            }else {           
+                $logo = $this->telechargementImage();
+                if (!empty($pseudo) && !empty($login) && !empty($mdp)) {
+                    $login_existant = $this->modele_connexion->verifierLoginExistant($login);
+                    $pseudo_existant = $this->modele_connexion->verifierPseudoExistant($pseudo);
 
-		if (!empty($pseudo) && !empty($login) && !empty($mdp)) {
-		    $login_existant = $this->modele_connexion->verifierLoginExistant($login);
-		    $pseudo_existant = $this->modele_connexion->verifierPseudoExistant($pseudo);
-
-            if ($pseudo_existant) {
-		        $_SESSION["erreur"] = "Ce pseudo est déjà utilisé. Veuillez choisir un autre.";
-		    }else{
-		    if ($login_existant) {
-		        $_SESSION["erreur"] = "Ce login est déjà utilisé. Veuillez choisir un autre.";
-		    } else {
-		        if ($this->modele_connexion->ajouterUtilisateur($pseudo, $login, $mdp, $logo)) {
-                    $_SESSION["msg"] ="Inscription réussie";
-                    $this->vue_connexion->form_connexion();
-                } else {
-                    $_SESSION["erreur"] = "Erreur lors de l'inscription.";
+                    if ($pseudo_existant) {
+                        $_SESSION["erreur"] = "Ce pseudo est déjà utilisé. Veuillez choisir un autre.";
+                    }else{
+                    if ($login_existant) {
+                        $_SESSION["erreur"] = "Ce login est déjà utilisé. Veuillez choisir un autre.";
+                    } else {
+                        if ($this->modele_connexion->ajouterUtilisateur($pseudo, $login, $mdp, $logo)) {
+                            $_SESSION["msg"] ="Inscription réussie";
+                            $this->vue_connexion->form_connexion();
+                        } else {
+                            $_SESSION["erreur"] = "Erreur lors de l'inscription.";
+                        }
+                    }
                 }
-		    }
-        }
-		} else {
+            } else {
                     $_SESSION["erreur"] = "Veuillez remplir tous les champs du formulaire.";
+                }
             }
-	    }
+        }
         if(isset($_SESSION["erreur"])){
             $this->form_inscription();
-                }
+        }
 	}
     
     public function connexion() {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $login = isset($_POST['login']) ? $_POST['login'] : '';
             $mot_de_passe = isset($_POST['mdp']) ? $_POST['mdp'] : '';
-    
-		$utilisateur = $this->modele_connexion->verifierLoginExistant($login);
+            
+		    $utilisateur = $this->modele_connexion->verifierLoginExistant($login);
     
             if ($utilisateur !== null && $this->modele_connexion->verifierMotDePasse($login, $mot_de_passe)) {
                 $_SESSION['user'] = $utilisateur;
