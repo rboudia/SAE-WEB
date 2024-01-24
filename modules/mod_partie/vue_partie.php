@@ -1,3 +1,4 @@
+
 <?php 
 require_once 'vue_generique.php';
 
@@ -5,6 +6,9 @@ class VuePartie extends VueGenerique{
 
 	public function affiche_barre(){
 		?>
+        <head>
+<link rel="stylesheet" type="text/css" href="modules\mod_partie\Css-partie.css">
+</head>
 		<div class="conteneur">
     <h1 class="titre-principal">Partie</h1>
     <h2 class="titre-secondaire">Trouvez les statistiques des parties :</h2>
@@ -23,6 +27,9 @@ class VuePartie extends VueGenerique{
         echo '<ul class="liste-parties">';
         foreach ($tab as $element) {
             ?>
+            <head>
+<link rel="stylesheet" type="text/css" href="modules\mod_partie\Css-partie.css">
+</head>
             <li class="partie-item">
                 <?php if (isset($_SESSION['user'])) : ?>
                     <a class="partie-link" href="index.php?module=partie&action=details&id=<?= $element['id_partie'] ?>"> Partie <?= $element['id_partie'] ?></a>
@@ -43,6 +50,9 @@ class VuePartie extends VueGenerique{
     public function classement($elements) {
         $num = 1;
         ?>
+        <head>
+<link rel="stylesheet" type="text/css" href="modules\mod_partie\Css-partie.css">
+</head>
         <section class="classement-section">
             <h2 class="classement-title">Les 3 meilleurs !</h2>
             <table class="classement-table">
@@ -73,11 +83,15 @@ class VuePartie extends VueGenerique{
     public function menu() {
         if (isset($_SESSION['erreur'])) {
             ?>
+            
             <div class="erreur-message"><?=$_SESSION['erreur']?></div><br>
             <?php
             unset($_SESSION['erreur']);
         }
         ?>
+        <head>
+<link rel="stylesheet" type="text/css" href="modules\mod_partie\Css-partie.css">
+</head>
         <ul class="menu-liste">
             <?php if (isset($_GET['action']) && $_GET['action'] == 'details') : ?>
                 <li class="menu-item"><a class="menu-link" href="index.php?module=partie">Retour aux parties</a></li>
@@ -88,6 +102,9 @@ class VuePartie extends VueGenerique{
 
     public function affiche_detail($detailEnnemi) {
         ?>
+        <head>
+<link rel="stylesheet" type="text/css" href="modules\mod_partie\Css-partie.css">
+</head>
         <center>
             <table class="detail-table">
                 <tr class="detail-row">
@@ -115,4 +132,3 @@ class VuePartie extends VueGenerique{
 }
 
 ?>
-<link rel="stylesheet" type="text/css" href="modules\mod_partie\Css-partie.css">

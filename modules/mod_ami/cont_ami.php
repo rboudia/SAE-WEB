@@ -124,7 +124,7 @@ class ContAmi {
 
     function demander() {
         if($this->modele->recupererAmi($_SESSION['user']['id_joueur']) === false){
-            $_SESSION["message"] = "Vous n'avez pas de demande d'ami.";
+            $_SESSION["message"] = "Vous n'avez pas d'ami.";
         }
         $this->vue->affiche_ami($this->modele->recupererAmi($_SESSION['user']['id_joueur']));
     }

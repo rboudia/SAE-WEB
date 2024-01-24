@@ -30,6 +30,7 @@ class ContMessage {
                 if (!empty($message)) {
                     $this->modele->envoieMessage($_SESSION['user']['id_joueur'], $id, $date, $message);
                     $_SESSION["msg"] ="Message envoyé";
+                    $message = '';
                     $this->vue->menu();
                     $this->listeMessage($id);
                     $this->vue->envoyer($id);

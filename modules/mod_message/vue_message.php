@@ -16,7 +16,7 @@ class VueMessage extends VueGenerique{
             if(isset($_SESSION['message_erreur'])){
                 ?>
                 <div class="erreur-message" style="text-align: center;">
-                    <?=$_SESSION['message_erreur']?> Envoyer des <a href="index.php?module=message&action">demandes d'amis</a> et faites vous plein d'amis !!!
+                    <?=$_SESSION['message_erreur']?> Envoyez des <a href="index.php?module=ami">demandes d'amis</a> et faites vous plein d'amis !
                 </div><br>
                 <?php
                 unset($_SESSION['message_erreur']);
