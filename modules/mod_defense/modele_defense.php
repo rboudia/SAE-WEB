@@ -12,7 +12,7 @@ class ModeleDefense extends Connexion {
     }
 
     function getListe() {
-        $requete = $this->connexion->getBdd()->query("SELECT id_defense,type_defense from defense");
+        $requete = $this->connexion->getBdd()->query("SELECT id_defense,type_defense,t_defense from defense");
         $tableau = $requete->fetchAll();
         return $tableau;
     }

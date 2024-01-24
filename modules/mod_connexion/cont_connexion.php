@@ -19,6 +19,7 @@ class ContConnexion {
             $pseudo = isset($_POST['pseudo']) ? $_POST['pseudo'] : '';
 		    $login = isset($_POST['login']) ? $_POST['login'] : '';
 		    $mdp = isset($_POST['mdp']) ? $_POST['mdp'] : '';
+            $logo = $this->telechargementImage();
 
 		if (!empty($pseudo) && !empty($login) && !empty($mdp)) {
 		    $login_existant = $this->modele_connexion->verifierLoginExistant($login);
@@ -30,11 +31,12 @@ class ContConnexion {
 		    if ($login_existant) {
 		        $_SESSION["erreur"] = "Ce login est déjà utilisé. Veuillez choisir un autre.";
 		    } else {
-		        if ($this->modele_connexion->ajouterUtilisateur($pseudo, $login, $mdp)) {
+		        if ($this->modele_connexion->ajouterUtilisateur($pseudo, $login, $mdp, $logo)) {
                     $_SESSION["msg"] ="Inscription réussie";
+                    $this->vue_connexion->form_connexion();
                 } else {
                     $_SESSION["erreur"] = "Erreur lors de l'inscription.";
-}
+                }
 		    }
         }
 		} else {
@@ -55,6 +57,7 @@ class ContConnexion {
     
             if ($utilisateur !== null && $this->modele_connexion->verifierMotDePasse($login, $mot_de_passe)) {
                 $_SESSION['user'] = $utilisateur;
+                $this->vue_connexion->form_connexion();
 
             } else {
                 $_SESSION["erreur"] = "Informations de connexion incorrectes.";
@@ -65,14 +68,33 @@ class ContConnexion {
         }
     }
     
-	 public function deconnexion() {
-    unset($_SESSION['user']);
-	    }
+	public function deconnexion() {
+        unset($_SESSION['user']);
+        $this->vue_connexion->form_connexion();
+	}
 
     public function form_inscription() {
         $this->vue_connexion->form_inscription();
-  }
+    }
     
+    public function telechargementImage() {
+        $logo = ''; 
+    
+        if (isset($_FILES['logo']) && $_FILES['logo']['error'] == UPLOAD_ERR_OK) {
+            $extension = pathinfo($_FILES['logo']['name'], PATHINFO_EXTENSION);
+            $dossierCible = "modules/mod_connexion/logos/";
+            $nomFichier = uniqid("logo_") . '.' . $extension;
+            $fichierCible = $dossierCible . $nomFichier;
+    
+            if (move_uploaded_file($_FILES['logo']['tmp_name'], $fichierCible)) {
+                $logo = $fichierCible;
+            } else {
+                $_SESSION["erreur"] = "Erreur lors du téléchargement du fichier.";
+                return $logo; 
+            }
+        }  
+        return $logo; 
+    }
 
     public function exec() {
         switch ($this->action) {

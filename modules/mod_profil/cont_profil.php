@@ -55,7 +55,14 @@ class ContProfil {
 	    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $pseudo = isset($_POST['pseudo']) ? $_POST['pseudo'] : '';
 		    $login = isset($_POST['login']) ? $_POST['login'] : '';
-		    $photo_profil = isset($_POST['photo_profil']) ? $_POST['photo_profil'] : 'chemin';
+
+
+            $logo = $this->telechargementImage();
+
+            if (empty($logo)){
+               $logo = $_SESSION['user']['photo_profil'];
+
+            }
 
             if (!empty($pseudo) && !empty($login)) {
                 $login_existant = $this->modele->verifierLoginExistant($login);
@@ -63,20 +70,22 @@ class ContProfil {
                 if ( $ancienjoueur["login"] !== $login) {
                     if ($login_existant) {
                         $_SESSION["erreur"] = "Ce login est déjà utilisé. Veuillez choisir un autre.";
+                        $this->vue->formulaireModification($ancienjoueur);
                         return;
                     } 
                 }
                 if ( $ancienjoueur["pseudo"] !== $pseudo) {
                     if ($pseudo_existant) {
                         $_SESSION["erreur"] = "Ce pseudo est déjà utilisé. Veuillez choisir un autre.";
+                        $this->vue->formulaireModification($ancienjoueur);
                         return;
                     }         
                 } 
-                if ($this->modele->changerInfo($ancienjoueur['id_joueur'], $pseudo, $login, $photo_profil)) {
+                if ($this->modele->changerInfo($ancienjoueur['id_joueur'], $pseudo, $login, $logo)) {
                     $_SESSION["msg"] ="Informations mis à jour.";
                     $_SESSION['user']['login'] = $login;
                     $_SESSION['user']['pseudo'] = $pseudo;
-                    $_SESSION['user']['photo_profil'] = $photo_profil;
+                    $_SESSION['user']['photo_profil'] = $logo;
                     $this->vue->affiche_detail($this->modele->getDetail(($_SESSION['user']['id_joueur'])));
                     
 
@@ -95,7 +104,27 @@ class ContProfil {
 
     public function form_changer() {
         $this->vue->form_changer();
-  }
+    }
+
+    public function telechargementImage() {
+        $logo = ''; 
+        if (isset($_FILES['logo']) && $_FILES['logo']['error'] == UPLOAD_ERR_OK) {
+
+            $extension = pathinfo($_FILES['logo']['name'], PATHINFO_EXTENSION);
+            $dossierCible = "modules/mod_connexion/logos/";
+            $nomFichier = uniqid("logo_") . '.' . $extension;
+            $fichierCible = $dossierCible . $nomFichier;
+    
+            if (move_uploaded_file($_FILES['logo']['tmp_name'], $fichierCible)) {
+                $logo = $fichierCible;
+            } else {
+                $_SESSION["erreur"] = "Erreur lors du téléchargement du fichier.";
+                return $logo; 
+            }
+        }
+
+        return $logo; 
+    }
 
     function exec(){
 

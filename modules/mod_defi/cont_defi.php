@@ -18,17 +18,39 @@ class ContDefi {
         $this->vue->affiche_liste($this->modele->getListe());
     }
 
-    function traiterReponse($defiId, $reponse) {
-        $id_utilisateur = $this->getIdUtilisateur();
-        $reponseCorrecte = $this->modele->traiterReponse($defiId, $reponse, $id_utilisateur);
+    function traiterReponse() {
+        if (isset($_POST['defiId']) && isset($_POST['reponse'])) {
+            $defiId = $_POST['defiId'];
+            $reponse = $_POST['reponse'];
+            $id_utilisateur = $this->getIdUtilisateur();
+            $dejaRepondu = $this->modele->aDejaReponduCorrectement($defiId, $id_utilisateur);
 
-        if ($reponseCorrecte) {
             $this->liste();
-            $this->vue->BonneReponse();
+            if ($dejaRepondu === null) {
+                $this->modele->enregistrerReponse($defiId, $id_utilisateur, 0);
+                $dejaRepondu = $this->modele->aDejaReponduCorrectement($defiId, $id_utilisateur);
+            }
+            if ($dejaRepondu['repondu'] == 4) {
+                $this->vue->dejaReponduCorrectement();
+            }else{
+                if($dejaRepondu['repondu'] == 1 || $dejaRepondu['repondu'] == 2 || $dejaRepondu['repondu'] == 0){
+                    $reponseCorrecte = $this->modele->verifierReponse($defiId, $reponse);
+                    if ($reponseCorrecte) {
+                        $this->modele->bonneReponse($defiId, $id_utilisateur);
+                        $this->modele->ajouterJetonUtilisateur($id_utilisateur);
+                        $this->vue->bonneReponse();
+                    } else {
+                        $this->vue->mauvaiseReponse($dejaRepondu['repondu']);   
+                        $this->modele->ajouterErreurReponse($defiId, $id_utilisateur);
+                        
+                    }
+                } else {
+                    $this->vue->mauvaiseDerniereReponse();
+                }
+            }
         } else {
-            $this->liste();
-            $this->vue->mauvaiseReponse();
-        }
+             $_SESSION["erreur"] = "Erreur !";
+         }
     }
 
     private function getIdUtilisateur() {
@@ -37,7 +59,6 @@ class ContDefi {
 
 
     function exec(){
-
         switch ($this->action){
             case "bienvenue":
                 $this->vue->bienvenue();
@@ -46,16 +67,10 @@ class ContDefi {
                  $this->liste();
                 break;
             case "traiterReponse":
-                    if (isset($_POST['defiId']) && isset($_POST['reponse'])) {
-                        $defiId = $_POST['defiId'];
-                        $reponse = $_POST['reponse'];
-                        $this->traiterReponse($defiId, $reponse);
-                    } else {
-                        echo "Erreur !";
-                    }
+                $this->traiterReponse();
                 break;
             default:
-                echo "erreur";
+            $_SESSION["erreur"] = "erreur";
                 break;
         }
 

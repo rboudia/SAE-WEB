@@ -1,12 +1,17 @@
+<head>
+	<link rel="stylesheet" href="modules/mod_ennemi/Css-Ennemi.css">
+	</head>
 <?php
 require_once 'vue_generique.php';
+
 
 class VueEnnemi extends VueGenerique {
 
     function affiche_liste($tab) {
+	
         foreach($tab as $element) {
             ?>
-            <center><li><?= $element['type_ennemi'] ?> <a href="index.php?module=ennemi&action=details&id=<?= $element['id_ennemi'] ?>"> détails</a></li></center>
+            <center><li class="ennemi-item"><?= $element['type_ennemi'] ?> <a class="details-link" href="index.php?module=ennemi&action=details&id=<?= $element['id_ennemi'] ?>"> détails</a></li></center>
             <?php
         }
     }
@@ -22,42 +27,10 @@ class VueEnnemi extends VueGenerique {
     function affiche_detail($detailEnnemi) {
         if (isset($detailEnnemi['butin'])) {
 			?>
-			<style>
-    table {
-            border-collapse: collapse;
-            width: 80%;
-            max-width: 600px;
-            margin: 20px;
-            background-color: #fff;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            border-radius: 8px;
-            overflow: hidden;
-        }
-
-        th, td {
-            padding: 15px;
-            text-align: left;
-            border-bottom: 1px solid #ddd;
-        }
-
-        th {
-            background-color: #3498db;
-            color: #fff;
-        }
-
-        td:nth-child(even) {
-            background-color: #ecf0f1;
-        }
-
-        td:nth-child(odd) {
-            background-color: #fff;
-        }
-</style>
+            
 			<center>
-			<table>
-				<tr>
-					<td>Id</td> <td> <?= $detailEnnemi['id_ennemi'] ?></td>
-				</tr>
+            <div class="container">
+			<table class="styled-table">
 				<tr>
 					<td>Type ennemi</td> <td> <?= $detailEnnemi['type_ennemi'] ?></td>
 				</tr>
@@ -74,10 +47,10 @@ class VueEnnemi extends VueGenerique {
 					<td>Butin</td> <td> <?= $detailEnnemi['butin'] ?></td>
 				</tr>
                 <tr>
-					<td>Imunnite</td> <td> <?= $detailEnnemi['immunite'] ?></td>
+					<td>Immunité</td> <td> <?= $detailEnnemi['immunite'] ?></td>
 				</tr>
                 <tr>
-					<td>Capacite obstacle</td> <td> <?= $detailEnnemi['capacite_obstacle'] ?></td>
+					<td>Capacitée obstacle</td> <td> <?= $detailEnnemi['capacite_obstacle'] ?></td>
 				</tr>
                 <tr>
 					<td>Strategie attaque</td> <td> <?= $detailEnnemi['strategie_attaque'] ?></td>
@@ -85,10 +58,11 @@ class VueEnnemi extends VueGenerique {
                 <tr>
 					<td>Strategie déplacement</td> <td> <?= $detailEnnemi['strategie_deplacement'] ?></td>
 				</tr>
-                <tr>
-					<td><img src=<?= $detailEnnemi['image']?> width="50" height="50"/></td>
-				</tr>
 			</table>
+            <div class="center-image">
+            <img src=<?= $detailEnnemi['image']?> alt="Ennemi Image"/>
+        </div>
+    </div
 		</center>
 			<?php
         } else {
@@ -101,14 +75,9 @@ class VueEnnemi extends VueGenerique {
     
 
     function menu(){
-		if(isset($_SESSION['erreur'])){
-            ?>
-            <div style="color:red"><?=$_SESSION['erreur']?></div><br>
-            <?php
-            unset($_SESSION['erreur']);
-        }
 		?>
-		<ul>
+		
+		<ul class="menu-list">
 			<li><a href="index.php?module=info">Retour aux informations du jeu</a></li>
 			<?php if($_GET['action']=='details') {
 				?>

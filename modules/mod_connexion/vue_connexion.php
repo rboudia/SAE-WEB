@@ -14,10 +14,12 @@ class VueConnexion extends VueGenerique {
                 unset($_SESSION['erreur']);
             }
             ?>
-            <form method="post" action="index.php?module=connexion&action=inscription" class="animationFormulaireIns">
+
+            <form method="post" action="index.php?module=connexion&action=inscription" class="animationFormulaireIns" enctype="multipart/form-data">
                 Pseudo: <input type="text" name="pseudo" required><br>
                 Login: <input type="text" name="login" required><br>
                 Mot de passe: <input type="password" name="mdp" required><br>
+                Photo de profil: <input type="file" name="logo" accept="image/*" ><br>
                 <input type="submit" value="S'inscrire">
             </form>
         </div>
@@ -29,7 +31,7 @@ class VueConnexion extends VueGenerique {
             $utilisateur = $_SESSION['user'];
             ?>
             <div>
-                <li>Vous êtes déjà connecté sous le pseudo <?= $utilisateur['pseudo'] ?> !</li>
+                <li>Vous êtes connecté sous le pseudo <?= $utilisateur['pseudo'] ?> !</li>
                 <li><a href="index.php?module=connexion&action=deconnexion">Déconnexion</a></li>
             </div>
             <?php

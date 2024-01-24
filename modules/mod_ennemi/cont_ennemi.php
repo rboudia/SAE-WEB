@@ -11,7 +11,7 @@ class ContEnnemi {
     function __construct() {
         $this->vue = new VueEnnemi();
         $this->modele = new ModeleEnnemi();
-        $this->action = isset($_GET['action']) ? $_GET['action'] : "liste_sans" ;
+        $this->action = isset($_GET['action']) ? $_GET['action'] : "r" ;
     }
 
     function liste() {
@@ -40,6 +40,8 @@ class ContEnnemi {
                 $this->vue->menu();
                 $id = isset($_GET['id']) ? $_GET['id'] : "Error" ;
                 $this->id_ennemi($id);
+                break;
+            case "r":
                 break;
             default:
                 $_SESSION["erreur"] = "Erreur action incorrecte.";

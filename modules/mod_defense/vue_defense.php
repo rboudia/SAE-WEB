@@ -3,11 +3,14 @@ require_once 'vue_generique.php';
 
 class VueDefense extends VueGenerique {
 
-    function affiche_liste($tab) {
+    function affiche_liste($tab,$i) {
         foreach($tab as $element) {
+            
+            if($element['t_defense']==$i) {
             ?>
             <center><li><?= $element['type_defense'] ?> <a href="index.php?module=defense&action=details&id=<?= $element['id_defense'] ?>"> détails</a></li></center>
             <?php
+            }
         }
     }
 
@@ -20,7 +23,7 @@ class VueDefense extends VueGenerique {
     }
 
     function affiche_detail($detailDefense) {
-        if (isset($detailDefense['cout_achat'])) {
+        
 			?>
 			<style>
     table {
@@ -90,11 +93,7 @@ class VueDefense extends VueGenerique {
 			</table>
 			</center>
 			<?php
-        } else {
-            ?>
-			<div>Aucune description n'a été trouvée pour cette equipe.</div>
-			<?php
-        }
+        
     }
 
     
@@ -109,13 +108,21 @@ class VueDefense extends VueGenerique {
 		?>
 		<ul>
 		<li><a href="index.php?module=info">Retour aux informations du jeu</a></li>
-			<?php if($_GET['action']=='details') {
+			<?php if($_GET['action']=='details' || isset($_GET['i'])) {
 				?>
-        	<li><a href="index.php?module=ennemi&action=liste">Retour à la liste des défenses</a></li>
+        	<li><a href="index.php?module=defense&action=liste">Retour à la liste des défenses</a></li>
 			<?php } ?>
         </ul>
 		<?php
 
 	}
+
+    public function menu_spe() {
+        ?>
+        <li><a href="index.php?module=info">Retour aux informations du jeu</a></li>
+        <li> <a href="index.php?module=defense&action=liste_spe&i=1">Liste des tours</a></li>
+        <li> <a href="index.php?module=defense&action=liste_spe&i=2">Liste des obstacles</a></li>
+        <?php
+    }
 }
 ?>

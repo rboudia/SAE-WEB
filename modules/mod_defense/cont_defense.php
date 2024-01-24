@@ -14,8 +14,8 @@ class ContDefense {
         $this->action = isset($_GET['action']) ? $_GET['action'] : "liste_sans" ;
     }
 
-    function liste() {
-        $this->vue->affiche_liste($this->modele->getListe());
+    function liste_spe($i) {
+        $this->vue->affiche_liste($this->modele->getListe(),$i);
     }
 
     function liste_sans() {
@@ -29,9 +29,13 @@ class ContDefense {
     function exec(){
 
         switch ($this->action){
-            case "liste":
+            case "liste" :
+                $this->vue->menu_spe();
+                break;
+            case "liste_spe":
                 $this->vue->menu();
-                $this->liste();
+                $i = isset($_GET['i']) ? $_GET['i'] : "Error";
+                $this->liste_spe($i);
                 break;
             case "liste_sans":
                 $this->liste_sans();
