@@ -8,7 +8,7 @@
 .styled-table {
     border-collapse: collapse;
     width: 50%;
-    margin-right: 20px; /* Add margin for spacing between table and image */
+    margin-right: 20px;
 }
 
 .styled-table th,
@@ -30,8 +30,9 @@
 }
 
 .center-image img {
-    width: 250px; /* Increase image size as needed */
+    width: 250px; 
     height: 250px;
+    margin-left: auto;
 }
 
 .ennemi-item {
@@ -40,8 +41,8 @@
     padding: 10px;
     background-color: #f2f2f2;
     border-radius: 5px;
-    max-width: 400px; /* Ajoutez cette ligne pour définir la largeur maximale */
-    margin-left: auto; /* Centrer l'élément en utilisant margin-left et margin-right auto */
+    max-width: 400px; 
+    margin-left: auto; 
     margin-right: auto;
 }
 
@@ -56,6 +57,7 @@
     list-style-type: none;
     padding: 0;
     margin: 0;
+    margin-bottom:100px;
     background-color: #051168 ;
     border-radius: 5px;
     overflow: hidden;

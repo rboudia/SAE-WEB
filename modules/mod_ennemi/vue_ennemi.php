@@ -8,12 +8,11 @@ require_once 'vue_generique.php';
 class VueEnnemi extends VueGenerique {
 
     function affiche_liste($tab) {
-	
-        foreach($tab as $element) {
-            ?>
-            <center><li class="ennemi-item"><?= $element['type_ennemi'] ?> <a class="details-link" href="index.php?module=ennemi&action=details&id=<?= $element['id_ennemi'] ?>"> détails</a></li></center>
-            <?php
-        }
+		foreach ($tab as $element) {
+		?>
+			<li class="ennemi-item"><?= $element['type_ennemi'] ?> <a class="details-link" href="index.php?module=ennemi&action=details&id=<?= $element['id_ennemi'] ?>"> détails</a></li>
+		<?php
+		}
     }
 
 	function affiche_liste_sans($tab) {
@@ -25,10 +24,7 @@ class VueEnnemi extends VueGenerique {
     }
 
     function affiche_detail($detailEnnemi) {
-        if (isset($detailEnnemi['butin'])) {
 			?>
-            
-			<center>
             <div class="container">
 			<table class="styled-table">
 				<tr>
@@ -62,14 +58,9 @@ class VueEnnemi extends VueGenerique {
             <div class="center-image">
             <img src=<?= $detailEnnemi['image']?> alt="Ennemi Image"/>
         </div>
-    </div
-		</center>
+		</div>
 			<?php
-        } else {
-            ?>
-			<div>Aucune description n'a été trouvée pour cette equipe.</div>
-			<?php
-        }
+        
     }
 
     
