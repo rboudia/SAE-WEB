@@ -1,0 +1,42 @@
+.center-container {
+    text-align: center;
+    margin: 20px auto; /* Center the container horizontally */
+    margin-top:100px; 
+}
+
+table {
+    width: 50%;
+    border-collapse: collapse;
+    margin: auto;
+    margin-top: 20px;
+    
+}
+
+td {
+    width: 33%;
+    padding: 10px;
+    text-align: center;
+    border: 1px solid #ddd;
+    
+}
+
+.t {
+    text-decoration: none;
+    color: #5468F9;
+    font-weight: bold;
+    display: block;
+    padding: 10px;
+    transition: background-color 0.3s;
+    
+}
+
+.t:hover {
+    background-color: #f2f2f2;
+}
+
+.texte {
+    max-width: 600px; /* Set a max-width for the paragraph */
+    margin: 20px auto; /* Center the paragraph horizontally */
+    background-color: #ffffff;
+    border-radius:8px;
+}
