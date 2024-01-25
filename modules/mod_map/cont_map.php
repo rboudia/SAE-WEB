@@ -10,15 +10,11 @@
         function __construct() {
             $this->vue = new VueMap();
             $this->modele = new ModeleMap();
-            $this->action = isset($_GET['action']) ? $_GET['action'] : "liste_sans" ;
+            $this->action = isset($_GET['action']) ? $_GET['action'] : "liste" ;
         }
 
         function liste() {
             $this->vue->affiche_liste($this->modele->getListe());
-        }
-    
-        function liste_sans() {
-            $this->vue->affiche_liste_sans($this->modele->getListe());
         }
     
         function id_map($idMap) {
@@ -31,9 +27,6 @@
                 case "liste":
                     $this->vue->menu();
                     $this->liste();
-                    break;
-                case "liste_sans":
-                    $this->liste_sans();
                     break;
                 case "details":
                     $this->vue->menu();

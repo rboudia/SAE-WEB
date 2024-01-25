@@ -1,6 +1,3 @@
-<head>
-	<link rel="stylesheet" href="modules/mod_ennemi/Css-Ennemi.css">
-	</head>
 <?php
 require_once 'vue_generique.php';
 
@@ -10,7 +7,7 @@ class VueEnnemi extends VueGenerique {
     function affiche_liste($tab) {
 		foreach ($tab as $element) {
 		?>
-			<li class="ennemi-item"><?= $element['type_ennemi'] ?> <a class="details-link" href="index.php?module=ennemi&action=details&id=<?= $element['id_ennemi'] ?>"> détails</a></li>
+			<li class="item"><?= $element['type_ennemi'] ?> <a class="details-link" href="index.php?module=ennemi&action=details&id=<?= $element['id_ennemi'] ?>"> détails</a></li>
 		<?php
 		}
     }
@@ -49,7 +46,7 @@ class VueEnnemi extends VueGenerique {
 			</table>
             <div class="center-image">
             <img src=<?= $detailEnnemi['image']?> alt="Ennemi Image"/>
-        </div>
+        	</div>
 		</div>
 			<?php
         

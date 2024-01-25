@@ -11,15 +11,11 @@ class ContEnnemi {
     function __construct() {
         $this->vue = new VueEnnemi();
         $this->modele = new ModeleEnnemi();
-        $this->action = isset($_GET['action']) ? $_GET['action'] : "r" ;
+        $this->action = isset($_GET['action']) ? $_GET['action'] : "liste" ;
     }
 
     function liste() {
         $this->vue->affiche_liste($this->modele->getListe());
-    }
-
-    function liste_sans() {
-        $this->vue->affiche_liste_sans($this->modele->getListe());
     }
 
     function id_ennemi($idEnnemi) {
@@ -33,15 +29,10 @@ class ContEnnemi {
                 $this->vue->menu();
                 $this->liste();
                 break;
-            case "liste_sans":
-                $this->liste_sans();
-                break;
             case "details":
                 $this->vue->menu();
                 $id = isset($_GET['id']) ? $_GET['id'] : "Error" ;
                 $this->id_ennemi($id);
-                break;
-            case "r":
                 break;
             default:
                 $_SESSION["erreur"] = "Erreur action incorrecte.";

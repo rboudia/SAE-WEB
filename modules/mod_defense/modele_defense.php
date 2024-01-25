@@ -12,15 +12,17 @@ class ModeleDefense extends Connexion {
     }
 
     function getListe() {
-        $requete = $this->connexion->getBdd()->query("SELECT id_defense,nom_defense,type_defense from defense");
+        $requete = $this->connexion->getBdd()->prepare("SELECT id_defense,nom_defense,type_defense from defense");
+        $requete->execute();
         $tableau = $requete->fetchAll();
         return $tableau;
     }
 
     function getDetail($idDefense){
-        $requete = $this->connexion->getBdd()->query("SELECT * FROM defense WHERE id_defense = '$idDefense'");
-        $bio = $requete->fetch(PDO::FETCH_ASSOC);
-        return $bio;
+        $requete = $this->connexion->getBdd()->prepare("SELECT * FROM defense WHERE id_defense = '$idDefense'");
+        $requete->execute();
+        $detail = $requete->fetch();
+        return $detail;
     }
 }
 
