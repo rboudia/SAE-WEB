@@ -15,6 +15,8 @@
     require_once 'modules/mod_ami/mod_ami.php';
     require_once 'modules/mod_amelioration/mod_amelioration.php';
     require_once 'modules/mod_communaute/mod_communaute.php';
+    require_once 'modules/mod_tournoi/mod_tournoi.php';
+
 
     require_once 'composants/CompMenu/comp_menu.php';
 
@@ -86,6 +88,10 @@
             case "communaute":
                 $modCommunaute = new ModCommunaute();
                 $tampon = $modCommunaute->getAffichage();
+                break;
+            case "tournoi":
+                $modTournoi = new ModTournoi();
+                $tampon = $modTournoi->getAffichage();
                 break;
         }
     $menuComponent = new CompMenu();

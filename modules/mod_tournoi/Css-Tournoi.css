@@ -1,0 +1,91 @@
+/* Styles pour affiche_liste */
+h2 {
+    text-align: center;
+    color: #3498db;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+th {
+    background-color: #f2f2f2;
+}
+
+button {
+    padding: 8px 16px;
+    background-color: #3498db;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #2980b9;
+}
+
+.centered-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+.tournoi-container {
+    display: inline-block; /* Affiche les éléments sur la même ligne */
+    width: 20%; /* Ajustez la largeur selon vos besoins */
+    margin-right: 2%; /* Espace entre les éléments (ajustez selon vos besoins) */
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+@media screen and (max-width: 1000px) {
+    .tournoi-container {
+        width: 40%; /* Occupe toute la largeur sur les petits écrans */
+        margin-right: 0; /* Aucun espacement entre les éléments */
+    }
+}
+
+/* Responsive Styles */
+@media screen and (max-width: 600px) {
+    .tournoi-container {
+        display: block; /* Empile les éléments en colonne sur les petits écrans */
+        width: 100%; /* Occupe toute la largeur sur les petits écrans */
+        margin-right: 0; /* Aucun espacement entre les éléments */
+    }
+}
+
+.tournoi-container h3 {
+    background-color: #f2f2f2;
+    padding: 10px;
+    margin: 0;
+    border-radius: 8px 8px 0 0;
+    text-align: center;
+
+}
+
+.tournoi-details {
+    padding: 10px;
+}
+
+/* Responsive Styles */
+@media screen and (max-width: 600px) {
+    th, td {
+        padding: 6px;
+    }
+
+    button {
+        padding: 6px 12px;
+    }
+    
+}
