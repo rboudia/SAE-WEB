@@ -53,6 +53,10 @@ class VueDefense extends VueGenerique {
 						}
 					?>
 			</table>
+			<div class="image_item">
+            <img src=<?= $detailDefense['image']?> alt="Defense Image"/>
+        	</div>
+		</div>
 			<?php     
     }  
 
