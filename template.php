@@ -12,9 +12,12 @@
     <div class="header-container">
         <img src="images/Logo.png" alt="Logo" style="width: 175px; height: auto;">
         <nav>
-            <?php
-            $menuComponent->affiche();
-            ?>
+            <button class="menu-btn">&#9776; Menu</button>
+            <ul class="nav-list">
+                <?php
+                $menuComponent->affiche();
+                ?>
+            </ul>
         </nav>
     </div>
 </header>
@@ -26,6 +29,17 @@
         }
     echo $tampon;
 ?>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const menuBtn = document.querySelector('.menu-btn');
+        const navList = document.querySelector('.nav-list');
+
+        menuBtn.addEventListener('click', function () {
+            navList.classList.toggle('show');
+        });
+    });
+</script>
+
     </main>
 
 <footer>

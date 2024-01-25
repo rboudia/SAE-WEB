@@ -13,6 +13,8 @@
     require_once 'modules/mod_partie/mod_partie.php';
     require_once 'modules/mod_message/mod_message.php';
     require_once 'modules/mod_ami/mod_ami.php';
+    require_once 'modules/mod_amelioration/mod_amelioration.php';
+    require_once 'modules/mod_communaute/mod_communaute.php';
 
     require_once 'composants/CompMenu/comp_menu.php';
 
@@ -49,35 +51,43 @@
             $modDefense = new ModDefense();
             $tampon = $modDefense->getAffichage();
             break;
-        case 'map':
-            $modMap = new ModMap();
-            $tampon = $modMap->getAffichage();
-            break;
-        case 'defi':
-            $modDefi = new ModDefi();
-            $tampon = $modDefi->getAffichage();
-            break;
-        case "profil":
-            $modProfil = new ModProfil();
-            $tampon = $modProfil->getAffichage();
-            break; 
-        case "classement":
-            $modClassement = new ModClassement();
-            $tampon = $modClassement->getAffichage();
-            break;
-        case "partie":
-            $modPartie = new ModPartie();
-            $tampon = $modPartie->getAffichage();
-            break;
-        case "message":
-            $modMessage = new ModMessage();
-            $tampon = $modMessage->getAffichage();
-            break;
-        case "ami":
-            $modAmi = new ModAmi();
-            $tampon = $modAmi->getAffichage();
-            break;
-    }
+            case 'map':
+                $modMap = new ModMap();
+                $tampon = $modMap->getAffichage();
+                break;
+            case 'defi':
+                $modDefi = new ModDefi();
+                $tampon = $modDefi->getAffichage();
+                break;
+            case "profil":
+                $modProfil = new ModProfil();
+                $tampon = $modProfil->getAffichage();
+                break; 
+            case "classement":
+                $modClassement = new ModClassement();
+                $tampon = $modClassement->getAffichage();
+                break;
+            case "partie":
+                $modPartie = new ModPartie();
+                $tampon = $modPartie->getAffichage();
+                break;
+            case "message":
+                $modMessage = new ModMessage();
+                $tampon = $modMessage->getAffichage();
+                break;
+            case "ami":
+                $modAmi = new ModAmi();
+                $tampon = $modAmi->getAffichage();
+                break;
+            case "amelioration":
+                $modAmelioration = new ModAmelioration();
+                $tampon = $modAmelioration->getAffichage();
+                break;
+            case "communaute":
+                $modCommunaute = new ModCommunaute();
+                $tampon = $modCommunaute->getAffichage();
+                break;
+        }
     $menuComponent = new CompMenu();
     require_once 'template.php';
 ?>
