@@ -57,16 +57,12 @@ class ModeleTournoi extends Connexion {
         $requete->execute([$id_utilisateur, $defiId, $numero]);
     }
 
-    function verifierReponse($defiId, $reponse) {
-        $requete = $this->connexion->getBdd()->prepare("SELECT solution FROM defi WHERE id_defi = ?");
-        $requete->execute([$defiId]);
+    function verifTournoiJoueur($id) {
+        $requete = $this->connexion->getBdd()->prepare("SELECT tournoi FROM joueur WHERE id_joueur = ?");
+        $requete->execute([$id]);
         $resultat = $requete->fetch();
         
-        if ($resultat && strtolower($resultat['solution']) == strtolower($reponse)) {
-            return true; 
-        } else {
-            return false; 
-        }
+        return ($resultat['tournoi'] === null);
     }
 
     function ajouterJetonUtilisateur($id_utilisateur) {

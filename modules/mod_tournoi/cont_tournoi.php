@@ -20,12 +20,8 @@ class ContTournoi {
 
     function traiterReponse() {
         if ($this->modele->verifTournoiJoueur($_SESSION['user']['id_joueur'])) {
-            $defiId = $_POST['defiId'];
-            $reponse = $_POST['reponse'];
-            $id_utilisateur = $this->getIdUtilisateur();
-            $dejaRepondu = $this->modele->aDejaReponduCorrectement($defiId, $id_utilisateur);
-
-            $this->liste();
+            
+            
             if ($dejaRepondu === null) {
                 $this->modele->enregistrerReponse($defiId, $id_utilisateur, 0);
                 $dejaRepondu = $this->modele->aDejaReponduCorrectement($defiId, $id_utilisateur);
@@ -49,7 +45,7 @@ class ContTournoi {
                 }
             }
         } else {
-             $_SESSION["erreur"] = "Erreur !";
+             $_SESSION["erreur"] = "Dèjà inscrit à un tournoi !";
          }
     }
 
@@ -66,6 +62,7 @@ class ContTournoi {
             case "traiterReponse":
                 $id = isset($_GET['id']) ? $_GET['id'] : "Error" ;
                 $this->traiterReponse($id);
+                $this->liste();
                 break;
             default:
             $_SESSION["erreur"] = "erreur";
