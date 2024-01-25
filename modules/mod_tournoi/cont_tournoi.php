@@ -18,39 +18,12 @@ class ContTournoi {
         $this->vue->affiche_liste($this->modele->getListe());
     }
 
-    function traiterReponse() {
+    function traiterReponse($id) {
         if ($this->modele->verifTournoiJoueur($_SESSION['user']['id_joueur'])) {
-            
-            
-            if ($dejaRepondu === null) {
-                $this->modele->enregistrerReponse($defiId, $id_utilisateur, 0);
-                $dejaRepondu = $this->modele->aDejaReponduCorrectement($defiId, $id_utilisateur);
-            }
-            if ($dejaRepondu['repondu'] == 4) {
-                $this->vue->dejaReponduCorrectement();
-            }else{
-                if($dejaRepondu['repondu'] == 1 || $dejaRepondu['repondu'] == 2 || $dejaRepondu['repondu'] == 0){
-                    $reponseCorrecte = $this->modele->verifierReponse($defiId, $reponse);
-                    if ($reponseCorrecte) {
-                        $this->modele->bonneReponse($defiId, $id_utilisateur);
-                        $this->modele->ajouterJetonUtilisateur($id_utilisateur);
-                        $this->vue->bonneReponse();
-                    } else {
-                        $this->vue->mauvaiseReponse($dejaRepondu['repondu']);   
-                        $this->modele->ajouterErreurReponse($defiId, $id_utilisateur);
-                        
-                    }
-                } else {
-                    $this->vue->mauvaiseDerniereReponse();
-                }
-            }
+            $this->modele->enregistrerTournoi($_SESSION['user']['id_joueur'], $id);
         } else {
              $_SESSION["erreur"] = "Dèjà inscrit à un tournoi !";
-         }
-    }
-
-    private function getIdUtilisateur() {
-        return isset($_SESSION['user']['id_joueur']) ? $_SESSION['user']['id_joueur'] : null;
+        }
     }
 
 

@@ -29,32 +29,14 @@ class ModeleTournoi extends Connexion {
         return $tableau;
     }
 
-    function ajouterErreurReponse($defiId, $id_utilisateur) {
-        $requete = $this->connexion->getBdd()->prepare("UPDATE joueurDefi SET repondu = repondu + 1 WHERE id_defi = ? AND id_joueur = ?");
-        $requete->execute([$defiId, $id_utilisateur]);
+    function enregistrerTournoi($id, $idtournoi) {
+        $requete = $this->connexion->getBdd()->prepare("UPDATE joueur SET tournoi = ? WHERE id_joueur = ?");
+        $requete->execute([$idtournoi, $id]);
     }
 
-    function bonneReponse($defiId, $id_utilisateur) {
-        $requete = $this->connexion->getBdd()->prepare("UPDATE joueurDefi SET repondu = 4 WHERE id_defi = ? AND id_joueur = ?");
-        $requete->execute([$defiId, $id_utilisateur]);
-    }
-
-
-    function aDejaReponduCorrectement($defiId, $id_utilisateur) {
-        $requete = $this->connexion->getBdd()->prepare("SELECT repondu FROM joueurDefi WHERE id_defi = ? AND id_joueur = ?");
-        $requete->execute([$defiId, $id_utilisateur]);
-        $resultat = $requete->fetch();
-        if (isset($resultat["repondu"])) {
-            return $resultat;
-        } else {
-            return null; 
-        }
-
-    }
-
-    function enregistrerReponse($defiId, $id_utilisateur, $numero) {
-        $requete = $this->connexion->getBdd()->prepare("INSERT INTO joueurDefi (id_joueur, id_defi, repondu) VALUES (?, ?, ?)");
-        $requete->execute([$id_utilisateur, $defiId, $numero]);
+    function supprimerTournoi($id) {
+        $requete = $this->connexion->getBdd()->prepare("UPDATE joueur SET tournoi = NULL WHERE id_joueur = ?");
+        $requete->execute([$id]);
     }
 
     function verifTournoiJoueur($id) {
@@ -64,13 +46,6 @@ class ModeleTournoi extends Connexion {
         
         return ($resultat['tournoi'] === null);
     }
-
-    function ajouterJetonUtilisateur($id_utilisateur) {
-        $requete = $this->connexion->getBdd()->prepare("UPDATE joueur SET jeton = jeton + 2 WHERE id_joueur = ?");
-        $requete->execute([$id_utilisateur]);
-    }
-
-
 }
 
 ?>

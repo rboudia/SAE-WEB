@@ -39,6 +39,7 @@ class ContAmelioration {
                     } else {
                         $this->vue->messageErreur();
                     }
+                    $solde = $this->modele->getSoldeJoueur($utilisateur["id_joueur"]);
                     $this->vue->bienvenue($solde);
                     $def = $this->modele->getDefense();
                     $this->vue->affichageDefense($def);
