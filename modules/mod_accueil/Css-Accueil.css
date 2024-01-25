@@ -62,3 +62,30 @@ body, html {
 .button1:hover {
     background-color: #45a049;
 }
+
+@media only screen and (max-width: 768px) {
+    .flex-container {
+        flex-direction: column;
+    }
+
+    .rectangle {
+        height: auto;
+        margin-top: 20px;
+    }
+
+    .text-container {
+        margin: 20px;
+    }
+
+    .styled-text {
+        font-size: 28px;
+    }
+
+    .desc {
+        font-size: 18px;
+    }
+
+    .button1 {
+        margin-top: 20px;
+    }
+}
