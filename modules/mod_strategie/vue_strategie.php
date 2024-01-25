@@ -1,6 +1,3 @@
-<head>
-            <link rel="stylesheet" href="modules/mod_strategie/Css-Strategie.css">
-        </head>
 <?php
 require_once 'vue_generique.php';
 
@@ -8,6 +5,9 @@ class VueStrategie extends VueGenerique{
 
 	public function bienvenue() {
         ?>
+        <head>
+            <link rel="stylesheet" href="modules/mod_strategie/Css-Strategie.css">
+        </head>
       <div class="section_strategie">
         <h1 class="titre_strategie">Stratégie : Sélectionnez un item pour consulter ses stratégies :</h1> 
         <div class="liens_strategie"> 
@@ -21,6 +21,9 @@ class VueStrategie extends VueGenerique{
 
 	function affiche_listeEnnemi($tab) {
         ?>
+        <head>
+            <link rel="stylesheet" href="modules/mod_strategie/Css-Strategie.css">
+        </head>
         <div class="section_strategie">
             <h1 class="titre_strategie">Stratégie des ennemis :</h1>
     
@@ -59,6 +62,9 @@ class VueStrategie extends VueGenerique{
 
 	function affiche_listeDefense($tab) {
         ?>
+        <head>
+            <link rel="stylesheet" href="modules/mod_strategie/Css-Strategie.css">
+        </head>
         <div class="section_strategie">
 
         <h1 class="titre_strategie">Stratégie des défenses :</h1>
@@ -79,6 +85,7 @@ class VueStrategie extends VueGenerique{
         <?php
         if (isset($_SESSION['user'])) {
         ?>
+        
             <div class="suggestion_strategie">
                 <p><a class="lien_strategie" href="index.php?module=strategie&action=suggestion">Suggérer une stratégie</a></p>
             </div>
@@ -93,6 +100,9 @@ class VueStrategie extends VueGenerique{
 
     function affiche_suggestion() {
         ?>
+        <head>
+            <link rel="stylesheet" href="modules/mod_strategie/Css-Strategie.css">
+        </head>
         <div class="section_strategie">
             <h1 class="titre_strategie">Suggestion de stratégie :</h1>
             <h2 class="sous-titre_strategie">Vous avez la possibilité de suggérer de nouvelles stratégies pour les tours ou les obstacles. Écrivez-la dans un court texte pour que nous puissions la traiter (Cela vous coûtera 1 jeton) :</h2>
@@ -131,6 +141,9 @@ class VueStrategie extends VueGenerique{
 
 	function menu() {
         ?>
+        <head>
+            <link rel="stylesheet" href="modules/mod_strategie/Css-Strategie.css">
+        </head>
         <div class="section_strategie">
             <ul class="liste-menu_strategie">
                 <li><a class="lien-menu_strategie" href="index.php?module=strategie">Retour aux stratégies</a></li>

@@ -59,6 +59,7 @@ button:hover {
 }
 
 @media screen and (max-width: 1000px) {
+    
     .tournoi-container {
         width: 40%; /* Occupe toute la largeur sur les petits écrans */
         margin-right: 0; /* Aucun espacement entre les éléments */
@@ -67,6 +68,11 @@ button:hover {
 
 /* Responsive Styles */
 @media screen and (max-width: 600px) {
+    .centered-container {
+        display: block;
+        justify-content: center;
+        align-items: center;
+      }
     .tournoi-container {
         display: block; /* Empile les éléments en colonne sur les petits écrans */
         width: 100%; /* Occupe toute la largeur sur les petits écrans */
