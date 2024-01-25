@@ -49,6 +49,15 @@ button:hover {
     text-align: center;
 }
 
+.container {
+    display: block;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    margin: 10px;
+    text-align: center;
+}
+
 @media screen and (max-width: 1000px) {
     .tournoi-container {
         width: 40%; /* Occupe toute la largeur sur les petits écrans */
