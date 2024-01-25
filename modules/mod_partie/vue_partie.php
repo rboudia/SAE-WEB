@@ -42,7 +42,7 @@ class VuePartie extends VueGenerique{
         echo '</ul>';
         if (!isset($_SESSION['user'])) {
             ?>
-            <div class="connexion-message">Pour accéder aux défis, veuillez vous <a class="connexion-link" href="index.php?module=connexion&action=connexion">connecter</a> SVP !</div>
+            <div class="connexion-message">Pour accéder aux détails des parties, veuillez vous <a class="connexion-link" href="index.php?module=connexion&action=connexion">connecter</a> SVP !</div>
             <?php
         }
     }

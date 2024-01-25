@@ -14,6 +14,7 @@
     require_once 'modules/mod_message/mod_message.php';
     require_once 'modules/mod_ami/mod_ami.php';
     require_once 'modules/mod_amelioration/mod_amelioration.php';
+    require_once 'modules/mod_communaute/mod_communaute.php';
 
     require_once 'composants/CompMenu/comp_menu.php';
 
@@ -81,6 +82,10 @@
             case "amelioration":
                 $modAmelioration = new ModAmelioration();
                 $tampon = $modAmelioration->getAffichage();
+                break;
+            case "communaute":
+                $modCommunaute = new ModCommunaute();
+                $tampon = $modCommunaute->getAffichage();
                 break;
         }
     $menuComponent = new CompMenu();
