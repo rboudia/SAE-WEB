@@ -1,3 +1,6 @@
+<head>
+            <link rel="stylesheet" href="modules/mod_strategie/Css-Strategie.css">
+        </head>
 <?php
 require_once 'vue_generique.php';
 
@@ -5,74 +8,62 @@ class VueStrategie extends VueGenerique{
 
 	public function bienvenue() {
         ?>
-        <head>
-            <meta charset="UTF-8">
-            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <link rel="stylesheet" href="modules/mod_strategie/Css-Strategie.css">
-        </head>
-        <body>
-
-        <h1>Stratégie : Sélectionnez un item pour consulter ses stratégies :</h1> 
-		<div> 
-		    <a href="index.php?module=strategie&action=tour">Tour</a> 
-		    <a href="index.php?module=strategie&action=ennemi">Ennemi</a> 
-		</div>
+      <div class="section_strategie">
+        <h1 class="titre_strategie">Stratégie : Sélectionnez un item pour consulter ses stratégies :</h1> 
+        <div class="liens_strategie"> 
+            <a class="lien_strategie" href="index.php?module=strategie&action=tour">Tour</a> 
+            <a class="lien_strategie" href="index.php?module=strategie&action=ennemi">Ennemi</a> 
+        </div>
+    </div>
 
 		<?php
     }
 
 	function affiche_listeEnnemi($tab) {
         ?>
-        <!DOCTYPE html>
-        <html lang="fr">
-        <head>
-            <meta charset="UTF-8">
-            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <link rel="stylesheet" href="modules/mod_strategie/Css-Strategie.css">
-        </head>
-        <body>
-
-        <h1>Stratégie des ennemis :</h1>
-
-        <table>
-            <tr><th>Nom</th><th>Description</th></tr>
+        <div class="section_strategie">
+            <h1 class="titre_strategie">Stratégie des ennemis :</h1>
+    
+            <table class="table_strategie">
+                <tr><th>Nom</th><th>Description</th></tr>
+                <?php
+                foreach($tab as $liste) {
+                    ?>
+                    <tr>
+                        <td><?= $liste['nom'] ?> </td>
+                        <td><?= $liste['description'] ?> </td>
+                    </tr>
+                    <?php
+                }
+                ?> 
+            </table>       
             <?php
-            foreach($tab as $liste) {
-            ?>
-                <tr>
-                    <td><?= $liste['nom'] ?> </td>
-                    <td><?= $liste['description'] ?> </td>
-                </tr>
-            <?php
+            if (isset($_SESSION['user'])) {
+                ?>
+                <div class="suggestion_strategie">
+                    <p><a class="lien_strategie" href="index.php?module=strategie&action=suggestion">Suggérer une stratégie</a></p>
+                </div>
+                <?php
+            } else {
+                ?>
+                <div class="connexion_strategie">
+                    <p>Pour accéder aux défis, veuillez vous <a class="lien_strategie" href="index.php?module=connexion&action=connexion"> connecter</a> SVP !</p>
+                </div>
+                <?php
             }
-            ?> 
-        </table>       
-        <?php
-        if (isset($_SESSION['user'])) {
         ?>
-            <div>
-                <p><a href="index.php?module=strategie&action=suggestion">Suggérer une stratégie</a></p>
-            </div>
+        </div>
         <?php
-        } else {
-        ?>
-            <div>Pour accéder aux défis, veuillez vous <a href="index.php?module=connexion&action=connexion"> connecter</a> SVP !</div>
-        <?php
-        }
     }
+    
 
 	function affiche_listeDefense($tab) {
         ?>
-        <head>
-            <meta charset="UTF-8">
-            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <link rel="stylesheet" href="modules/mod_strategie/Css-Strategie.css">
-        </head>
-        <body>
+        <div class="section_strategie">
 
-        <h1>Stratégie des défenses :</h1>
+        <h1 class="titre_strategie">Stratégie des défenses :</h1>
 
-        <table>
+        <table class="table_strategie">
             <tr><th>Nom</th><th>Description</th></tr>
             <?php
             foreach($tab as $liste) {
@@ -88,85 +79,71 @@ class VueStrategie extends VueGenerique{
         <?php
         if (isset($_SESSION['user'])) {
         ?>
-            <div>
-                <p><a href="index.php?module=strategie&action=suggestion">Suggérer une stratégie</a></p>
+            <div class="suggestion_strategie">
+                <p><a class="lien_strategie" href="index.php?module=strategie&action=suggestion">Suggérer une stratégie</a></p>
             </div>
         <?php
         } else {
         ?>
-            <div>Pour accéder aux défis, veuillez vous <a href="index.php?module=connexion&action=connexion"> connecter</a> SVP !</div>
+            <div class="connexion_strategie">Pour accéder aux défis, veuillez vous <a class="lien_strategie" href="index.php?module=connexion&action=connexion"> connecter</a> SVP !</div>
+        </div>
         <?php
         }
     }
 
     function affiche_suggestion() {
         ?>
-        <head>
-            <meta charset="UTF-8">
-            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <link rel="stylesheet" href="modules/mod_strategie/Css-Strategie.css">
-        </head>
-        <body>
-
-        <h1>Suggestion de stratégie :</h1>
-        <h2>Vous avez la possibilité de suggérer de nouvelles stratégies pour les 
-        <br>tours ou les obstacles, écrivez-la dans un court texte pour que nous 
-        <br>puissions la traiter (Cela vous coûtera 1 jeton) :</h2>
-
-        <form  method="post" action="index.php?module=strategie&action=suggestion">
-
-            <input type="hidden" name="date" value="<?php echo date('Y-m-d'); ?>">
-
-            <label for="choix">Choisir le type :</label>
-            <select name="choix" id="choix">
-                <option value="ennemi">ennemi</option>
-                <option value="tour">tour</option>
-            </select>
-
-            <br>
-
-            <input type="text" name="sug" id="sug">
-
-            <br>
-
-            <input type="submit" value="Envoyer">
-        </form>
-        <?php
-        if(isset($_SESSION['erreur'])){
-            ?>
-            <div style="color:red"><?=$_SESSION['erreur']?></div><br>
+        <div class="section_strategie">
+            <h1 class="titre_strategie">Suggestion de stratégie :</h1>
+            <h2 class="sous-titre_strategie">Vous avez la possibilité de suggérer de nouvelles stratégies pour les tours ou les obstacles. Écrivez-la dans un court texte pour que nous puissions la traiter (Cela vous coûtera 1 jeton) :</h2>
+    
+            <form class="formulaire_strategie" method="post" action="index.php?module=strategie&action=suggestion">
+                <input type="hidden" name="date" value="<?php echo date('Y-m-d'); ?>">
+    
+                <label for="choix" class="suggestion-label">Choisir le type :</label>
+                <select name="choix" id="choix" class="element-form_strategie">
+                    <option value="ennemi">ennemi</option>
+                    <option value="tour">tour</option>
+                </select>
+    
+                <br>
+    
+                <input type="text" name="sug" id="sug" class="element-form_strategie">
+    
+                <br>
+    
+                <input type="submit" value="Envoyer" class="envoyer_strategie">
+            </form>
+    
             <?php
-            unset($_SESSION['erreur']);
-        }
+            if(isset($_SESSION['erreur'])){
+                ?>
+                <div class="erreur_strategie" style="color:red"><?=$_SESSION['erreur']?></div><br>
+                <?php
+                unset($_SESSION['erreur']);
+            }
+            ?>
+        </div>
+        <?php
     }
+    
 
 
-	function menu(){
+	function menu() {
         ?>
-        <head>
-            <meta charset="UTF-8">
-            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <link rel="stylesheet" href="modules/mod_strategie/Css-Strategie.css">
-        </head>
-        <body>
+        <div class="section_strategie">
+            <ul class="liste-menu_strategie">
+                <li><a class="lien-menu_strategie" href="index.php?module=strategie">Retour aux stratégies</a></li>
+                <?php if($_GET['action']=='suggestion') {
+                ?>
+                <li><a class="lien-menu_strategie" href="index.php?module=strategie&action=ennemi">Retour à la liste de suggestion des ennemis</a></li>
+                <li><a class="lien-menu_strategie" href="index.php?module=strategie&action=tour">Retour à la liste de suggestion des tours</a></li>
+                <?php } ?>
+            </ul>
+        </div>
         <?php
-		if(isset($_SESSION['erreur'])){
-            ?>
-            <div style="color:red"><?=$_SESSION['erreur']?></div><br>
-            <?php
-            unset($_SESSION['erreur']);
-        }
-		?>
-		<ul>
-            <li><a href="index.php?module=strategie">Retour aux stratégies</a></li>
-            <?php if($_GET['action']=='suggestion') {
-            ?>
-            <li><a href="index.php?module=strategie&action=ennemi">Retour à la liste de suggestion des ennemis</a></li>
-            <li><a href="index.php?module=strategie&action=tour">Retour à la liste de suggestion des tours</a></li>
-            <?php } ?>
-        </ul>
-        <?php
-	}
+    }
+    
 	
 }
 ?>

@@ -1,0 +1,121 @@
+.titre_strategie {
+    color: #2c3e50;
+    text-align: center;
+    font-size: 28px;
+    margin-top: 40px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.liens_strategie {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.lien_strategie {
+    margin: 0 15px;
+    text-decoration: none;
+    color: #e74c3c;
+    font-weight: bold;
+    font-size: 18px;
+    border-bottom: 2px solid transparent;
+    transition: border-bottom 0.3s ease-in-out;
+}
+
+.lien_strategie:hover {
+    border-bottom: 2px solid #e74c3c;
+}
+
+.section_strategie {
+    margin: 20px auto;
+    max-width: 800px;
+    padding: 20px;
+    background-color: #ecf0f1;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.table_strategie {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+.table_strategie th,
+.table_strategie td {
+    border: 1px solid #95a5a6;
+    padding: 8px;
+    text-align: left;
+}
+
+.suggestion_strategie,
+.connexion_strategie {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.sous-titre_strategie {
+    color: #7f8c8d;
+    text-align: center;
+    font-size: 18px;
+    margin-bottom: 20px;
+}
+
+.formulaire_strategie {
+    text-align: center;
+}
+
+.suggestion-label {
+    display: block;
+    margin-bottom: 10px;
+}
+
+.element-form_strategie,
+.envoyer_strategie {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    box-sizing: border-box;
+}
+
+.envoyer_strategie {
+    background-color: #e74c3c;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.envoyer_strategie:hover {
+    background-color: #c0392b;
+}
+
+.erreur_strategie {
+    color: red;
+    text-align: center;
+    margin-top: 15px;
+}
+
+.liste-menu_strategie {
+    list-style: none;
+    padding: 0;
+}
+
+.lien-menu_strategie {
+    display: block;
+    padding: 10px;
+    margin-bottom: 10px;
+    text-decoration: none;
+    color: #3498db;
+    background-color: #fff;
+    border: 1px solid #bdc3c7;
+    border-radius: 4px;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.lien-menu_strategie:hover {
+    background-color: #e74c3c;
+    color: #fff;
+}

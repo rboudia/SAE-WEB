@@ -60,7 +60,7 @@ class VueInfo extends VueGenerique {
 </table>
         
 <p>Cet onglet vous permet d'en apprendre plus sur notre jeu. 
-    Veuillez cliquer sur l'une des listes ci-dessus pour avoir la liste exhaustive des éléments de la liste que vous avez choisie.
+    Veuillez cliquer sur le nom de l'une des listes ci-dessus pour avoir la liste exhaustive des éléments de la liste que vous avez choisie.
 </p>
             </div>
             
