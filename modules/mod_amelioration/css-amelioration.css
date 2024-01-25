@@ -57,3 +57,35 @@ th {
     margin: 4px 2px;
     cursor: pointer;
 }
+
+.erreur-container {
+    background-color: #f8d7da;
+    color: #721c24;
+    padding: 10px;
+    border: 1px solid #f5c6cb;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+.erreur {
+    font-weight: bold;
+}
+
+.button2 {
+    display: inline-block;
+    padding: 10px;
+    background-color: #007bff;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+    margin-top: 7px;
+}
+
+.button2:hover {
+    background-color: #0056b3;
+}
+
+.ame {
+    margin-top: 15px;
+    color: #ddd;
+}

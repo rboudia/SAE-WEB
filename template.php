@@ -43,7 +43,7 @@
     </main>
 
 <footer>
-    <p>Mentions légales site</p>
+    <p>Site du groupe BOUKEBECHE BOUDIA BOUDJEMAI - Fait en 2023 - 2024</p>
 </footer>
 
 </body>
