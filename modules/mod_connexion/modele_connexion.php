@@ -4,7 +4,7 @@ class ModeleConnexion extends Connexion {
     
 	public function verifierLoginExistant($login) {
 	    try {
-		$query = self::$bdd->prepare("SELECT id_joueur, login, pseudo, mdp, photo_profil, jeton FROM joueur WHERE login = :login");
+		$query = self::$bdd->prepare("SELECT id_joueur, login, pseudo, mdp, photo_profil, jeton, tournoi FROM joueur WHERE login = :login");
 		$query->bindParam(':login', $login, PDO::PARAM_STR);
 		$query->execute();
 		$resultat =  $query->fetch(PDO::FETCH_ASSOC);

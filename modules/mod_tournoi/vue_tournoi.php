@@ -39,64 +39,27 @@ class VueTournoi extends VueGenerique {
         ?>
         </div>
         <?php
+       if ($_SESSION['user']['tournoi'] !== null) {
+        ?>
+        <h2>Tournoi rejoin</h2>
+        <div class="container">
+        <?php
+        foreach ($tab as $tournoi) {
+            if ($_SESSION['user']['tournoi'] === $tournoi['id_tournoi']) {
+                ?>
+                <h3><?= $tournoi['nom_tournoi'] ?></h3>
+                <?php
+            }
+        }
+        ?>
+        
+        <form action="index.php?module=tournoi&action=supprimerTournoi" method="post">
+            <button type="submit" name="envoyerReponse">Quitter le Tournoi</button>
+        </form>
+        </div>
+        <?php
     }
     
-
-    function mauvaiseReponse($reponse) {
-        $reponse = 2 - $reponse 
-        ?>
-            <head>
-                <meta charset='UTF-8'>
-                <meta name='viewport' content='width=device-width, initial-scale=1.0'>
-                <link rel="stylesheet" type="text/css" href="modules/mod_tournoi/Css-Tournoi.css">
-            </head>
-            <body>
-                <div class='messErr2'>Faux ! La réponse est incorrecte. Il vous reste <?= $reponse ?> essai(s) </div>
-            </body>
-            </html>
-        <?php
-    }
-
-    function mauvaiseDerniereReponse() {
-        ?>
-            <head>
-                <meta charset='UTF-8'>
-                <meta name='viewport' content='width=device-width, initial-scale=1.0'>
-                <link rel="stylesheet" type="text/css" href="modules/mod_tournoi/Css-Tournoi.css">
-            </head>
-            <body>
-                <div class='messErr2'>Faux ! La réponse est incorrecte. Vous n'avez plus d'essais... </div>
-            </body>
-            </html>
-        <?php
-    }
-
-    function dejaReponduCorrectement() {
-        ?>
-            <head>
-                <meta charset='UTF-8'>
-                <meta name='viewport' content='width=device-width, initial-scale=1.0'>
-                <link rel="stylesheet" type="text/css" href="modules/mod_tournoi/Css-Tournoi.css">
-            </head>
-            <body>
-                <div class='messErr2'>Vous avez déjà répondu correctement à cette question.</div>
-            </body>
-            </html>
-        <?php
-    }
-
-    function bonneReponse() {
-        ?>
-            <head>
-                <meta charset='UTF-8'>
-                <meta name='viewport' content='width=device-width, initial-scale=1.0'>
-                <link rel="stylesheet" type="text/css" href="modules/mod_tournoi/Css-Tournoi.css">
-            </head>
-            <body>
-                <div class='messBrep'>Bravo, +2 jetons !</div>
-            </body>
-            </html>
-        <?php
     }
 }
     ?>
