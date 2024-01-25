@@ -1,35 +1,35 @@
-.container {
+.tab_detail {
     display: flex;
     justify-content: center;
     align-items: center;
     margin-top: 150px;
 }
 
-.styled-table {
+.table_detail {
     border-collapse: collapse;
     width: 40%;
     margin-right: 20px;
 }
 
-.styled-table th,
-.styled-table td {
+.table_detail th,
+.table_detail td {
     border: 1px solid #000000;
     text-align: left;
     padding: 8px;
     
 }
 
-.styled-table td:nth-child(even) {
+.table_detail td:nth-child(even) {
     background-color: #f2f2f2;
     color: #414141;
 }
 
-.styled-table td:nth-child(odd) {
+.table_detail td:nth-child(odd) {
     background-color: #ffffff;
     color: #000000;
 }
 
-.center-image img {
+.image_item img {
     width: 250px; 
     height: 250px;
     margin-left: auto;
@@ -46,14 +46,14 @@
     margin-right: auto;
 }
 
-.details-link {
+.lien_detail {
     text-decoration: none;
     color: #5468F9;
     font-weight: bold;
     margin-left: 10px;
 }
 
-.menu-list {
+.liste_menu {
     list-style-type: none;
     padding: 0;
     margin: 0;
@@ -63,12 +63,12 @@
     overflow: hidden;
 }
 
-.menu-list li {
+.liste_menu li {
     float: left;
     margin-right: 20px;
 }
 
-.menu-list li a {
+.liste_menu li a {
     display: block;
     color: #5468F9;
     text-align: center;
@@ -77,26 +77,31 @@
     font-weight: bold;
 }
 
-.menu-list li a:hover {
+.liste_menu li a:hover {
     background-color: #ddd;
     color: #333;
 }
 
-.center-container {
+.tab_info {
     text-align: center;
-    margin: 20px auto; /* Center the container horizontally */
+    margin: 20px auto; 
     margin-top:60px; 
+    
 }
 
-.center-container table {
+.tab_info table {
     width: 50%;
     border-collapse: collapse;
     margin: auto;
     margin-top: 20px;
-    
+    background-color: #ffffff;
 }
 
-.center-container table td {
+.tab_info table th {
+    background-color: #051168;
+}
+
+.tab_info table td {
     width: 33%;
     padding: 10px;
     text-align: center;
@@ -104,9 +109,9 @@
     
 }
 
-.center-container table td a {
+.tab_info table th a {
     text-decoration: none;
-    color: #5468F9;
+    color: #5468F9; 
     font-weight: bold;
     display: block;
     padding: 10px;
@@ -114,13 +119,26 @@
     
 }
 
-.center-container table td a:hover {
+.tab_info table td a:hover {
     background-color: #f2f2f2;
 }
 
-.center-container p {
-    max-width: 1000px; /* Set a max-width for the paragraph */
-    margin: 20px auto; /* Center the paragraph horizontally */
-    background-color: #ffffff;
-    border-radius:8px;
+.tab_info p {
+    max-width: 1000px;
+    margin: 20px auto;
+    margin-top: 50px;
+    animation: fadeIn 1s ease-in-out;
+    background-color: #3498db;
+    color: white;
+    border-radius: 8px;
+    font-size: 22px; 
+    line-height: 1.5; 
+}
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
 }

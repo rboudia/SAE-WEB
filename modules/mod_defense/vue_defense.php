@@ -8,7 +8,7 @@ class VueDefense extends VueGenerique {
             
             if($element['type_defense']==$i) {
             ?>
-            <li class="item"><?= $element['nom_defense'] ?> <a class="details-link" href="index.php?module=defense&action=details&id=<?= $element['id_defense'] ?>"> détails</a></li>
+            <li class="item"><?= $element['nom_defense'] ?> <a class="lien_detail" href="index.php?module=defense&action=details&id=<?= $element['id_defense'] ?>"> détails</a></li>
             <?php
             }
         }
@@ -17,8 +17,8 @@ class VueDefense extends VueGenerique {
     function affiche_detail($detailDefense) {
         
 			?>
-            <div class="container">
-			<table class="styled-table">
+            <div class="tab_detail">
+			<table class="table_detail">
 				<tr>
 					<td>Nom de la défense</td> <td> <?= $detailDefense['nom_defense'] ?></td>
 				</tr>
@@ -53,7 +53,7 @@ class VueDefense extends VueGenerique {
 
     function menu(){
 		?>
-		<ul class="menu-list">
+		<ul class="liste_menu">
 		<li><a href="index.php?module=info">Retour aux informations du jeu</a></li>
 			<?php if($_GET['action']=='details' || isset($_GET['i'])) {
 				?>
@@ -66,11 +66,11 @@ class VueDefense extends VueGenerique {
 
     public function menu_spe() {
         ?>
-		<ul class="menu-list">
+		<ul class="liste_menu">
         <li><a href="index.php?module=info">Retour aux informations du jeu</a></li>
 		</ul>
-        <li class="item"><a class="details-link" href="index.php?module=defense&action=liste_spe&i=1">Liste des tours</a></li>
-        <li class="item"><a class="details-link" href="index.php?module=defense&action=liste_spe&i=2">Liste des obstacles</a></li>
+        <li class="item"><a class="lien_detail" href="index.php?module=defense&action=liste_spe&i=1">Liste des tours</a></li>
+        <li class="item"><a class="lien_detail" href="index.php?module=defense&action=liste_spe&i=2">Liste des obstacles</a></li>
 	
         <?php
     }

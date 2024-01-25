@@ -7,15 +7,15 @@ class VueEnnemi extends VueGenerique {
     function affiche_liste($tab) {
 		foreach ($tab as $element) {
 		?>
-			<li class="item"><?= $element['type_ennemi'] ?> <a class="details-link" href="index.php?module=ennemi&action=details&id=<?= $element['id_ennemi'] ?>"> détails</a></li>
+			<li class="item"><?= $element['type_ennemi'] ?> <a class="lien_detail" href="index.php?module=ennemi&action=details&id=<?= $element['id_ennemi'] ?>"> détails</a></li>
 		<?php
 		}
     }
 
     function affiche_detail($detailEnnemi) {
 			?>
-            <div class="container">
-			<table class="styled-table">
+            <div class="tab_detail">
+			<table class="table_detail">
 				<tr>
 					<td>Type ennemi</td> <td> <?= $detailEnnemi['type_ennemi'] ?></td>
 				</tr>
@@ -44,7 +44,7 @@ class VueEnnemi extends VueGenerique {
 					<td>Strategie déplacement</td> <td> <?= $detailEnnemi['strategie_deplacement'] ?></td>
 				</tr>
 			</table>
-            <div class="center-image">
+            <div class="image_item">
             <img src=<?= $detailEnnemi['image']?> alt="Ennemi Image"/>
         	</div>
 		</div>
@@ -57,7 +57,7 @@ class VueEnnemi extends VueGenerique {
     function menu(){
 		?>
 		
-		<ul class="menu-list">
+		<ul class="liste_menu">
 			<li><a href="index.php?module=info">Retour aux informations du jeu</a></li>
 			<?php if($_GET['action']=='details') {
 				?>

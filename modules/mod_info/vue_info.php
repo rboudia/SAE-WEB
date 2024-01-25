@@ -1,5 +1,5 @@
 <head>
-	<link rel="stylesheet" href="modules/mod_info/Css-Info.css">
+<link rel="stylesheet" href="modules/mod_info/Css-Info.css">
 </head>
 <?php
 require_once 'vue_generique.php';
@@ -8,12 +8,13 @@ class VueInfo extends VueGenerique {
 
     public function bienvenue($tab1,$tab2,$tab3) {
         ?>
-            <div class="center-container">
+        
+            <div class="tab_info">
             <table>
     <tr>
-        <td> <a href="index.php?module=ennemi&action=liste">Liste des ennemis</a> </td>
-        <td> <a href="index.php?module=defense&action=liste">Liste des défenses</a> </td>
-        <td> <a href="index.php?module=map&action=liste">Liste des maps</a> </td>
+        <th> <a href="index.php?module=ennemi&action=liste">Liste des ennemis</a> </th>
+        <th> <a href="index.php?module=defense&action=liste">Liste des défenses</a> </th>
+        <th> <a href="index.php?module=map&action=liste">Liste des maps</a> </th>
     </tr>
     <tr>
         <td>
@@ -21,10 +22,10 @@ class VueInfo extends VueGenerique {
             foreach ($tab1 as $index => $element) {
                 if ($index < 5) {
             ?>
-                    <p><?= $element['type_ennemi'] ?></p>
+                    <li class="item"><?= $element['type_ennemi'] ?></li>
             <?php
                 } else {
-                    break; // Arrête la boucle après 5 itérations
+                    break;
                 }
             }
             ?>
@@ -34,10 +35,10 @@ class VueInfo extends VueGenerique {
             foreach ($tab2 as $index => $element) {
                 if ($index < 5) {
             ?>
-                    <p><?= $element['nom_defense'] ?></p>
+                    <li class="item"><?= $element['nom_defense'] ?></li>
             <?php
                 } else {
-                    break; // Arrête la boucle après 5 itérations
+                    break;
                 }
             }
             ?>
@@ -47,10 +48,10 @@ class VueInfo extends VueGenerique {
             foreach ($tab3 as $index => $element) {
                 if ($index < 5) {
             ?>
-                    <p>Map <?= $element['id_map'] ?></p>
+                    <li class="item">Map <?= $element['id_map'] ?></li>
             <?php
                 } else {
-                    break; // Arrête la boucle après 5 itérations
+                    break;
                 }
             }
             ?>
@@ -58,8 +59,11 @@ class VueInfo extends VueGenerique {
     </tr>
 </table>
         
-                <p>Cet onglet vous permet d'en apprendre plus sur notre jeu. Veuillez cliquer sur les liens dans le tableau ci-dessus pour vous informer.</p>
+<p>Cet onglet vous permet d'en apprendre plus sur notre jeu. 
+    Veuillez cliquer sur l'une des listes ci-dessus pour avoir la liste exhaustive des éléments de la liste que vous avez choisie.
+</p>
             </div>
+            
         <?php
         }
         

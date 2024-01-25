@@ -6,7 +6,7 @@
         function affiche_liste($tab) {
             foreach($tab as $element) {
                 ?>
-                <li class=item> Map <?= $element['id_map'] ?> <a class="details-link" href="index.php?module=map&action=details&id=<?= $element['id_map'] ?>"> détails</a></li>
+                <li class=item> Map <?= $element['id_map'] ?> <a class="lien_detail" href="index.php?module=map&action=details&id=<?= $element['id_map'] ?>"> détails</a></li>
                 <?php
             }
         }
@@ -14,7 +14,7 @@
 
         function affiche_detail($detailMap) {
             ?>
-            <div class="container">
+            <div class="tab_detail">
             <img src=<?= $detailMap['image_map']?> width="500" height="500"/>
         </div>
             <?php
@@ -22,7 +22,7 @@
 
         function menu(){
             ?>
-            <ul class="menu-list">
+            <ul class="liste_menu">
                 <li><a href="index.php?module=info">Retour aux informations du jeu</a></li>
                 <?php if($_GET['action']=='details') {
                     ?>
