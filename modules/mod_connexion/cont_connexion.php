@@ -16,7 +16,6 @@ class ContConnexion {
     function isValidExtension($file) {
         $exts = ['gif', 'png', 'jpg', 'GIF', 'PNG', 'JPG'];
         $info = pathinfo($file);
-        var_dump($info);
         
         if (in_array($info['extension'], $exts))
          return true;
