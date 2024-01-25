@@ -1,6 +1,3 @@
-<head>
-	<link rel="stylesheet" href="modules/mod_ennemi/Css-Ennemi.css">
-	</head>
 <?php
 require_once 'vue_generique.php';
 
@@ -8,6 +5,12 @@ require_once 'vue_generique.php';
 class VueEnnemi extends VueGenerique {
 
     function affiche_liste($tab) {
+		?>
+		<head>
+		<link rel="stylesheet" href="modules/mod_ennemi/Css-Ennemi.css">
+		</head>
+		<?php
+
 		foreach ($tab as $element) {
 		?>
 			<li class="ennemi-item"><?= $element['type_ennemi'] ?> <a class="details-link" href="index.php?module=ennemi&action=details&id=<?= $element['id_ennemi'] ?>"> détails</a></li>
@@ -17,6 +20,9 @@ class VueEnnemi extends VueGenerique {
 
     function affiche_detail($detailEnnemi) {
 			?>
+			<head>
+			<link rel="stylesheet" href="modules/mod_ennemi/Css-Ennemi.css">
+			</head>
             <div class="container">
 			<table class="styled-table">
 				<tr>
@@ -59,7 +65,9 @@ class VueEnnemi extends VueGenerique {
 
     function menu(){
 		?>
-		
+		<head>
+		<link rel="stylesheet" href="modules/mod_ennemi/Css-Ennemi.css">
+		</head>
 		<ul class="menu-list">
 			<li><a href="index.php?module=info">Retour aux informations du jeu</a></li>
 			<?php if($_GET['action']=='details') {

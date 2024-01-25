@@ -1,6 +1,3 @@
-<head>
-    <link rel="stylesheet" href="modules/mod_info/Css-Info.css">
-</head>
 <?php
 require_once 'vue_generique.php';
 
@@ -8,6 +5,9 @@ class VueInfo extends VueGenerique {
 
     public function bienvenue() {
 ?>
+<head>
+    <link rel="stylesheet" href="modules/mod_info/Css-Info.css">
+</head>
         <div class="center-container">
             <table>
                 <tr>
