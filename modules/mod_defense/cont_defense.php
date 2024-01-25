@@ -11,15 +11,11 @@ class ContDefense {
     function __construct() {
         $this->vue = new VueDefense();
         $this->modele = new ModeleDefense();
-        $this->action = isset($_GET['action']) ? $_GET['action'] : "liste_sans" ;
+        $this->action = isset($_GET['action']) ? $_GET['action'] : "liste" ;
     }
 
     function liste_spe($i) {
         $this->vue->affiche_liste($this->modele->getListe(),$i);
-    }
-
-    function liste_sans() {
-        $this->vue->affiche_liste_sans($this->modele->getListe());
     }
 
     function id_defense($idDefense) {
@@ -36,9 +32,6 @@ class ContDefense {
                 $this->vue->menu();
                 $i = isset($_GET['i']) ? $_GET['i'] : "Error";
                 $this->liste_spe($i);
-                break;
-            case "liste_sans":
-                $this->liste_sans();
                 break;
             case "details":
                 $this->vue->menu();

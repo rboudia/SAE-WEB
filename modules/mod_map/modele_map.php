@@ -10,15 +10,17 @@
         }
 
         function getListe() {
-            $requete = $this->connexion->getBdd()->query("SELECT id_map from map");
+            $requete = $this->connexion->getBdd()->prepare("SELECT id_map from map");
+            $requete->execute();
             $tableau = $requete->fetchAll();
             return $tableau;
         }
 
         function getDetail($idMap){
-            $requete = $this->connexion->getBdd()->query("SELECT * FROM map WHERE id_map = '$idMap'");
-            $bio = $requete->fetch(PDO::FETCH_ASSOC);
-            return $bio;
+            $requete = $this->connexion->getBdd()->prepare("SELECT * FROM map WHERE id_map = '$idMap'");
+            $requete->execute();
+            $detail = $requete->fetch();
+            return $detail;
         }
     }
 ?>

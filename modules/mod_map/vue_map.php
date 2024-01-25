@@ -1,6 +1,4 @@
-<head>
-    <link rel="stylesheet" href="modules/mod_map/Css-Map.css">
-	</head>
+
 <?php
     require_once 'vue_generique.php';
 
@@ -8,7 +6,7 @@
         function affiche_liste($tab) {
             foreach($tab as $element) {
                 ?>
-                <li class=map-item> Map <?= $element['id_map'] ?> <a class="details-link" href="index.php?module=map&action=details&id=<?= $element['id_map'] ?>"> détails</a></li>
+                <li class=item> Map <?= $element['id_map'] ?> <a class="details-link" href="index.php?module=map&action=details&id=<?= $element['id_map'] ?>"> détails</a></li>
                 <?php
             }
         }

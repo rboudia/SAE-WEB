@@ -14,12 +14,16 @@ class ContInfo {
         $this->action = isset($_GET['action']) ? $_GET['action'] : "info" ;
     }
 
+    function bienvenue() {
+        $this->vue->bienvenue($this->modele->ennemi(),$this->modele->defense(),$this->modele->map());
+    }
+
 
     function exec(){
 
         switch ($this->action){
             case "info":
-                $this->vue->bienvenue();
+                $this->bienvenue();
                 break;
 
             default:

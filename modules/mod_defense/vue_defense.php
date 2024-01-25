@@ -1,6 +1,3 @@
-<head>
-	<link rel="stylesheet" href="modules/mod_defense/Css-Defense.css">
-	</head>
 <?php
 require_once 'vue_generique.php';
 
@@ -11,7 +8,7 @@ class VueDefense extends VueGenerique {
             
             if($element['type_defense']==$i) {
             ?>
-            <li class="defense-item"><?= $element['nom_defense'] ?> <a class="details-link" href="index.php?module=defense&action=details&id=<?= $element['id_defense'] ?>"> détails</a></li>
+            <li class="item"><?= $element['nom_defense'] ?> <a class="details-link" href="index.php?module=defense&action=details&id=<?= $element['id_defense'] ?>"> détails</a></li>
             <?php
             }
         }
@@ -52,9 +49,7 @@ class VueDefense extends VueGenerique {
 					?>
 			</table>
 			<?php     
-    }
-
-    
+    }  
 
     function menu(){
 		?>
@@ -74,8 +69,8 @@ class VueDefense extends VueGenerique {
 		<ul class="menu-list">
         <li><a href="index.php?module=info">Retour aux informations du jeu</a></li>
 		</ul>
-        <li class="defense-item"><a class="details-link" href="index.php?module=defense&action=liste_spe&i=1">Liste des tours</a></li>
-        <li class="defense-item"><a class="details-link" href="index.php?module=defense&action=liste_spe&i=2">Liste des obstacles</a></li>
+        <li class="item"><a class="details-link" href="index.php?module=defense&action=liste_spe&i=1">Liste des tours</a></li>
+        <li class="item"><a class="details-link" href="index.php?module=defense&action=liste_spe&i=2">Liste des obstacles</a></li>
 	
         <?php
     }

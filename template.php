@@ -3,8 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Site de tout le Monde </title>
+    <title>Royal Elphia</title>
     <link rel="stylesheet" href="Css_template.css">
+    <link rel="icon" href="LogoCouronne.png" type="image/x-icon">
     
 </head>
 <body>
