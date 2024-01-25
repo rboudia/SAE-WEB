@@ -12,7 +12,19 @@ class ModeleTournoi extends Connexion {
     }
 
     function getListe() {
-        $requete = $this->connexion->getBdd()->query("SELECT * from tournoi");
+        $requete = $this->connexion->getBdd()->query("SELECT
+        id_tournoi,
+        t.nom AS nom_tournoi,
+        t.date AS date_tournoi,
+        t.nombre_max_participant,
+        COUNT(j.id_joueur) AS nombre_de_joueurs
+    FROM
+        tournoi t
+    LEFT OUTER JOIN
+        joueur j ON t.id_tournoi = j.tournoi
+    GROUP BY
+        t.id_tournoi, t.nom, t.date, t.nombre_max_participant;
+    ");
         $tableau = $requete->fetchAll();
         return $tableau;
     }
