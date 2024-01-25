@@ -25,10 +25,36 @@ class ContAmelioration {
                 $this->vue->affichageDefense($def);
                 break;
 
-            default:
-                $_SESSION["erreur"] = "Erreur action incorrecte.";
-                $this->vue->bienvenue();
-                break;
+                case "amelioration":
+                    $utilisateur = $_SESSION['user'];
+                    $solde = $this->modele->getSoldeJoueur($utilisateur["id_joueur"]);
+        
+                    if ($solde >= 4) {
+                       
+                        $this->modele->decrementerSoldeJoueur($utilisateur["id_joueur"], 4);
+        
+                        $idDefense = isset($_POST['id_defense']) ? $_POST['id_defense'] : null;
+        
+                        $this->modele->ameliorerDefense($utilisateur["id_joueur"], $idDefense);
+                    } else {
+                        $this->vue->messageErreur();
+                    }
+                    $solde = $this->modele->getSoldeJoueur($utilisateur["id_joueur"]);
+                    $this->vue->bienvenue($solde);
+                    $def = $this->modele->getDefense();
+                    $this->vue->affichageDefense($def);
+                    break;
+
+                    case "voir_ameliorations":
+                        $utilisateur = $_SESSION['user'];
+                        $ameliorations = $this->modele->getAmeliorationsJoueur($utilisateur["id_joueur"]);
+                        $this->vue->voirAmeliorations($ameliorations);
+                        break;
+        
+                default:
+                    $_SESSION["erreur"] = "Erreur action incorrecte.";
+                    $this->vue->bienvenue();
+                    break;
         }
 
     }

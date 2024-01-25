@@ -25,11 +25,11 @@ class VueTournoi extends VueGenerique {
         foreach($tab as $tournoi) {
             ?>
             <div class="tournoi-container">
-                <h3><?= $tournoi['nom'] ?></h3>
+                <h3><?= $tournoi['nom_tournoi'] ?></h3>
                 <div class="tournoi-details">
-                    <p>Date: <?= $tournoi['date'] ?></p>
-                    <form action="index.php?module=tournoi&action=traiterReponse" method="post">
-                        <input type="hidden" name="tournoiId" value="<?= $tournoi['id_tournoi'] ?>">
+                    <p>Nombre de joueur: <?= $tournoi['nombre_de_joueurs'] ?>/<?= $tournoi['nombre_max_participant'] ?></p>
+                    <p>Date: <?= $tournoi['date_tournoi'] ?></p>
+                    <form action="index.php?module=tournoi&action=traiterReponse&id=<?= $tournoi['id_tournoi'] ?>" method="post">
                         <button type="submit" name="envoyerReponse">Rejoindre le tournoi</button>
                     </form>
                 </div>

@@ -4,6 +4,11 @@ require_once 'vue_generique.php';
 class VueDefense extends VueGenerique {
 
     function affiche_liste($tab,$i) {
+		?>
+		<head>
+		<link rel="stylesheet" href="modules/mod_defense/Css-Defense.css">
+		</head>
+		<?php
         foreach($tab as $element) {
             
             if($element['type_defense']==$i) {

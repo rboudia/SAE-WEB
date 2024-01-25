@@ -1,9 +1,14 @@
-
 <?php
     require_once 'vue_generique.php';
 
     class VueMap extends VueGenerique {
+        
         function affiche_liste($tab) {
+            ?>
+        <head>
+        <link rel="stylesheet" href="modules/mod_map/Css-Map.css">
+        </head>     
+        <?php
             foreach($tab as $element) {
                 ?>
                 <li class=item> Map <?= $element['id_map'] ?> <a class="lien_detail" href="index.php?module=map&action=details&id=<?= $element['id_map'] ?>"> détails</a></li>
