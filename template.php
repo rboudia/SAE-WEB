@@ -4,74 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Site de tout le Monde </title>
-    <style>
-        * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f0f0f0;
-    margin: 0;
-    padding: 0;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-}
-
-header {
-    background-color: #333;
-    color: white;
-    text-align: center;
-    padding: 20px 0;
-}
-
-h1 {
-    font-size: 28px;
-}
-
-nav {
-    background-color: #333;
-    text-align: center;
-}
-
-nav a {
-    text-decoration: none;
-    color: #fff;
-    padding: 10px 20px;
-}
-
-nav a:hover {
-    background-color: #ff6600;
-    padding: 5px 20px;
-}
-
-footer {
-    background-color: #333;
-    color: white;
-    text-align: center;
-    padding: 10px;
-}
-
-main {
-    flex: 1;
-}
-    </style>
-
-    </style>
+    <link rel="stylesheet" href="Css_template.css">
+    
 </head>
 <body>
 <header>
-    <div style="text-align: center;"> 
-        <h1>Site de tout le monde</h1></div>
-        <nav> 
-    <?php
-        $menuComponent->affiche();
-        ?>
+    <div class="header-container">
+        <img src="images/Logo.png" alt="Logo" style="width: 175px; height: auto;">
+        <nav>
+            <?php
+            $menuComponent->affiche();
+            ?>
         </nav>
-        </header>
+    </div>
+</header>
         <main>
         <?php
         if (isset($_SESSION['msg'])) {
@@ -83,7 +29,7 @@ main {
     </main>
 
 <footer>
-    <p>Tout le monde / Informations légales</p>
+    <p>Mentions légales site</p>
 </footer>
 
 </body>

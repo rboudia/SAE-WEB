@@ -1,0 +1,132 @@
+
+body {
+    font-family: Arial, sans-serif;
+}
+
+#message-container {
+    max-height: 400px; 
+    overflow-y: auto;
+    max-width: 800px; 
+    margin: 20px auto;
+    padding: 10px;
+    background-color: #f5f5f5;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); 
+}
+
+#message-container h2 {
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+.erreur-message {
+    color: red;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.menu-liste {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    text-align: center;
+}
+
+.menu-liste li {
+    display: inline-block;
+    margin-right: 10px;
+}
+
+.menu-liste a {
+    text-decoration: none;
+    padding: 10px 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #f5f5f5;
+    color: #333;
+    display: inline-block; 
+    transition: background-color 0.3s ease;
+}
+
+.menu-liste a:hover {
+    background-color: #ddd;
+}
+
+@media only screen and (max-width: 800px) {
+    #message-container {
+        max-width: 100%;
+    }
+
+    .menu-liste li {
+        display: block;
+        margin-bottom: 5px;
+    }
+
+    .menu-liste a {
+        display: block;
+        margin-bottom: 5px;
+    }
+}
+
+
+#message-form {
+    max-width: 400px;
+    margin: 20px auto;
+    padding: 15px;
+    background-color: #f5f5f5;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+#message-form label {
+    display: block;
+    margin-bottom: 10px;
+}
+
+#message-form #message {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+#message-form #submit-btn {
+    background-color: #4CAF50;
+    color: #fff;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#message-form #submit-btn:hover {
+    background-color: #45a049;
+}
+
+#message-container .ami-liste {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+#message-container .ami-liste li {
+    margin-bottom: 10px;
+}
+
+#message-container .ami-liste a {
+    text-decoration: none;
+    display: block;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #f5f5f5;
+    color: #333;
+    transition: background-color 0.3s ease;
+}
+
+#message-container .ami-liste a:hover {
+    background-color: #ddd;
+}

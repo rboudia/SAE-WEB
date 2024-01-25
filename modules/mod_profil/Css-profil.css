@@ -1,0 +1,156 @@
+.contenuProfil {
+    max-width: 600px;
+    margin: 20px auto;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.headerProfil {
+    background-color: #4CAF50;
+    color: #fff;
+    padding: 15px;
+    text-align: center;
+}
+
+.contProf {
+    padding: 20px;
+}
+
+.details {
+    margin-bottom: 15px;
+}
+
+.detail-label {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 5px;
+    color: #333;
+}
+
+.detail-val {
+    color: #777;
+}
+
+.mdp {
+    text-decoration: none;
+    background-color: #3498db;
+    color: #fff;
+    padding: 10px 15px;
+    border-radius: 5px;
+    display: inline-block;
+}
+
+.mdp:hover {
+    background-color: #2980b9;
+}
+
+.modifMdp {
+    display: block;
+    margin-top: 10px;
+    color: #3498db;
+}
+
+.changementDeMdp {
+    max-width: 400px;
+    margin: 20px auto;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    text-align: center;
+}
+
+.changementDeMdp h2 {
+    color: #333;
+}
+
+.MessErreur {
+    color: red;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.formulaireChangmnt {
+    display: flex;
+    flex-direction: column;
+}
+
+.formMdp {
+    margin-bottom: 15px;
+}
+
+label {
+    font-weight: bold;
+    color: #555;
+}
+
+input {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.boutonConfirmation {
+    background-color: #3498db;
+    color: #fff;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.boutonConfirmation:hover {
+    background-color: #2980b9;
+}
+
+.formModif {
+    max-width: 400px;
+    margin: 20px auto;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    text-align: center;
+}
+
+.modification-form {
+    display: flex;
+    flex-direction: column;
+}
+
+.formMod {
+    margin-bottom: 15px;
+}
+
+label {
+    font-weight: bold;
+    color: #555;
+}
+
+input {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.mdpCache {
+    color: #777;
+}
+
+.chgmntMdp {
+    display: block;
+    margin-top: 5px;
+    color: #3498db;
+    text-decoration: none;
+}
+
+.jetonJoueur {
+    color: #777;
+}
+
