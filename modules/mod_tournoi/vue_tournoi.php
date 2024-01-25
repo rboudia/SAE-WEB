@@ -29,8 +29,7 @@ class VueTournoi extends VueGenerique {
                 <div class="tournoi-details">
                     <p>Nombre de joueur: <?= $tournoi['nombre_de_joueurs'] ?>/<?= $tournoi['nombre_max_participant'] ?></p>
                     <p>Date: <?= $tournoi['date_tournoi'] ?></p>
-                    <form action="index.php?module=tournoi&action=traiterReponse" method="post">
-                        <input type="hidden" name="tournoiId" value="<?= $tournoi['id_tournoi'] ?>">
+                    <form action="index.php?module=tournoi&action=traiterReponse&id=<?= $tournoi['id_tournoi'] ?>" method="post">
                         <button type="submit" name="envoyerReponse">Rejoindre le tournoi</button>
                     </form>
                 </div>

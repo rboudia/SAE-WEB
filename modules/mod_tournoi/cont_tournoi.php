@@ -19,7 +19,7 @@ class ContTournoi {
     }
 
     function traiterReponse() {
-        if (isset($_POST['defiId']) && isset($_POST['reponse'])) {
+        if ($this->modele->verifTournoiJoueur($_SESSION['user']['id_joueur'])) {
             $defiId = $_POST['defiId'];
             $reponse = $_POST['reponse'];
             $id_utilisateur = $this->getIdUtilisateur();
@@ -64,7 +64,8 @@ class ContTournoi {
                  $this->liste();
                 break;
             case "traiterReponse":
-                $this->traiterReponse();
+                $id = isset($_GET['id']) ? $_GET['id'] : "Error" ;
+                $this->traiterReponse($id);
                 break;
             default:
             $_SESSION["erreur"] = "erreur";

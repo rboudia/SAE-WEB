@@ -14,8 +14,9 @@ class ContConnexion {
     }
 
     function isValidExtension($file) {
-        $exts = ['gif', 'png', 'jpg'];
+        $exts = ['gif', 'png', 'jpg', 'GIF', 'PNG', 'JPG'];
         $info = pathinfo($file);
+        var_dump($info);
         
         if (in_array($info['extension'], $exts))
          return true;
@@ -29,10 +30,15 @@ class ContConnexion {
 		    $login = isset($_POST['login']) ? $_POST['login'] : '';
 		    $mdp = isset($_POST['mdp']) ? $_POST['mdp'] : '';
             $filename = $_FILES['logo']['name'];
-            $error = $this->isValidExtension ($filename);
-            if ($error === false){
-                $_SESSION["erreur"] = "Fichier invalide.";
-            }else {           
+
+            if (!empty($filename)){
+                $error = $this->isValidExtension($filename);
+                if ($error === false){
+                    $_SESSION["erreur"] = "Fichier invalide.";
+                    $this->form_inscription();
+                    return;
+                }
+            }else            
                 $logo = $this->telechargementImage();
                 if (!empty($pseudo) && !empty($login) && !empty($mdp)) {
                     $login_existant = $this->modele_connexion->verifierLoginExistant($login);
@@ -44,6 +50,9 @@ class ContConnexion {
                     if ($login_existant) {
                         $_SESSION["erreur"] = "Ce login est déjà utilisé. Veuillez choisir un autre.";
                     } else {
+                        if(empty($logo)){
+                            $logo = '';
+                        }
                         if ($this->modele_connexion->ajouterUtilisateur($pseudo, $login, $mdp, $logo)) {
                             $_SESSION["msg"] ="Inscription réussie";
                             $this->vue_connexion->form_connexion();
@@ -55,7 +64,7 @@ class ContConnexion {
             } else {
                     $_SESSION["erreur"] = "Veuillez remplir tous les champs du formulaire.";
                 }
-            }
+            
         }
         if(isset($_SESSION["erreur"])){
             $this->form_inscription();
