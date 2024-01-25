@@ -26,7 +26,11 @@ class VueCommunaute extends VueGenerique{
                 unset($_SESSION['affiche_message_erreur']);
             } else {
                 foreach ($messages as $message) {
-                    $messageClass = ($message['id_joueur'] == $_SESSION['user']['id_joueur']) ? 'user-message' : 'other-message';
+                    if (isset($_SESSION['user']['id_joueur'])) {
+                        $messageClass = ($message['id_joueur'] == $_SESSION['user']['id_joueur']) ? 'user-message' : 'other-message';
+                    } else {
+                        $messageClass = 'other-message';
+                    }
                     ?>
                     <div class="message <?= $messageClass ?>">
                         <?= $message['pseudo'] ?> :

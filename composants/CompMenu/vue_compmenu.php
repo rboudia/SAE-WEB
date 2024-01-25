@@ -19,7 +19,7 @@ class VueCompMenu {
             $this->menuHTML .= '<a href="index.php?module=ami">Ami</a>';
             $this->menuHTML .= '<a href="index.php?module=profil">Profil</a>';
             $this->menuHTML .= '<a href="index.php?module=connexion&action=deconnexion">Déconnexion</a>';
-            $this->menuHTML .= '<br><span style="color: green;">Vous êtes connecté sous le pseudo ' . $utilisateur['pseudo'] . ' !</span>';
+            $this->menuHTML .= '<span style="color: green;">Vous êtes connecté sous le pseudo ' . $utilisateur['pseudo'] . ' !</span>';
         } else {
             $this->menuHTML .= '<a href="index.php?module=connexion&action=connexion">Connexion</a>';
             $this->menuHTML .= '<a href="index.php?module=connexion&action=afficher">Inscription</a>';
