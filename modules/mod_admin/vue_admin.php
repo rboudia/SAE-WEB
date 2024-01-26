@@ -66,6 +66,48 @@ class VueAdmin extends VueGenerique {
         
         <?php
     }
+
+    public function affiche_admin($admin) {
+        ?>
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <link rel="stylesheet" href="modules/mod_admin/Css-Admin2.css">
+            <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                var messageContainer = document.getElementById("ami-barre-container");
+                messageContainer.scrollTop = 0;  
+            });
+            </script>
+        </head>
+        <div id="ami-barre-container">
+            <div id="ami-container">
+                <h1>Admin</h1>
+                <?php
+                if(isset($_SESSION['message'])){
+                    ?>
+                    <div style="color:red; text-align: center;"><?=$_SESSION['message']?></div><br>
+                    <?php
+                    unset($_SESSION['message']);
+                } else {
+                    ?>
+                    <ul> 
+                        <?php
+                        foreach ($admin as $admin) {
+                            ?>
+                            <li><?= $admin['pseudo'] ?><a href="index.php?module=admin&action=supprimer&id=<?= $admin['id_joueur'] ?>"> Supprimer</a></li>
+                            <?php
+                        }
+                        ?>
+                    </ul>
+                    <?php
+                }
+                ?>
+            </div>
+        </div>
+        
+        <?php
+    }
     
 }
     ?>

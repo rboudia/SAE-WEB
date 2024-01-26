@@ -55,6 +55,9 @@ class ContAdmin {
             $_SESSION["message"] = "Pas d'utilisateur";
         }
         $this->vue->affiche_joueurs($this->modele->recupererJoueurs());
+        if($this->modele->recupererTypeAdmin($_SESSION['admin']['id_joueur'])){
+            $this->vue->affiche_admin($this->modele->recupererAdmin());
+        }
     }
 
     function supprimer() {
@@ -68,11 +71,12 @@ class ContAdmin {
                 $this->modele->supprimerJoueurAmis($id);
                 $this->modele->supprimerJoueurDefi($id);
                 $this->modele->supprimerJoueurDemandeAmis($id);
+                $this->modele->supprimerJoueurPartie($id);
                 $this->modele->supprimerJoueurTournoi($id);
                 $this->modele->supprimerJoueur($id);
                 $this->form_inscription();
                 $this->demander();
-                }
+            }
         }
     }
 
@@ -85,6 +89,7 @@ class ContAdmin {
                 break;
             case'inscription':
                 $this->inscription();
+                $this->demander();
                 break;
            case "supprimer":
                 $this->supprimer();

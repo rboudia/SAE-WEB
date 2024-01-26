@@ -69,6 +69,49 @@ class ModeleAdmin extends Connexion {
         }
     }
 
+    function recupererTypeAdmin($id) {
+        try {
+            $requete = $this->connexion->getBdd()->prepare('
+                SELECT admin FROM joueur WHERE id_joueur = :id;
+            ');
+            $requete->execute([':id' => $id]);
+    
+            $adminType = $requete->fetchColumn();
+    
+            if ($adminType === false) {
+                return false;
+            }
+    
+            return $adminType == 1; // Return true if admin type is 1, false otherwise
+        } catch (PDOException $e) {
+            echo "Erreur de requête : " . $e->getMessage();
+            return false;
+        }
+    }
+
+    function recupererAdmin() {
+        try {
+            $requete = $this->connexion->getBdd()->prepare('
+            SELECT pseudo, id_joueur FROM joueur WHERE admin = 2;
+            ');
+            $requete->execute();
+            
+            $tableau = $requete->fetchAll(PDO::FETCH_ASSOC);
+            
+            if (!$tableau) {
+                return false;
+            }
+    
+            return $tableau;
+        } catch (PDOException $e) {
+            echo "Erreur de requête : " . $e->getMessage();
+            return false;
+        }
+    }
+
+
+    
+
     public function supprimerJoueur($id) {
         $requete = "DELETE FROM joueur WHERE id_joueur = ?";
         $stmt = $this->connexion->getBdd()->prepare($requete);
@@ -159,6 +202,18 @@ class ModeleAdmin extends Connexion {
         $requete = "DELETE FROM demande_ami WHERE id_joueur = ? OR id_joueur_demande = ?";
         $stmt = $this->connexion->getBdd()->prepare($requete);
         $stmt->execute([$id, $id]);
+        $rowCount = $stmt->rowCount();
+
+        if ($rowCount == 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    public function supprimerJoueurPartie($id) {
+        $requete = "DELETE FROM partie WHERE id_joueur = ?";
+        $stmt = $this->connexion->getBdd()->prepare($requete);
+        $stmt->execute([$id]);
         $rowCount = $stmt->rowCount();
 
         if ($rowCount == 0) {

@@ -2,7 +2,7 @@
 #ami-barre-container {
     justify-content: center;
     align-items: center;
-    width: 100%; /* Pour afficher côte à côte sur les écrans plus larges */
+    width: 40%; /* Pour afficher côte à côte sur les écrans plus larges */
     display: flex;
     flex-wrap: wrap; /* Permet aux éléments de passer à la ligne si l'espace est insuffisant */
     justify-content: space-between;
