@@ -20,7 +20,6 @@ class VueConnexion extends VueGenerique {
                 Login: <input type="text" name="login" required><br>
                 Mot de passe: <input type="password" name="mdp" required><br>
                 Photo de profil: <input type="file" name="logo" accept="image/*" ><br>
-                <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($tokenCSRF) ?>">
                 <input type="submit" value="S'inscrire">
             </form>
         </div>

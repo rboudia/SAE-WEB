@@ -75,12 +75,6 @@ class ContConnexion {
             $login = isset($_POST['login']) ? $_POST['login'] : '';
             $mot_de_passe = isset($_POST['mdp']) ? $_POST['mdp'] : '';
 
-            if (!isset($_POST['csrf_token']) || $_POST['csrf_token'] !== $_SESSION['csrf_token']) {
-                $_SESSION["erreur"] = "Erreur de sécurité. Veuillez réessayer.";
-                $this->form_inscription();
-                return;
-            }
-            unset($_SESSION['csrf_token']);
             if($this->modele_connexion->verifierAdmin($login, $mot_de_passe)){
                 $_SESSION['admin'] = $this->modele_connexion->verifierAdmin($login, $mot_de_passe);
                 $this->vue_connexion->form_connexion();
@@ -109,9 +103,7 @@ class ContConnexion {
 	}
 
     public function form_inscription() {
-        $tokenCSRF = bin2hex(random_bytes(32));
-        $_SESSION['csrf_token'] = $tokenCSRF;
-        $this->vue_connexion->form_inscription($tokenCSRF);
+        $this->vue_connexion->form_inscription();
     }
     
     public function telechargementImage() {

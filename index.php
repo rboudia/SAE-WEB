@@ -16,7 +16,7 @@
     require_once 'modules/mod_amelioration/mod_amelioration.php';
     require_once 'modules/mod_communaute/mod_communaute.php';
     require_once 'modules/mod_tournoi/mod_tournoi.php';
-
+    require_once 'modules/mod_admin/mod_admin.php';
 
     require_once 'composants/CompMenu/comp_menu.php';
 
@@ -93,6 +93,10 @@
                 $modTournoi = new ModTournoi();
                 $tampon = $modTournoi->getAffichage();
                 break;
+            case "admin":
+                $modAdmin = new ModAdmin();
+                $tampon = $modAdmin->getAffichage();
+                break;    
         }
     $menuComponent = new CompMenu();
     require_once 'template.php';

@@ -13,6 +13,7 @@ class VueCompMenu {
         $this->menuHTML .= '<a href="index.php?module=communaute">Communauté</a>';        
         if (isset($_SESSION['admin'])) {
             $utilisateur = $_SESSION['admin'];
+            $this->menuHTML .= '<a href="index.php?module=admin">Admin</a>';
             $this->menuHTML .= '<a href="index.php?module=connexion&action=deconnexion">Déconnexion</a>';
             $this->menuHTML .= '<span style="color: green;">Vous êtes connecté en tant qu\'admin sous le login ' . $utilisateur['login'] . ' !</span>';
         } else {   if (isset($_SESSION['user'])) {
