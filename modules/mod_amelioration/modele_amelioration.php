@@ -12,7 +12,9 @@ class ModeleAmelioration extends Connexion{
     }
 
     function getSoldeJoueur($idJoueur) {
-        $requete = $this->connexion->getBdd()->query("SELECT jeton FROM joueur WHERE id_joueur = '$idJoueur'");
+        $requete = $this->connexion->getBdd()->prepare("SELECT jeton FROM joueur WHERE id_joueur = :idJoueur");
+        $requete->bindParam(':idJoueur', $idJoueur, PDO::PARAM_INT);
+        $requete->execute();
         $solde = $requete->fetch(PDO::FETCH_ASSOC);
         if ($solde !== false && isset($solde['jeton'])) {
             return $solde['jeton'];

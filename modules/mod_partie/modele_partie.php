@@ -33,7 +33,9 @@ class ModelePartie extends Connexion{
     }
 
     function getDetail($idPartie){
-        $requete = $this->connexion->getBdd()->query("SELECT * FROM partie WHERE id_partie = '$idPartie'");
+        $requete = $this->connexion->getBdd()->prepare("SELECT * FROM partie WHERE id_partie = :idPartie");
+        $requete->bindParam(':idPartie', $idPartie, PDO::PARAM_INT);
+        $requete->execute();
         $bio = $requete->fetch(PDO::FETCH_ASSOC);
         return $bio;
     }

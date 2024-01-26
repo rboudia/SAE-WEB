@@ -12,7 +12,9 @@ class ModeleProfil extends Connexion{
     }
 
     function getDetail($idJoueur){
-        $requete = $this->connexion->getBdd()->query("SELECT * FROM joueur WHERE id_joueur = '$idJoueur'");
+        $requete = $this->connexion->getBdd()->prepare("SELECT * FROM joueur WHERE id_joueur = :idJoueur");
+        $requete->bindParam(':idJoueur', $idJoueur, PDO::PARAM_INT);
+		$requete->execute();
         $bio = $requete->fetch(PDO::FETCH_ASSOC);
         return $bio;
     }

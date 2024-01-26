@@ -24,7 +24,9 @@ class ModeleStrategie extends Connexion{
     }
 
     function getDetail($idEnnemi){
-        $requete = $this->connexion->getBdd()->query("SELECT * FROM ennemi WHERE id_ennemi = '$idEnnemi'");
+        $requete = $this->connexion->getBdd()->prepare("SELECT * FROM ennemi WHERE id_ennemi = :idEnnemi");
+        $requete->bindParam(':idEnnemi', $idEnnemi, PDO::PARAM_INT);
+        $requete->execute();
         $bio = $requete->fetch(PDO::FETCH_ASSOC);
         return $bio;
     }
