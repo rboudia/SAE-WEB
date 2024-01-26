@@ -50,13 +50,44 @@ class ContAdmin {
         $this->vue->form_inscription();
     }
 
+    function demander() {
+        if($this->modele->recupererJoueurs() === false){
+            $_SESSION["message"] = "Pas d'utilisateur";
+        }
+        $this->vue->affiche_joueurs($this->modele->recupererJoueurs());
+    }
+
+    function supprimer() {
+        if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+            $id = isset($_GET['id']) ? $_GET['id'] : "" ;
+            if (!empty($id)) {
+                $_SESSION["msg"] ="Joueur supprimé";
+                $this->modele->supprimerJoueurMessage($id);
+                $this->modele->supprimerJoueurCommunaute($id);
+                $this->modele->supprimerJoueurAmelioration($id);
+                $this->modele->supprimerJoueurAmis($id);
+                $this->modele->supprimerJoueurDefi($id);
+                $this->modele->supprimerJoueurDemandeAmis($id);
+                $this->modele->supprimerJoueurTournoi($id);
+                $this->modele->supprimerJoueur($id);
+                $this->form_inscription();
+                $this->demander();
+                }
+        }
+    }
+
+
     function exec(){
         switch ($this->action){
             case "bienvenue":
                 $this->form_inscription();
+                $this->demander();
                 break;
             case'inscription':
                 $this->inscription();
+                break;
+           case "supprimer":
+                $this->supprimer();
                 break;
             default:
             $_SESSION["erreur"] = "erreur";

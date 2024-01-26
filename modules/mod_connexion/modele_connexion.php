@@ -56,7 +56,7 @@ class ModeleConnexion extends Connexion {
 
 	public function verifierAdmin($login, $mdp) {
 		try {
-			$query = self::$bdd->prepare("SELECT id_joueur, pseudo, login FROM joueur WHERE login = :login AND mdp = md5(:mdp) AND admin = 1");
+			$query = self::$bdd->prepare("SELECT id_joueur, pseudo, login FROM joueur WHERE login = :login AND mdp = md5(:mdp) AND (admin = 1 OR admin = 2)");
 			$query->bindParam(':login', $login, PDO::PARAM_STR);
 			$query->bindParam(':mdp', $mdp, PDO::PARAM_STR);
 			$query->execute();

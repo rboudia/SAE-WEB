@@ -38,7 +38,7 @@ class ModeleAdmin extends Connexion {
 	public function ajouterUtilisateur($login, $mdp) {
 		try {
 			$jeton = 0;
-			$stmt = self::$bdd->prepare("INSERT INTO joueur (pseudo, login, mdp, admin) VALUES (:pseudo, :login, md5(:mdp), 1)");
+			$stmt = self::$bdd->prepare("INSERT INTO joueur (pseudo, login, mdp, admin) VALUES (:pseudo, :login, md5(:mdp), 2)");
 			$stmt->bindParam(':pseudo', $login, PDO::PARAM_STR);
 			$stmt->bindParam(':login', $login, PDO::PARAM_STR);
 			$stmt->bindParam(':mdp', $mdp, PDO::PARAM_STR);
@@ -49,6 +49,124 @@ class ModeleAdmin extends Connexion {
 		}
 	}
 
+    function recupererJoueurs() {
+        try {
+            $requete = $this->connexion->getBdd()->prepare('
+            SELECT pseudo, id_joueur FROM joueur WHERE admin IS NULL;
+            ');
+            $requete->execute();
+            
+            $tableau = $requete->fetchAll(PDO::FETCH_ASSOC);
+            
+            if (!$tableau) {
+                return false;
+            }
+    
+            return $tableau;
+        } catch (PDOException $e) {
+            echo "Erreur de requête : " . $e->getMessage();
+            return false;
+        }
+    }
+
+    public function supprimerJoueur($id) {
+        $requete = "DELETE FROM joueur WHERE id_joueur = ?";
+        $stmt = $this->connexion->getBdd()->prepare($requete);
+        $stmt->execute([$id]);
+        $rowCount = $stmt->rowCount();
+
+        if ($rowCount == 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function supprimerJoueurTournoi($id) {
+        $requete = "UPDATE joueur SET tournoi = NULL WHERE id_joueur = ?";
+        $stmt = $this->connexion->getBdd()->prepare($requete);
+        $stmt->execute([$id]);
+        $rowCount = $stmt->rowCount();
+
+        if ($rowCount == 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function supprimerJoueurMessage($id) {
+        $requete = "DELETE FROM message WHERE id_joueur = ? OR id_joueur_message = ?";
+        $stmt = $this->connexion->getBdd()->prepare($requete);
+        $stmt->execute([$id, $id]);
+        $rowCount = $stmt->rowCount();
+
+        if ($rowCount == 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    public function supprimerJoueurCommunaute($id) {
+        $requete = "DELETE FROM communaute WHERE id_joueur = ?";
+        $stmt = $this->connexion->getBdd()->prepare($requete);
+        $stmt->execute([$id]);
+        $rowCount = $stmt->rowCount();
+
+        if ($rowCount == 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    public function supprimerJoueurAmelioration($id) {
+        $requete = "DELETE FROM amelioration WHERE id_joueur = ?";
+        $stmt = $this->connexion->getBdd()->prepare($requete);
+        $stmt->execute([$id]);
+        $rowCount = $stmt->rowCount();
+
+        if ($rowCount == 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    public function supprimerJoueurAmis($id) {
+        $requete = "DELETE FROM amis WHERE id_joueur = ? OR id_joueur_ami = ?";
+        $stmt = $this->connexion->getBdd()->prepare($requete);
+        $stmt->execute([$id, $id]);
+        $rowCount = $stmt->rowCount();
+
+        if ($rowCount == 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    public function supprimerJoueurDefi($id) {
+        $requete = "DELETE FROM joueurDefi WHERE id_joueur = ?";
+        $stmt = $this->connexion->getBdd()->prepare($requete);
+        $stmt->execute([$id]);
+        $rowCount = $stmt->rowCount();
+
+        if ($rowCount == 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    public function supprimerJoueurDemandeAmis($id) {
+        $requete = "DELETE FROM demande_ami WHERE id_joueur = ? OR id_joueur_demande = ?";
+        $stmt = $this->connexion->getBdd()->prepare($requete);
+        $stmt->execute([$id, $id]);
+        $rowCount = $stmt->rowCount();
+
+        if ($rowCount == 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 
 }
 

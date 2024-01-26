@@ -1,0 +1,137 @@
+/* Styles pour affiche_ami et affiche_barre */
+#ami-barre-container {
+    justify-content: center;
+    align-items: center;
+    width: 100%; /* Pour afficher côte à côte sur les écrans plus larges */
+    display: flex;
+    flex-wrap: wrap; /* Permet aux éléments de passer à la ligne si l'espace est insuffisant */
+    justify-content: space-between;
+    margin: 20px auto;
+    text-align: center; /* Center the content horizontally */
+
+}
+
+#ami-container, #barre-container, #liste-container, #demande-container {
+    width: 48%; /* Pour afficher côte à côte sur les écrans plus larges */
+    box-sizing: border-box;
+    margin-bottom: 20px;
+}
+
+/* Styles spécifiques à affiche_ami */
+#ami-container {
+    align-items: center;
+    padding: 10px;
+    background-color: #f5f5f5;
+    border-radius: 8px;
+}
+
+#ami-container li {
+    list-style-type: none;
+    margin-bottom: 10px;
+}
+
+#ami-container a {
+    text-decoration: none;
+    color: #333;
+    margin-left: 10px;
+}
+
+#ami-container a:hover {
+    color: #4CAF50;
+}
+
+/* Styles spécifiques à affiche_barre */
+#barre-container {
+
+    padding: 10px;
+    background-color: #f5f5f5;
+    border-radius: 8px;
+}
+
+#barre-container h2 {
+    text-align: center;
+}
+
+#barre-container form {
+    text-align: center;
+}
+
+#barre-container label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+#barre-container input[type="text"] {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+#barre-container input[type="submit"] {
+    background-color: #4CAF50;
+    color: #fff;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+#barre-container input[type="submit"]:hover {
+    background-color: #45a049;
+}
+
+/* Styles pour affiche_liste */
+#liste-container {
+    padding: 10px;
+    background-color: #f5f5f5;
+    border-radius: 8px;
+}
+
+#liste-container a {
+    text-decoration: none;
+    color: #4CAF50;
+}
+
+#liste-container a:hover {
+    text-decoration: underline;
+}
+
+/* Styles pour affiche_demande */
+#demande-container {
+    max-width: 600px; /* Ajustez la valeur en fonction de vos préférences */
+    margin: 20px auto; /* Centre le container horizontalement */
+    padding: 10px;
+    background-color: #f5f5f5;
+    border-radius: 8px;
+    box-sizing: border-box;
+}
+
+#demande-container h2 {
+    text-align: center;
+}
+
+#demande-container li {
+    list-style-type: none;
+    margin-bottom: 10px;
+}
+
+#demande-container a {
+    text-decoration: none;
+    color: #4CAF50;
+    margin-left: 10px;
+}
+
+#demande-container a:hover {
+    text-decoration: underline;
+    color: #333;
+}
+
+/* Responsive Styles */
+@media only screen and (max-width: 600px) {
+    #ami-container, #barre-container, #liste-container, #demande-container {
+        width: 100%; /* Occupera toute la largeur sur les petits écrans */
+    }
+}
