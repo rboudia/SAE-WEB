@@ -41,19 +41,26 @@ class VueStrategie extends VueGenerique{
                 ?> 
             </table>       
             <?php
-            if (isset($_SESSION['user'])) {
+        if (isset($_SESSION['user'])) {
+        ?>
+            <div class="suggestion_strategie">
+                <p><a class="lien_strategie" href="index.php?module=strategie&action=suggestion">Suggérer une stratégie</a></p>
+            </div>
+        <?php
+        } else {
+            if (isset($_SESSION['admin'])) {
                 ?>
                 <div class="suggestion_strategie">
-                    <p><a class="lien_strategie" href="index.php?module=strategie&action=suggestion">Suggérer une stratégie</a></p>
+                    <p><a class="lien_strategie" href="index.php?module=strategie&action=afficheSuggestion">Afficher les suggestions</a></p>
                 </div>
                 <?php
             } else {
-                ?>
-                <div class="connexion_strategie">
-                    <p>Pour accéder aux défis, veuillez vous <a class="lien_strategie" href="index.php?module=connexion&action=connexion"> connecter</a> SVP !</p>
-                </div>
-                <?php
+        ?>
+            <div class="connexion_strategie">Pour accéder aux défis, veuillez vous <a class="lien_strategie" href="index.php?module=connexion&action=connexion"> connecter</a> SVP !</div>
+        </div>
+        <?php
             }
+        }
         ?>
         </div>
         <?php
@@ -85,17 +92,54 @@ class VueStrategie extends VueGenerique{
         <?php
         if (isset($_SESSION['user'])) {
         ?>
-        
             <div class="suggestion_strategie">
                 <p><a class="lien_strategie" href="index.php?module=strategie&action=suggestion">Suggérer une stratégie</a></p>
             </div>
         <?php
         } else {
+            if (isset($_SESSION['admin'])) {
+                ?>
+                <div class="suggestion_strategie">
+                    <p><a class="lien_strategie" href="index.php?module=strategie&action=afficheSuggestion">Afficher les suggestions</a></p>
+                </div>
+                <?php
+            } else {
         ?>
             <div class="connexion_strategie">Pour accéder aux défis, veuillez vous <a class="lien_strategie" href="index.php?module=connexion&action=connexion"> connecter</a> SVP !</div>
         </div>
         <?php
+            }
         }
+    }
+
+    function affiche_sugg($tab) {
+        ?>
+        <head>
+            <link rel="stylesheet" href="modules/mod_strategie/Css-Strategie.css">
+        </head>
+        <div class="section_strategie">
+            <h1 class="titre_strategie">Stratégie des ennemis :</h1>
+    
+            <table class="table_strategie">
+                <tr><th>Suggestion</th><th>Type</th><th>Date</th><th>Proposé par</th><th>Supprimer</th></tr>
+                <?php
+                foreach($tab as $liste) {
+                    ?>
+                    <tr>
+                        <td><?= $liste['suggestion'] ?> </td>
+                        <td><?= $liste['type'] ?> </td>
+                        <td><?= $liste['date'] ?> </td>
+                        <td><?= $liste['pseudo'] ?> </td>
+                        <td><form action="index.php?module=strategie&action=supprimerSugg&id=<?= $liste['id_suggestion'] ?>" method="post">
+                        <button type="submit" name="supprimerSugg">Supprimer</button>
+                        </form></td>
+                    </tr>
+                    <?php
+                }
+                ?> 
+            </table>       
+        </div>
+        <?php
     }
 
     function affiche_suggestion() {
@@ -147,7 +191,7 @@ class VueStrategie extends VueGenerique{
         <div class="section_strategie">
             <ul class="liste-menu_strategie">
                 <li><a class="lien-menu_strategie" href="index.php?module=strategie">Retour aux stratégies</a></li>
-                <?php if($_GET['action']=='suggestion') {
+                <?php if($_GET['action']=='suggestion' || $_GET['action']=='afficheSuggestion' || $_GET['action']=='supprimerSugg') {
                 ?>
                 <li><a class="lien-menu_strategie" href="index.php?module=strategie&action=ennemi">Retour à la liste de suggestion des ennemis</a></li>
                 <li><a class="lien-menu_strategie" href="index.php?module=strategie&action=tour">Retour à la liste de suggestion des tours</a></li>

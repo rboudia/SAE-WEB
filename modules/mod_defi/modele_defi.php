@@ -62,6 +62,28 @@ class ModeleDefi extends Connexion {
         $requete->execute([$id_utilisateur]);
     }
 
+    public function creerDefi($defi, $reponse) {
+        try {
+            $requete = $this->connexion->getBdd()->prepare("INSERT INTO defi (defi, Solution) VALUES (?, ?)");
+            $requete->execute([$defi, $reponse]);
+            $resultat = $requete->fetch();
+
+            return $resultat;
+        } catch (PDOException $e) {
+            echo "Error: " . $e->getMessage();
+            return false; 
+        }
+    }
+
+    function enleverDefiJoueurs($id) {
+        $requete = $this->connexion->getBdd()->prepare("DELETE FROM joueurDefi WHERE id_defi = ?");
+        $requete->execute([$id]);
+    }
+
+    function suppDefi($id) {
+        $requete = $this->connexion->getBdd()->prepare("DELETE FROM defi WHERE id_defi = ? ");
+        $requete->execute([$id]);
+    }
 
 }
 

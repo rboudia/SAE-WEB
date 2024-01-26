@@ -10,10 +10,15 @@ class VueDefi extends VueGenerique {
             <?php
             unset($_SESSION['erreur']);
         }
-        if (isset($_SESSION['user'])) {
+        if (isset($_SESSION['admin'])){
+            $pseudo = $_SESSION['admin']['pseudo'];
+        } else if(isset($_SESSION['user'])) {
+            $pseudo = $_SESSION['user']['pseudo'];
+        }
+        if (isset($_SESSION['user']) || isset($_SESSION['admin'])) {
         ?>
     
-            <div class="messBien">Bienvenue <?php $_SESSION['user']['pseudo'] ?> !</div>
+            <div class="messBien">Bienvenue <?= $pseudo ?> !</div>
             <div class="expli">
                 <div class="box">
                     <h2>A quoi servent les défis ?</h2>
@@ -52,6 +57,36 @@ class VueDefi extends VueGenerique {
             <?php
             unset($_SESSION['erreur']);
         }
+        if (isset($_SESSION['admin'])) {
+            ?>
+            <table class="styled-table">
+                <tr><th>Numéro</th><th>Défi</th><th>Solution</th><th>Supprimer</th></tr>
+            <?php
+            foreach($tab as $defi) {
+                ?>
+                <tr>
+                <td><?= $defi['id_defi'] ?> </td>
+                <td><?= $defi['defi'] ?> </td>
+                <td><?= $defi['Solution'] ?> </td>
+                <td><form action="index.php?module=defi&action=supprimer&id=<?= $defi['id_defi'] ?>" method="post">
+                    <button type="submit" name="supprimerDefi">Supprimer le défi</button>
+                </form></td>
+                </tr>
+                <?php
+            }
+            ?>
+            </table>  
+            <table class="styled-table">
+            <form action="index.php?module=defi&action=creerDefi" method="post">
+            <tr>
+            <td><input type="text" name="defi" placeholder="Défi"></td>
+            <td><input type="text" name="reponse" placeholder="Réponse"></td>
+            <td><button type="submit" name="creerDefi" class="styled-button">Créer Defi</button></td>
+            </tr>
+            </form> 
+            </table>       
+            <?php
+        } else {
         ?>
         <table class="styled-table">
             <tr><th>Numéro</th><th>Défi</th><th>Réponse (Tout en minuscule)</th><th>Envoyer</th></tr>
@@ -66,15 +101,13 @@ class VueDefi extends VueGenerique {
             <td><input type="text" name="reponse" placeholder="Votre réponse"></td>
             <td><button type="submit" name="envoyerReponse" class="styled-button">Envoyer Réponse</button></td>
             </tr>
-            
             </form>
             <?php
         }
         ?> 
         </table>       
-        </body>
-        </html>
         <?php
+        }
     }
 
     function mauvaiseReponse($reponse) {

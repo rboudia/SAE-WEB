@@ -58,6 +58,10 @@ class ContStrategie {
         return isset($_SESSION['user']['id_joueur']) ? $_SESSION['user']['id_joueur'] : null;
     }
 
+    function afficheSuggestion() {
+        $this->vue->affiche_sugg($this->modele->getListeSugg());
+    }
+
     function exec(){
 
         switch ($this->action){
@@ -76,6 +80,17 @@ class ContStrategie {
                 $this->vue->menu();
                 $utilisateur = $_SESSION['user'];
                 $this->envoiSuggestion($utilisateur);
+                break;
+            case "afficheSuggestion":
+                $this->vue->menu();
+                $this->afficheSuggestion();
+                break;
+            case "supprimerSugg":
+                $id = isset($_GET['id']) ? $_GET['id'] : "Error" ;
+                $_SESSION["msg"] = "Défi supprimé !";
+                $this->vue->menu();
+                $this->modele->suppSugg($id);
+                $this->afficheSuggestion();
                 break;
 
             default:

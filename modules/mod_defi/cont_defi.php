@@ -57,6 +57,23 @@ class ContDefi {
         return isset($_SESSION['user']['id_joueur']) ? $_SESSION['user']['id_joueur'] : null;
     }
 
+    public function creerDefi() {
+	    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $defi = isset($_POST['defi']) ? $_POST['defi'] : '';
+		    $reponse = isset($_POST['reponse']) ? $_POST['reponse'] : '';
+            
+            if (!empty($defi) && !empty($reponse)) {       
+                $this->modele->creerDefi($defi, $reponse);
+                $_SESSION["msg"] ="Defi ajouté";
+                $this->liste();
+            } else {
+                $_SESSION["erreur"] = "Veuillez remplir tous les champs du formulaire.";
+            } 
+        }
+        if(isset($_SESSION["erreur"])){
+            $this->liste();
+        }
+	}
 
     function exec(){
         switch ($this->action){
@@ -68,6 +85,16 @@ class ContDefi {
                 break;
             case "traiterReponse":
                 $this->traiterReponse();
+                break;
+            case "creerDefi":
+                $this->creerDefi();
+                break;
+            case "supprimer":
+                $id = isset($_GET['id']) ? $_GET['id'] : "Error" ;
+                $_SESSION["msg"] = "Défi supprimé !";
+                $this->modele->enleverDefiJoueurs($id);
+                $this->modele->suppDefi($id);
+                $this->liste();
                 break;
             default:
             $_SESSION["erreur"] = "erreur";

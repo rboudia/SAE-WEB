@@ -53,6 +53,17 @@ class ModeleStrategie extends Connexion{
         $requete = $this->connexion->getBdd()->prepare("UPDATE joueur SET jeton = jeton - 1 WHERE id_joueur = ?");
         $requete->execute([$id_utilisateur]);
     }
+
+    function getListeSugg() {
+        $requete = $this->connexion->getBdd()->query("SELECT * FROM suggestion s INNER JOIN joueur j on s.id_joueur = j.id_joueur");
+        $tableau = $requete->fetchAll();
+        return $tableau;
+    }
+
+    function suppSugg($id) {
+        $requete = $this->connexion->getBdd()->prepare("DELETE FROM suggestion WHERE id_suggestion = ? ");
+        $requete->execute([$id]);
+    }
 }
 
 ?>
