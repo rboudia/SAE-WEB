@@ -33,12 +33,12 @@ class VueAdmin extends VueGenerique {
             <link rel="stylesheet" href="modules/mod_admin/Css-Admin2.css">
             <script>
             document.addEventListener("DOMContentLoaded", function() {
-                var messageContainer = document.getElementById("ami-barre-container");
+                var messageContainer = document.getElementById("message-container");
                 messageContainer.scrollTop = 0;  
             });
             </script>
         </head>
-        <div id="ami-barre-container">
+        <div id="message-container">
             <div id="ami-container">
                 <h1>Joueurs</h1>
                 <?php
@@ -75,12 +75,13 @@ class VueAdmin extends VueGenerique {
             <link rel="stylesheet" href="modules/mod_admin/Css-Admin2.css">
             <script>
             document.addEventListener("DOMContentLoaded", function() {
-                var messageContainer = document.getElementById("ami-barre-container");
+                var messageContainer = document.getElementById("message-container");
                 messageContainer.scrollTop = 0;  
             });
             </script>
         </head>
-        <div id="ami-barre-container">
+
+        <div id="message-container">
             <div id="ami-container">
                 <h1>Admin</h1>
                 <?php
