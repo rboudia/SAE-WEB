@@ -30,6 +30,13 @@ class VueTournoi extends VueGenerique {
                     <p>Nombre de joueur: <?= $tournoi['nombre_de_joueurs'] ?>/<?= $tournoi['nombre_max_participant'] ?></p>
                     <p>Date: <?= $tournoi['date_tournoi'] ?></p>
                     <?php
+                    if (isset($_SESSION['admin'])) {
+                        ?>
+                    <form action="index.php?module=tournoi&action=supprimer&id=<?= $tournoi['id_tournoi'] ?>" method="post">
+                        <button type="submit" name="supprimerTournoi">Supprimer le tournoi</button>
+                    </form>
+                    <?php
+                    }
                     if (isset($_SESSION['user'])) {
                         ?>
                     <form action="index.php?module=tournoi&action=traiterReponse&id=<?= $tournoi['id_tournoi'] ?>" method="post">
@@ -45,6 +52,18 @@ class VueTournoi extends VueGenerique {
         ?>
         </div>
         <?php
+        if (isset($_SESSION['admin'])) {
+            ?>
+            <div>
+            <h2>Créer un tournoi :</h2>
+            <form method="post" action="index.php?module=tournoi&action=creerTournoi" class="animationFormulaireIns">
+                Nom: <input type="text" name="nom" required><br>
+                Nombre de participant: <input type="text" name="nb_max" required><br>
+                Date et heure: <input type="datetime-local" name="date" required><br>
+                <input type="submit" value="Ajouter">
+            </form>
+            <?php
+        }
         if (isset($_SESSION['user']) && isset($_SESSION['user']['tournoi'])) {
             if ($_SESSION['user']['tournoi'] !== null) {
             ?>

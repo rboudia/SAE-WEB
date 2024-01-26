@@ -29,12 +29,25 @@ class VueCommunaute extends VueGenerique{
                     if (isset($_SESSION['user']['id_joueur'])) {
                         $messageClass = ($message['id_joueur'] == $_SESSION['user']['id_joueur']) ? 'user-message' : 'other-message';
                     } else {
-                        $messageClass = 'other-message';
+                        if (isset($_SESSION['admin']['id_joueur'])){
+                            $messageClass = ($message['id_joueur'] == $_SESSION['admin']['id_joueur']) ? 'user-message' : 'other-message';
+                        } else {
+                            $messageClass = 'other-message';
+                        }
                     }
                     ?>
                     <div class="message <?= $messageClass ?>">
                         <?= $message['pseudo'] ?> :
                         <?= $message['message'] ?>
+                        <?php
+                        if (isset($_SESSION['admin']['id_joueur'])){
+                            ?>
+                        <form action="index.php?module=communaute&action=supprimer&id=<?= $message['id_communaute'] ?>" method="post">
+                        <input type="submit" id="submit-btn" value="Supprimer">
+                        </form>
+                        <?php
+                        }
+                        ?>
                     </div>
                     <?php
                 }
@@ -54,7 +67,7 @@ class VueCommunaute extends VueGenerique{
             <link rel="stylesheet" href="modules/mod_message/Css-Message.css">
         </head>
         <?php
-        if (isset($_SESSION['user'])) {
+        if (isset($_SESSION['user']) || isset($_SESSION['admin'])) {
         ?>
         <div id="message-form">
             <form action="index.php?module=communaute&action=envoyer" method="post">

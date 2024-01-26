@@ -13,7 +13,7 @@ class ModeleCommunaute extends Connexion{
 
     public function listeMessage() {
         try {
-            $requete = "SELECT joueur.pseudo, communaute.message, communaute.id_joueur FROM communaute INNER JOIN joueur on communaute.id_joueur = joueur.id_joueur ORDER BY date ASC;
+            $requete = "SELECT id_communaute, joueur.pseudo, communaute.message, communaute.id_joueur FROM communaute INNER JOIN joueur on communaute.id_joueur = joueur.id_joueur ORDER BY date ASC;
             ";
             $stmt = $this->connexion->getBdd()->prepare($requete);
             $stmt->execute();
@@ -34,6 +34,15 @@ class ModeleCommunaute extends Connexion{
 		try {
 			$stmt = self::$bdd->prepare("INSERT INTO communaute (id_joueur, date, message) VALUES (?, ?, ?)");
 			return $stmt->execute([$id, $date, $message]); 
+		} catch (PDOException $e) {
+			die('Erreur lors de l\'ajout du joueur : ' . $e->getMessage());
+		}
+	}
+
+    public function supprimerMessage($id) {
+		try {
+			$stmt = self::$bdd->prepare("DELETE FROM communaute WHERE id_communaute = ?");
+			return $stmt->execute([$id]); 
 		} catch (PDOException $e) {
 			die('Erreur lors de l\'ajout du joueur : ' . $e->getMessage());
 		}

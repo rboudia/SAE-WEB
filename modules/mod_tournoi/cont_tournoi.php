@@ -32,6 +32,34 @@ class ContTournoi {
         }
     }
 
+    public function creerTournoi() {
+	    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $nom = isset($_POST['nom']) ? $_POST['nom'] : '';
+		    $nb_max = isset($_POST['nb_max']) ? $_POST['nb_max'] : '';
+            $date = isset($_POST['date']) ? $_POST['date'] : '';
+            
+            if (!empty($nom) && !empty($nb_max) && !empty($date)) {
+                if (!is_numeric($nb_max)) {
+                    $_SESSION["erreur"] = "Choisir un nombre pour le nombre de participant.";
+                } else {
+                    $nom_existant = $this->modele->verifierNomExistant($nom);
+                    if ($nom_existant) {
+                        $_SESSION["erreur"] = "Choisir un autre nom.";
+                    } else {
+                        $this->modele->creerTournoi($nom, $nb_max, $date);
+                        $_SESSION["msg"] ="Tournoi ajouté";
+                        $this->liste();
+                    }
+                }
+            } else {
+                $_SESSION["erreur"] = "Veuillez remplir tous les champs du formulaire.";
+            } 
+        }
+        if(isset($_SESSION["erreur"])){
+            $this->liste();
+        }
+	}
+
 
     function exec(){
         switch ($this->action){
@@ -47,6 +75,16 @@ class ContTournoi {
                 $this->modele->supprimerTournoi($_SESSION['user']['id_joueur']);
                 $_SESSION["msg"] = "Vous avez quitté le tournoi !";
                 $_SESSION['user']['tournoi'] = null;
+                $this->liste();
+                break;
+            case "creerTournoi":
+                $this->creerTournoi();
+                break;
+            case "supprimer":
+                $id = isset($_GET['id']) ? $_GET['id'] : "Error" ;
+                $_SESSION["msg"] = "Tournoi supprimé !";
+                $this->modele->enleverTournoiJoueurs($id);
+                $this->modele->suppTournoi($id);
                 $this->liste();
                 break;
             default:

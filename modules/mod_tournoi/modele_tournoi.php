@@ -39,6 +39,16 @@ class ModeleTournoi extends Connexion {
         $requete->execute([$id]);
     }
 
+    function enleverTournoiJoueurs($id) {
+        $requete = $this->connexion->getBdd()->prepare("UPDATE joueur SET tournoi = NULL WHERE tournoi = ?");
+        $requete->execute([$id]);
+    }
+
+    function suppTournoi($id) {
+        $requete = $this->connexion->getBdd()->prepare("DELETE FROM tournoi WHERE id_tournoi = ? ");
+        $requete->execute([$id]);
+    }
+
     function verifTournoi($id) {
         $requete = $this->connexion->getBdd()->prepare("SELECT nombre_max_participant, COUNT(j.id_joueur) AS nombre_de_joueurs
         FROM
@@ -66,6 +76,35 @@ class ModeleTournoi extends Connexion {
         
         return ($resultat['tournoi'] === null);
     }
+
+    public function creerTournoi($nom, $nb_max, $date) {
+        try {
+            $requete = $this->connexion->getBdd()->prepare("INSERT INTO tournoi (nom, nombre_max_participant, date) VALUES (?, ?, ?)");
+            $requete->execute([$nom, $nb_max, $date]);
+            $resultat = $requete->fetch();
+
+            return $resultat;
+        } catch (PDOException $e) {
+            echo "Error: " . $e->getMessage();
+            return false; 
+        }
+    }
+
+    public function verifierNomExistant($nom) {
+        try {
+            $query = $this->connexion->getBdd()->prepare("SELECT * FROM tournoi WHERE nom = :nom");
+            $query->bindParam(':nom', $nom, PDO::PARAM_STR);
+            $query->execute();
+
+            $count = $query->fetchColumn();
+
+            return $count > 0;
+        } catch (PDOException $e) {
+            echo "Erreur: " . $e->getMessage();
+            return false; 
+        }
+    }
+
 }
 
 ?>

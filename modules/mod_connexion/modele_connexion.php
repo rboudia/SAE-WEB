@@ -41,18 +41,31 @@ class ModeleConnexion extends Connexion {
 		}
 	}
 
-public function verifierMotDePasse($login, $mdp) {
-	try {
-		$query = self::$bdd->prepare("SELECT id_joueur, login, pseudo FROM joueur WHERE login = :login AND mdp = md5(:mdp)");
-		$query->bindParam(':login', $login, PDO::PARAM_STR);
-		$query->bindParam(':mdp', $mdp, PDO::PARAM_STR);
-		$query->execute();
-		$resultat = $query->fetch(PDO::FETCH_ASSOC);
-		return ($resultat)?$resultat:null;
-	} catch (PDOException $e) {
-		die('Erreur lors de la vérification du mot de passe : ' . $e->getMessage());
+	public function verifierMotDePasse($login, $mdp) {
+		try {
+			$query = self::$bdd->prepare("SELECT id_joueur, login, pseudo FROM joueur WHERE login = :login AND mdp = md5(:mdp)");
+			$query->bindParam(':login', $login, PDO::PARAM_STR);
+			$query->bindParam(':mdp', $mdp, PDO::PARAM_STR);
+			$query->execute();
+			$resultat = $query->fetch(PDO::FETCH_ASSOC);
+			return ($resultat)?$resultat:null;
+		} catch (PDOException $e) {
+			die('Erreur lors de la vérification du mot de passe : ' . $e->getMessage());
+		}
 	}
-}
+
+	public function verifierAdmin($login, $mdp) {
+		try {
+			$query = self::$bdd->prepare("SELECT id_joueur, pseudo, login FROM joueur WHERE login = :login AND mdp = md5(:mdp) AND admin = 1");
+			$query->bindParam(':login', $login, PDO::PARAM_STR);
+			$query->bindParam(':mdp', $mdp, PDO::PARAM_STR);
+			$query->execute();
+			$resultat = $query->fetch(PDO::FETCH_ASSOC);
+			return ($resultat)?$resultat:null;
+		} catch (PDOException $e) {
+			die('Erreur lors de la vérification du mot de passe : ' . $e->getMessage());
+		}
+	}
 
 }
 ?>

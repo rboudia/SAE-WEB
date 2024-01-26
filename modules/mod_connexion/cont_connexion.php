@@ -37,12 +37,11 @@ class ContConnexion {
                     $this->form_inscription();
                     return;
                 }
-            }else            
+            }else {        
                 $logo = $this->telechargementImage();
                 if (!empty($pseudo) && !empty($login) && !empty($mdp)) {
                     $login_existant = $this->modele_connexion->verifierLoginExistant($login);
                     $pseudo_existant = $this->modele_connexion->verifierPseudoExistant($pseudo);
-
                     if ($pseudo_existant) {
                         $_SESSION["erreur"] = "Ce pseudo est déjà utilisé. Veuillez choisir un autre.";
                     }else{
@@ -63,7 +62,7 @@ class ContConnexion {
             } else {
                     $_SESSION["erreur"] = "Veuillez remplir tous les champs du formulaire.";
                 }
-            
+            }
         }
         if(isset($_SESSION["erreur"])){
             $this->form_inscription();
@@ -74,16 +73,22 @@ class ContConnexion {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $login = isset($_POST['login']) ? $_POST['login'] : '';
             $mot_de_passe = isset($_POST['mdp']) ? $_POST['mdp'] : '';
-            
-		    $utilisateur = $this->modele_connexion->verifierLoginExistant($login);
-    
-            if ($utilisateur !== null && $this->modele_connexion->verifierMotDePasse($login, $mot_de_passe)) {
-                $_SESSION['user'] = $utilisateur;
-                $this->vue_connexion->form_connexion();
 
-            } else {
-                $_SESSION["erreur"] = "Informations de connexion incorrectes.";
+            if($this->modele_connexion->verifierAdmin($login, $mot_de_passe)){
+                $_SESSION['admin'] = $this->modele_connexion->verifierAdmin($login, $mot_de_passe);
                 $this->vue_connexion->form_connexion();
+            } else{
+
+                $utilisateur = $this->modele_connexion->verifierLoginExistant($login);
+        
+                if ($utilisateur !== null && $this->modele_connexion->verifierMotDePasse($login, $mot_de_passe)) {
+                    $_SESSION['user'] = $utilisateur;
+                    $this->vue_connexion->form_connexion();
+
+                } else {
+                    $_SESSION["erreur"] = "Informations de connexion incorrectes.";
+                    $this->vue_connexion->form_connexion();
+                }
             }
         } else {
             $this->vue_connexion->form_connexion();
@@ -91,6 +96,7 @@ class ContConnexion {
     }
     
 	public function deconnexion() {
+        unset($_SESSION['admin']);
         unset($_SESSION['user']);
         $this->vue_connexion->form_connexion();
 	}

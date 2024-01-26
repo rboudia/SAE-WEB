@@ -19,9 +19,14 @@ class ContCommunaute {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $message = isset($_POST['message']) ? $_POST['message'] : '';
             $date = date('Y-m-d H:i:s');
+            if (isset($_SESSION['admin'])){
+                $id = $_SESSION['admin']['id_joueur'];
+            } else {
+                $id = $_SESSION['user']['id_joueur'];
+            }
             if (!empty($date)) {
                 if (!empty($message)) {
-                    $this->modele->envoieMessage($_SESSION['user']['id_joueur'], $date, $message);
+                    $this->modele->envoieMessage($id, $date, $message);
                     $_SESSION["msg"] ="Message envoyé";
                     $_POST['message'] = "";
                     $this->listeMessage();
@@ -57,6 +62,13 @@ class ContCommunaute {
 
             case "envoyer":
                 $this->envoyerMessage();
+                break;
+            
+            case "supprimer":
+                $id = isset($_GET['id']) ? $_GET['id'] : "Error" ;
+                $this->modele->supprimerMessage($id);
+                $this->listeMessage();
+                $this->vue->envoyer();
                 break;
 
             default:

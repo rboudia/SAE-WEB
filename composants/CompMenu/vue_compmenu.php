@@ -11,18 +11,22 @@ class VueCompMenu {
         $this->menuHTML .= '<a href="index.php?module=classement">Classement</a>';
         $this->menuHTML .= '<a href="index.php?module=tournoi">Tournoi</a>';        
         $this->menuHTML .= '<a href="index.php?module=communaute">Communauté</a>';        
-
-        if (isset($_SESSION['user'])) {
-            $utilisateur = $_SESSION['user'];
-            $this->menuHTML .= '<a href="index.php?module=amelioration">Amélioration</a>';
-            $this->menuHTML .= '<a href="index.php?module=message">Message</a>';
-            $this->menuHTML .= '<a href="index.php?module=ami">Ami</a>';
-            $this->menuHTML .= '<a href="index.php?module=profil">Profil</a>';
+        if (isset($_SESSION['admin'])) {
+            $utilisateur = $_SESSION['admin'];
             $this->menuHTML .= '<a href="index.php?module=connexion&action=deconnexion">Déconnexion</a>';
-            $this->menuHTML .= '<span style="color: green;">Vous êtes connecté sous le pseudo ' . $utilisateur['pseudo'] . ' !</span>';
-        } else {
-            $this->menuHTML .= '<a href="index.php?module=connexion&action=connexion">Connexion</a>';
-            $this->menuHTML .= '<a href="index.php?module=connexion&action=afficher">Inscription</a>';
+            $this->menuHTML .= '<span style="color: green;">Vous êtes connecté en tant qu\'admin sous le login ' . $utilisateur['login'] . ' !</span>';
+        } else {   if (isset($_SESSION['user'])) {
+                $utilisateur = $_SESSION['user'];
+                $this->menuHTML .= '<a href="index.php?module=amelioration">Amélioration</a>';
+                $this->menuHTML .= '<a href="index.php?module=message">Message</a>';
+                $this->menuHTML .= '<a href="index.php?module=ami">Ami</a>';
+                $this->menuHTML .= '<a href="index.php?module=profil">Profil</a>';
+                $this->menuHTML .= '<a href="index.php?module=connexion&action=deconnexion">Déconnexion</a>';
+                $this->menuHTML .= '<span style="color: green;">Vous êtes connecté sous le pseudo ' . $utilisateur['pseudo'] . ' !</span>';
+            } else {
+                $this->menuHTML .= '<a href="index.php?module=connexion&action=connexion">Connexion</a>';
+                $this->menuHTML .= '<a href="index.php?module=connexion&action=afficher">Inscription</a>';
+            }
         }
     }
 

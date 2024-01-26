@@ -39,6 +39,16 @@ class VueConnexion extends VueGenerique {
             </div>
             <?php
         } else {
+            if(isset($_SESSION['admin'])){
+                $utilisateur = $_SESSION['admin'];
+                ?>
+                <link rel="stylesheet" type="text/css" href="modules/mod_connexion/Css.css">
+                <div id="connexion-info">
+                Vous êtes connecté en tant qu'admin sous le login <?= $utilisateur['login'] ?> ! <br>
+                <a href="index.php?module=connexion&action=deconnexion">Déconnexion</a>
+                </div>
+            <?php
+            } else {
             ?>
             <div>
                 <h2 class="connexion">Connexion</h2>
@@ -60,5 +70,6 @@ class VueConnexion extends VueGenerique {
             <?php
         }
     }
+}
 }
 ?>
