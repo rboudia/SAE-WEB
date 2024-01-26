@@ -7,8 +7,8 @@ class VueEnnemi extends VueGenerique {
     function affiche_liste($tab) {
 		?>
 		<head>
-		<link rel="stylesheet" href="modules/mod_ennemi/Css-Ennemi.css">
-		</head>
+        <link rel="stylesheet" href="modules/mod_info/Css-Info.css">
+        </head>
 		<?php
 
 		foreach ($tab as $element) {
@@ -20,6 +20,9 @@ class VueEnnemi extends VueGenerique {
 
     function affiche_detail($detailEnnemi) {
 			?>
+			<head>
+            <link rel="stylesheet" href="modules/mod_info/Css-Info.css">
+            </head>
             <div class="tab_detail">
 			<table class="table_detail">
 				<tr>
@@ -62,6 +65,9 @@ class VueEnnemi extends VueGenerique {
 
     function menu(){
 		?>
+		<head>
+        <link rel="stylesheet" href="modules/mod_info/Css-Info.css">
+        </head>
 		
 		<ul class="liste_menu">
 			<li><a href="index.php?module=info">Retour aux informations du jeu</a></li>

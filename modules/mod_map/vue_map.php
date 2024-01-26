@@ -6,8 +6,8 @@
         function affiche_liste($tab) {
             ?>
         <head>
-        <link rel="stylesheet" href="modules/mod_map/Css-Map.css">
-        </head>     
+            <link rel="stylesheet" href="modules/mod_info/Css-Info.css">
+            </head>   
         <?php
             foreach($tab as $element) {
                 ?>
@@ -19,6 +19,9 @@
 
         function affiche_detail($detailMap) {
             ?>
+            <head>
+            <link rel="stylesheet" href="modules/mod_info/Css-Info.css">
+            </head>
             <div class="tab_detail">
             <img src=<?= $detailMap['image_map']?> width="500" height="500"/>
         </div>
@@ -27,6 +30,9 @@
 
         function menu(){
             ?>
+            <head>
+            <link rel="stylesheet" href="modules/mod_info/Css-Info.css">
+            </head>
             <ul class="liste_menu">
                 <li><a href="index.php?module=info">Retour aux informations du jeu</a></li>
                 <?php if($_GET['action']=='details') {

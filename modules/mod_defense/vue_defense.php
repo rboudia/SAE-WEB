@@ -6,8 +6,8 @@ class VueDefense extends VueGenerique {
     function affiche_liste($tab,$i) {
 		?>
 		<head>
-		<link rel="stylesheet" href="modules/mod_defense/Css-Defense.css">
-		</head>
+            <link rel="stylesheet" href="modules/mod_info/Css-Info.css">
+            </head>
 		<?php
         foreach($tab as $element) {
             
@@ -22,6 +22,9 @@ class VueDefense extends VueGenerique {
     function affiche_detail($detailDefense) {
         
 			?>
+			<head>
+            <link rel="stylesheet" href="modules/mod_info/Css-Info.css">
+            </head>
             <div class="tab_detail">
 			<table class="table_detail">
 				<tr>
@@ -62,6 +65,9 @@ class VueDefense extends VueGenerique {
 
     function menu(){
 		?>
+		<head>
+            <link rel="stylesheet" href="modules/mod_info/Css-Info.css">
+            </head>
 		<ul class="liste_menu">
 		<li><a href="index.php?module=info">Retour aux informations du jeu</a></li>
 			<?php if($_GET['action']=='details' || isset($_GET['i'])) {
@@ -75,6 +81,9 @@ class VueDefense extends VueGenerique {
 
     public function menu_spe() {
         ?>
+		<head>
+            <link rel="stylesheet" href="modules/mod_info/Css-Info.css">
+            </head>
 		<ul class="liste_menu">
         <li><a href="index.php?module=info">Retour aux informations du jeu</a></li>
 		</ul>
