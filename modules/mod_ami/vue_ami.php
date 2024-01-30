@@ -31,7 +31,7 @@ class VueAmi extends VueGenerique{
         <?php
     }
 
-    public function affiche_barre(){
+    public function affiche_barre($token){
         ?>
         <head>
             <meta charset="UTF-8">
@@ -43,6 +43,7 @@ class VueAmi extends VueGenerique{
             <form action="index.php?module=ami&action=liste" method="post">
                 <label for="pseudo">Entrez un pseudo :</label><br>
                 <input type="text" id="pseudo" name="pseudo"><br>
+                <input type="hidden" name="csrf_token" value="<?= $token ?>">
                 <input type="submit" value="Rechercher">
             </form>
             <br>

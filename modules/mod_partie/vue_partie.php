@@ -4,7 +4,7 @@ require_once 'vue_generique.php';
 
 class VuePartie extends VueGenerique{
 
-	public function affiche_barre(){
+	public function affiche_barre($token){
 		?>
         <head>
 <link rel="stylesheet" type="text/css" href="modules\mod_partie\Css-partie.css">
@@ -15,6 +15,7 @@ class VuePartie extends VueGenerique{
     <form class="formulaire" action="index.php?module=partie&action=partie" method="post">
         <label class="label-formulaire" for="pseudo">Entrez un pseudo :</label><br>
         <input class="champ-texte" type="text" id="pseudo" name="pseudo"><br>
+        <input type="hidden" name="csrf_token" value="<?= $token ?>">
         <input class="bouton-submit" type="submit" value="Afficher les statistiques">
     </form>
     <br>

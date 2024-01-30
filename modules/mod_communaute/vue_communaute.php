@@ -3,7 +3,7 @@ require_once 'vue_generique.php';
 
 class VueCommunaute extends VueGenerique{
 
-    public function afficherMessage($messages) {
+    public function afficherMessage($messages, $token) {
         ?>
         <head>
             <meta charset="UTF-8">
@@ -16,6 +16,13 @@ class VueCommunaute extends VueGenerique{
                 });
             </script>
         </head>
+        <?php if(isset($_SESSION['erreur'])){
+                    ?>
+                    <div style="color:red; text-align: center;"><?=$_SESSION['erreur']?></div><br>
+                    <?php
+                    unset($_SESSION['erreur']);
+                }
+        ?>
         <div id="message-container">
             <h2>Communauté:</h2>
             <?php
@@ -43,6 +50,7 @@ class VueCommunaute extends VueGenerique{
                         if (isset($_SESSION['admin']['id_joueur'])){
                             ?>
                         <form action="index.php?module=communaute&action=supprimer&id=<?= $message['id_communaute'] ?>" method="post">
+                        <input type="hidden" name="csrf_token" value="<?= $token ?>">
                         <input type="submit" id="submit-btn" value="Supprimer">
                         </form>
                         <?php
@@ -58,7 +66,7 @@ class VueCommunaute extends VueGenerique{
     }
     
 
-    public function envoyer() {
+    public function envoyer($token) {
         
         ?>
         <head>
@@ -73,6 +81,7 @@ class VueCommunaute extends VueGenerique{
             <form action="index.php?module=communaute&action=envoyer" method="post">
                 <label for="message">Message:</label>
                 <input type="text" id="message" name="message"><br>
+                <input type="hidden" name="csrf_token" value="<?= $token ?>">
                 <input type="submit" id="submit-btn" value="Envoyer">
             </form>
         </div>

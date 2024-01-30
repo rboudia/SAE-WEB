@@ -28,6 +28,7 @@ class VueDefi extends VueGenerique {
                 </div>
             </div>
             <form action="index.php?module=defi&action=afficheDefi" method="post">
+                <input type="hidden" name="csrf_token" value="<?= $token ?>">
                 <button type="submit" name="afficheDefi" class="bouttonAff">Afficher Défi</button>
             </form> <?php
         }else{
@@ -42,7 +43,7 @@ class VueDefi extends VueGenerique {
         <?php
     }
     
-    function affiche_liste($tab) {
+    function affiche_liste($tab, $token) {
         ?>
         <head>
             <meta charset="UTF-8">
@@ -69,6 +70,7 @@ class VueDefi extends VueGenerique {
                 <td><?= $defi['defi'] ?> </td>
                 <td><?= $defi['Solution'] ?> </td>
                 <td><form action="index.php?module=defi&action=supprimer&id=<?= $defi['id_defi'] ?>" method="post">
+                    <input type="hidden" name="csrf_token" value="<?= $token ?>">
                     <button type="submit" name="supprimerDefi">Supprimer le défi</button>
                 </form></td>
                 </tr>
@@ -81,6 +83,7 @@ class VueDefi extends VueGenerique {
             <tr>
             <td><input type="text" name="defi" placeholder="Défi"></td>
             <td><input type="text" name="reponse" placeholder="Réponse"></td>
+            <input type="hidden" name="csrf_token" value="<?= $token ?>">
             <td><button type="submit" name="creerDefi" class="styled-button">Créer Defi</button></td>
             </tr>
             </form> 
@@ -99,6 +102,7 @@ class VueDefi extends VueGenerique {
             <td><?= $defi['id_defi'] ?> </td>
             <td><?= $defi['defi'] ?> </td>
             <td><input type="text" name="reponse" placeholder="Votre réponse"></td>
+            <input type="hidden" name="csrf_token" value="<?= $token ?>">
             <td><button type="submit" name="envoyerReponse" class="styled-button">Envoyer Réponse</button></td>
             </tr>
             </form>

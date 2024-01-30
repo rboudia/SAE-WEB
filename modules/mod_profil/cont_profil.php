@@ -1,6 +1,7 @@
 <?php
 require_once 'modele_profil.php';
 require_once 'vue_profil.php';
+require_once 'token.php';
 
 class ContProfil {
 
@@ -20,90 +21,103 @@ class ContProfil {
 
     public function changermdp() {
 	    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $ancienmdp = isset($_POST['ancienmdp']) ? $_POST['ancienmdp'] : '';
-		    $nouveaumdp = isset($_POST['nouveaumdp']) ? $_POST['nouveaumdp'] : '';
-		    $confirmermdp = isset($_POST['confirmermdp']) ? $_POST['confirmermdp'] : '';
+            if (CsrfTokenManager::verifyToken($_POST['csrf_token'])) {
 
-		if (!empty($ancienmdp) && !empty($nouveaumdp) && !empty($confirmermdp)) {
-            $login = $_SESSION['user'];
-		    $mdpvalide = $this->modele->verifierMotDePasse($login['id_joueur'], $ancienmdp);
-            if (!$mdpvalide) {
-		        $_SESSION["erreur"] = "Mot de passe incorrect.";
-		    }else{
-                if ($nouveaumdp != $confirmermdp) {
-		        $_SESSION["erreur"] = "Les mots de passe ne sont pas les mêmes.";
-		    } else {
-		        if ($this->modele->changerMotDePasse($login['id_joueur'], $nouveaumdp)) {
-                    $_SESSION["msg"] ="Mot de passe mis à jour.";
-                    $_SESSION['user']['mdp'] = $nouveaumdp;
-                    $this->vue->affiche_detail($this->modele->getDetail(($_SESSION['user']['id_joueur'])));
+                $ancienmdp = isset($_POST['ancienmdp']) ? $_POST['ancienmdp'] : '';
+                $nouveaumdp = isset($_POST['nouveaumdp']) ? $_POST['nouveaumdp'] : '';
+                $confirmermdp = isset($_POST['confirmermdp']) ? $_POST['confirmermdp'] : '';
+
+            if (!empty($ancienmdp) && !empty($nouveaumdp) && !empty($confirmermdp)) {
+                $login = $_SESSION['user'];
+                $mdpvalide = $this->modele->verifierMotDePasse($login['id_joueur'], $ancienmdp);
+                if (!$mdpvalide) {
+                    $_SESSION["erreur"] = "Mot de passe incorrect.";
+                }else{
+                    if ($nouveaumdp != $confirmermdp) {
+                    $_SESSION["erreur"] = "Les mots de passe ne sont pas les mêmes.";
                 } else {
-                    $_SESSION["erreur"] = "Erreur lors de l'inscription.";
+                    if ($this->modele->changerMotDePasse($login['id_joueur'], $nouveaumdp)) {
+                        $_SESSION["msg"] ="Mot de passe mis à jour.";
+                        $_SESSION['user']['mdp'] = $nouveaumdp;
+                        $this->vue->affiche_detail($this->modele->getDetail(($_SESSION['user']['id_joueur'])));
+                    } else {
+                        $_SESSION["erreur"] = "Erreur lors de l'inscription.";
+                    }
                 }
-		    }
-        }
-		} else {
-                    $_SESSION["erreur"] = "Veuillez remplir tous les champs du formulaire.";
+            }
+            } else {
+                        $_SESSION["erreur"] = "Veuillez remplir tous les champs du formulaire.";
+                }
+            } else {
+                $_SESSION["erreur"] = "Token invalide";
             }
 	    }
         if(isset($_SESSION["erreur"])){
             $this->form_changer();
-                }
+        }
 	}
 
     public function modif($ancienjoueur) {
 	    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $pseudo = isset($_POST['pseudo']) ? $_POST['pseudo'] : '';
-		    $login = isset($_POST['login']) ? $_POST['login'] : '';
+            if (CsrfTokenManager::verifyToken($_POST['csrf_token'])) {
+                $pseudo = isset($_POST['pseudo']) ? $_POST['pseudo'] : '';
+                $login = isset($_POST['login']) ? $_POST['login'] : '';
 
 
-            $logo = $this->telechargementImage();
+                $logo = $this->telechargementImage();
 
-            if (empty($logo)){
-               $logo = $_SESSION['user']['photo_profil'];
+                if (empty($logo)){
+                $logo = $_SESSION['user']['photo_profil'];
 
-            }
+                }
 
-            if (!empty($pseudo) && !empty($login)) {
-                $login_existant = $this->modele->verifierLoginExistant($login);
-                $pseudo_existant = $this->modele->verifierPseudoExistant($pseudo);
-                if ( $ancienjoueur["login"] !== $login) {
-                    if ($login_existant) {
-                        $_SESSION["erreur"] = "Ce login est déjà utilisé. Veuillez choisir un autre.";
-                        $this->vue->formulaireModification($ancienjoueur);
-                        return;
+                if (!empty($pseudo) && !empty($login)) {
+                    $login_existant = $this->modele->verifierLoginExistant($login);
+                    $pseudo_existant = $this->modele->verifierPseudoExistant($pseudo);
+                    if ( $ancienjoueur["login"] !== $login) {
+                        if ($login_existant) {
+                            $_SESSION["erreur"] = "Ce login est déjà utilisé. Veuillez choisir un autre.";
+                            $token = CsrfTokenManager::generateToken();
+                            $this->vue->formulaireModification($ancienjoueur, $token);
+                            return;
+                        } 
+                    }
+                    if ( $ancienjoueur["pseudo"] !== $pseudo) {
+                        if ($pseudo_existant) {
+                            $_SESSION["erreur"] = "Ce pseudo est déjà utilisé. Veuillez choisir un autre.";
+                            $token = CsrfTokenManager::generateToken();
+                            $this->vue->formulaireModification($ancienjoueur, $token);
+                            return;
+                        }         
                     } 
-                }
-                if ( $ancienjoueur["pseudo"] !== $pseudo) {
-                    if ($pseudo_existant) {
-                        $_SESSION["erreur"] = "Ce pseudo est déjà utilisé. Veuillez choisir un autre.";
-                        $this->vue->formulaireModification($ancienjoueur);
-                        return;
-                    }         
-                } 
-                if ($this->modele->changerInfo($ancienjoueur['id_joueur'], $pseudo, $login, $logo)) {
-                    $_SESSION["msg"] ="Informations mis à jour.";
-                    $_SESSION['user']['login'] = $login;
-                    $_SESSION['user']['pseudo'] = $pseudo;
-                    $_SESSION['user']['photo_profil'] = $logo;
-                    $this->vue->affiche_detail($this->modele->getDetail(($_SESSION['user']['id_joueur'])));
-                    
+                    if ($this->modele->changerInfo($ancienjoueur['id_joueur'], $pseudo, $login, $logo)) {
+                        $_SESSION["msg"] ="Informations mis à jour.";
+                        $_SESSION['user']['login'] = $login;
+                        $_SESSION['user']['pseudo'] = $pseudo;
+                        $_SESSION['user']['photo_profil'] = $logo;
+                        $this->vue->affiche_detail($this->modele->getDetail(($_SESSION['user']['id_joueur'])));
+                        
 
+                    } else {
+                        $_SESSION["erreur"] = "Erreur lors de la mise à jour.";
+                    }
                 } else {
-                    $_SESSION["erreur"] = "Erreur lors de la mise à jour.";
+                    $_SESSION["erreur"] = "Veuillez remplir tous les champs du formulaire.";
                 }
-                    
-        
             } else {
-                $_SESSION["erreur"] = "Veuillez remplir tous les champs du formulaire.";
+                $_SESSION["erreur"] = "Token invalide.";
+                $token = CsrfTokenManager::generateToken();
+                $this->vue->formulaireModification($ancienjoueur, $token);
             }
 	    }else {
-            $this->vue->formulaireModification($ancienjoueur);
+                $token = CsrfTokenManager::generateToken();
+                $this->vue->formulaireModification($ancienjoueur, $token);
         }
 	}
 
     public function form_changer() {
-        $this->vue->form_changer();
+        $token = CsrfTokenManager::generateToken();
+        $this->vue->form_changer($token);
     }
 
     public function telechargementImage() {
@@ -122,7 +136,6 @@ class ContProfil {
                 return $logo; 
             }
         }
-
         return $logo; 
     }
 

@@ -1,6 +1,7 @@
 <?php
 require_once 'modele_connexion.php';
 require_once 'vue_connexion.php';
+require_once 'token.php';
 
 class ContConnexion {
     public $vue_connexion;
@@ -25,43 +26,47 @@ class ContConnexion {
 
 	public function inscription() {
 	    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            if (CsrfTokenManager::verifyToken($_POST['csrf_token'])) {
+                $pseudo = isset($_POST['pseudo']) ? $_POST['pseudo'] : '';
+                $login = isset($_POST['login']) ? $_POST['login'] : '';
+                $mdp = isset($_POST['mdp']) ? $_POST['mdp'] : '';
+                $filename = $_FILES['logo']['name'];
 
-            $pseudo = isset($_POST['pseudo']) ? $_POST['pseudo'] : '';
-		    $login = isset($_POST['login']) ? $_POST['login'] : '';
-		    $mdp = isset($_POST['mdp']) ? $_POST['mdp'] : '';
-            $filename = $_FILES['logo']['name'];
-
-            if (!empty($filename)){
-                $error = $this->isValidExtension($filename);
-                if ($error === false){
-                    $_SESSION["erreur"] = "Fichier invalide.";
-                    $this->form_inscription();
-                    return;
-                }
-                $logo = $this->telechargementImage();
-            }     
-            if (!empty($pseudo) && !empty($login) && !empty($mdp)) {
-                $login_existant = $this->modele_connexion->verifierLoginExistant($login);
-                $pseudo_existant = $this->modele_connexion->verifierPseudoExistant($pseudo);
-                if ($pseudo_existant) {
-                    $_SESSION["erreur"] = "Ce pseudo est déjà utilisé. Veuillez choisir un autre.";
-                }else{
-                if ($login_existant) {
-                    $_SESSION["erreur"] = "Ce login est déjà utilisé. Veuillez choisir un autre.";
-                } else {
-                    if(empty($logo)){
-                        $logo = '';
+                if (!empty($filename)){
+                    $error = $this->isValidExtension($filename);
+                    if ($error === false){
+                        $_SESSION["erreur"] = "Fichier invalide.";
+                        $this->form_inscription();
+                        return;
                     }
-                    if ($this->modele_connexion->ajouterUtilisateur($pseudo, $login, $mdp, $logo)) {
-                        $_SESSION["msg"] ="Inscription réussie";
-                        $this->vue_connexion->form_connexion();
+                    $logo = $this->telechargementImage();
+                }     
+                if (!empty($pseudo) && !empty($login) && !empty($mdp)) {
+                    $login_existant = $this->modele_connexion->verifierLoginExistant($login);
+                    $pseudo_existant = $this->modele_connexion->verifierPseudoExistant($pseudo);
+                    if ($pseudo_existant) {
+                        $_SESSION["erreur"] = "Ce pseudo est déjà utilisé. Veuillez choisir un autre.";
+                    }else{
+                    if ($login_existant) {
+                        $_SESSION["erreur"] = "Ce login est déjà utilisé. Veuillez choisir un autre.";
                     } else {
-                        $_SESSION["erreur"] = "Erreur lors de l'inscription.";
+                        if(empty($logo)){
+                            $logo = '';
+                        }
+                        if ($this->modele_connexion->ajouterUtilisateur($pseudo, $login, $mdp, $logo)) {
+                            $_SESSION["msg"] ="Inscription réussie";
+                            $token = CsrfTokenManager::generateToken();
+                            $this->vue_connexion->form_connexion($token);
+                        } else {
+                            $_SESSION["erreur"] = "Erreur lors de l'inscription.";
+                        }
                     }
                 }
-            }
-        } else {
-                $_SESSION["erreur"] = "Veuillez remplir tous les champs du formulaire.";
+            } else {
+                    $_SESSION["erreur"] = "Veuillez remplir tous les champs du formulaire.";
+                }
+            } else{
+                $_SESSION["erreur"] = "Token invalide.";
             }
         }
 
@@ -72,38 +77,50 @@ class ContConnexion {
     
     public function connexion() {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $login = isset($_POST['login']) ? $_POST['login'] : '';
-            $mot_de_passe = isset($_POST['mdp']) ? $_POST['mdp'] : '';
+            if (CsrfTokenManager::verifyToken($_POST['csrf_token'])) {
+                $login = isset($_POST['login']) ? $_POST['login'] : '';
+                $mot_de_passe = isset($_POST['mdp']) ? $_POST['mdp'] : '';
 
-            if($this->modele_connexion->verifierAdmin($login, $mot_de_passe)){
-                $_SESSION['admin'] = $this->modele_connexion->verifierAdmin($login, $mot_de_passe);
-                $this->vue_connexion->form_connexion();
-            } else{
+                if($this->modele_connexion->verifierAdmin($login, $mot_de_passe)){
+                    $_SESSION['admin'] = $this->modele_connexion->verifierAdmin($login, $mot_de_passe);
+                    $token = CsrfTokenManager::generateToken();
+                    $this->vue_connexion->form_connexion($token);
+                } else{
 
-                $utilisateur = $this->modele_connexion->verifierLoginExistant($login);
-        
-                if ($utilisateur !== null && $this->modele_connexion->verifierMotDePasse($login, $mot_de_passe)) {
-                    $_SESSION['user'] = $utilisateur;
-                    $this->vue_connexion->form_connexion();
+                    $utilisateur = $this->modele_connexion->verifierLoginExistant($login);
+            
+                    if ($utilisateur !== null && $this->modele_connexion->verifierMotDePasse($login, $mot_de_passe)) {
+                        $_SESSION['user'] = $utilisateur;
+                        $token = CsrfTokenManager::generateToken();
+                    $this->vue_connexion->form_connexion($token);
 
-                } else {
-                    $_SESSION["erreur"] = "Informations de connexion incorrectes.";
-                    $this->vue_connexion->form_connexion();
+                    } else {
+                        $_SESSION["erreur"] = "Informations de connexion incorrectes.";
+                        $token = CsrfTokenManager::generateToken();
+                        $this->vue_connexion->form_connexion($token);
+                    }
                 }
+            }else {
+                $_SESSION["erreur"] = "Token invalide.";
+                $token = CsrfTokenManager::generateToken();
+                $this->vue_connexion->form_connexion($token);
             }
         } else {
-            $this->vue_connexion->form_connexion();
+            $token = CsrfTokenManager::generateToken();
+            $this->vue_connexion->form_connexion($token);
         }
     }
     
 	public function deconnexion() {
         unset($_SESSION['admin']);
         unset($_SESSION['user']);
-        $this->vue_connexion->form_connexion();
+        $token = CsrfTokenManager::generateToken();
+        $this->vue_connexion->form_connexion($token);
 	}
 
     public function form_inscription() {
-        $this->vue_connexion->form_inscription();
+        $token = CsrfTokenManager::generateToken();
+        $this->vue_connexion->form_inscription($token);
     }
     
     public function telechargementImage() {

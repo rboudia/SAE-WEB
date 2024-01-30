@@ -1,6 +1,7 @@
 <?php 
 require_once 'modele_ami.php';
 require_once 'vue_ami.php';
+require_once 'token.php';
 
 class ContAmi {
 
@@ -16,28 +17,40 @@ class ContAmi {
 
     public function trouveJoueur() {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $pseudo = isset($_POST['pseudo']) ? $_POST['pseudo'] : '';
-        
-		    if (!empty($pseudo)) {
-                if(!$this->modele->recherche($pseudo)){
-                    $_SESSION["erreur"] = "Pseudo introuvable";
-                    $this->demander();
-                    $this->vue->affiche_barre();
-                    $this->demande();
+            if (CsrfTokenManager::verifyToken($_POST['csrf_token'])) {
+                $pseudo = isset($_POST['pseudo']) ? $_POST['pseudo'] : '';
+            
+                if (!empty($pseudo)) {
+                    if(!$this->modele->recherche($pseudo)){
+                        $_SESSION["erreur"] = "Pseudo introuvable";
+                        $this->demander();
+                        $token = CsrfTokenManager::generateToken();
+                        $this->vue->affiche_barre($token);
+                        $this->demande();
+                    } else {
+                        $this->demander();
+                        $token = CsrfTokenManager::generateToken();
+                        $this->vue->affiche_barre($token);
+                        $this->vue->affiche_liste($this->modele->recherche($pseudo));
+                        $this->demande();
+                    }
                 } else {
+                    $_SESSION["erreur"] = "Veuillez écrire le pseudo";
                     $this->demander();
-                    $this->vue->affiche_barre();
-                    $this->vue->affiche_liste($this->modele->recherche($pseudo));
+                    $token = CsrfTokenManager::generateToken();
+                    $this->vue->affiche_barre($token);
                     $this->demande();
                 }
-            } else {
-                $_SESSION["erreur"] = "Veuillez écrire le pseudo";
+            } else{
+                $_SESSION["erreur"] = "Token invalide.";
                 $this->demander();
-                $this->vue->affiche_barre();
+                $token = CsrfTokenManager::generateToken();
+                $this->vue->affiche_barre($token);
                 $this->demande();
             }
         } else {
-            $this->vue_connexion->affiche_barre();
+            $token = CsrfTokenManager::generateToken();
+            $this->vue->affiche_barre($token);
             $this->demande();
         }
     }
@@ -53,7 +66,8 @@ class ContAmi {
                             $this->modele->ajouterDemandeAmi($_SESSION['user']['id_joueur'], $id, $date);
                             $_SESSION["msg"] ="Demande d'ami envoyé";
                             $this->demander();
-                            $this->vue->affiche_barre();
+                            $token = CsrfTokenManager::generateToken();
+                            $this->vue->affiche_barre($token);
                             $this->demande();
                         } else {
                             $_SESSION["erreur"] = "Vous ne pouvez pas envoyer de demande d'ami à vous même.";
@@ -73,7 +87,8 @@ class ContAmi {
     }
         if(isset($_SESSION["erreur"])){
             $this->demander();
-            $this->vue->affiche_barre();
+            $token = CsrfTokenManager::generateToken();
+            $this->vue->affiche_barre($token);
             $this->demande();
         }
     }
@@ -93,13 +108,15 @@ class ContAmi {
                 $this->modele->supprimerDemande($id, $_SESSION['user']['id_joueur']);
                 $this->modele->ajouterAmi($_SESSION['user']['id_joueur'], $id);
                 $this->demander();
-                $this->vue->affiche_barre();
+                $token = CsrfTokenManager::generateToken();
+                $this->vue->affiche_barre($token);
                 $this->demande();
                 }
         }
         if(isset($_SESSION["erreur"])){
             $this->demander();
-            $this->vue->affiche_barre();
+            $token = CsrfTokenManager::generateToken();
+            $this->vue->affiche_barre($token);
             $this->demande();
         }
     }
@@ -111,13 +128,15 @@ class ContAmi {
                 $_SESSION["msg"] ="Ami supprimé";
                 $this->modele->supprimerAmi($id, $_SESSION['user']['id_joueur']);
                 $this->demander();
-                $this->vue->affiche_barre();
+                $token = CsrfTokenManager::generateToken();
+                $this->vue->affiche_barre($token);
                 $this->demande();
                 }
         }
         if(isset($_SESSION["erreur"])){
             $this->demander();
-            $this->vue->affiche_barre();
+            $token = CsrfTokenManager::generateToken();
+            $this->vue->affiche_barre($token);
             $this->demande();
         }
     }
@@ -134,7 +153,8 @@ class ContAmi {
         switch ($this->action) {
             case "bienvenue":
                 $this->demander();
-                $this->vue->affiche_barre();
+                $token = CsrfTokenManager::generateToken();
+                $this->vue->affiche_barre($token);
                 $this->demande();
                 break;
             
@@ -154,7 +174,8 @@ class ContAmi {
                 $id = isset($_GET['id']) ? $_GET['id'] : "Error" ;
                 $this->modele->supprimerDemande($id, $_SESSION['user']['id_joueur']);
                 $this->demander();
-                $this->vue->affiche_barre();
+                $token = CsrfTokenManager::generateToken();
+                $this->vue->affiche_barre($token);
                 $this->demande();
                 break;
 
@@ -167,7 +188,8 @@ class ContAmi {
             default:
                 $_SESSION["erreur"] = "Erreur action incorrecte.";
                 $this->demander();
-                $this->vue->affiche_barre();
+                $token = CsrfTokenManager::generateToken();
+                $this->vue->affiche_barre($token);
                 $this->demande();
                 break;
         }

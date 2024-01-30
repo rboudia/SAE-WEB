@@ -1,6 +1,7 @@
 <?php
 require_once 'modele_strategie.php';
 require_once 'vue_strategie.php';
+require_once 'token.php';
 
 class ContStrategie {
 
@@ -24,33 +25,40 @@ class ContStrategie {
 
     function envoiSuggestion($utilisateur) {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $choix = isset($_POST['choix']) ? $_POST['choix'] : '';
-		    $sug = isset($_POST['sug']) ? $_POST['sug'] : '';
-            $date = $_POST["date"];
-            $id_utilisateur = $this->getIdUtilisateur();
+            if (CsrfTokenManager::verifyToken($_POST['csrf_token'])) {
+                $choix = isset($_POST['choix']) ? $_POST['choix'] : '';
+                $sug = isset($_POST['sug']) ? $_POST['sug'] : '';
+                $date = $_POST["date"];
+                $id_utilisateur = $this->getIdUtilisateur();
 
-            if (!empty($choix) && !empty($sug) && !empty($date)) {
-                
-                if ($this->modele->verifJeton($id_utilisateur)) {
-                    if($this->modele->ajouterSuggestion($id_utilisateur, $choix, $sug, $date)) {
-                        $_SESSION["msg"] ="Suggestion envoyé.";
-                        $this->modele->ajouterJetonUtilisateur($id_utilisateur);
-                        $this->vue->affiche_suggestion();
-                    }else {
-                        $_SESSION["erreur"] = "Erreur lors de l'envoie'.";
+                if (!empty($choix) && !empty($sug) && !empty($date)) {
+                    
+                    if ($this->modele->verifJeton($id_utilisateur)) {
+                        if($this->modele->ajouterSuggestion($id_utilisateur, $choix, $sug, $date)) {
+                            $_SESSION["msg"] ="Suggestion envoyé.";
+                            $this->modele->ajouterJetonUtilisateur($id_utilisateur);
+                            $token = CsrfTokenManager::generateToken();
+                            $this->vue->affiche_suggestion($token);
+                        }else {
+                            $_SESSION["erreur"] = "Erreur lors de l'envoie'.";
+                        }
+                    } else {
+                        $_SESSION["erreur"] = "Pas assez de jeton.";
                     }
+            
                 } else {
-                    $_SESSION["erreur"] = "Pas assez de jeton.";
+                    $_SESSION["erreur"] = "Veuillez remplir tous les champs du formulaire.";
                 }
-        
             } else {
-                $_SESSION["erreur"] = "Veuillez remplir tous les champs du formulaire.";
+                $_SESSION["erreur"] = "Token invalide.";
             }
 	    }else {
-            $this->vue->affiche_suggestion();
+            $token = CsrfTokenManager::generateToken();
+            $this->vue->affiche_suggestion($token);
         }
         if(isset($_SESSION["erreur"])){
-            $this->vue->affiche_suggestion();
+            $token = CsrfTokenManager::generateToken();
+            $this->vue->affiche_suggestion($token);
         }
     }
 
@@ -59,7 +67,8 @@ class ContStrategie {
     }
 
     function afficheSuggestion() {
-        $this->vue->affiche_sugg($this->modele->getListeSugg());
+        $token = CsrfTokenManager::generateToken();
+        $this->vue->affiche_sugg($this->modele->getListeSugg(), $token);
     }
 
     function exec(){
@@ -86,11 +95,17 @@ class ContStrategie {
                 $this->afficheSuggestion();
                 break;
             case "supprimerSugg":
-                $id = isset($_GET['id']) ? $_GET['id'] : "Error" ;
-                $_SESSION["msg"] = "Défi supprimé !";
-                $this->vue->menu();
-                $this->modele->suppSugg($id);
-                $this->afficheSuggestion();
+                if (CsrfTokenManager::verifyToken($_POST['csrf_token'])) {
+                    $id = isset($_GET['id']) ? $_GET['id'] : "Error" ;
+                    $_SESSION["msg"] = "Défi supprimé !";
+                    $this->vue->menu();
+                    $this->modele->suppSugg($id);
+                    $this->afficheSuggestion();
+                } else {
+                    $_SESSION["erreur"] = "Token invalide.";
+                    $this->vue->menu();
+                    $this->afficheSuggestion();
+                }
                 break;
 
             default:

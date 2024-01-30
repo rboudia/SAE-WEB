@@ -3,7 +3,7 @@ require_once 'vue_generique.php';
 
 class VueAdmin extends VueGenerique {
 
-    public function form_inscription() {
+    public function form_inscription($token) {
         ?>
         <div>
             <link rel="stylesheet" type="text/css" href="modules/mod_admin/Css-Admin.css">
@@ -19,6 +19,7 @@ class VueAdmin extends VueGenerique {
             <form method="post" action="index.php?module=admin&action=inscription" class="animationFormulaireIns">
                 Login: <input type="text" name="login" required><br>
                 Mot de passe: <input type="password" name="mdp" required><br>
+                <input type="hidden" name="csrf_token" value="<?= $token ?>">
                 <input type="submit" value="S'inscrire">
             </form>
         </div>

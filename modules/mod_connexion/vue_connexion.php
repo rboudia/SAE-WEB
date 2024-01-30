@@ -2,7 +2,7 @@
 require_once 'vue_generique.php';
 
 class VueConnexion extends VueGenerique {
-    public function form_inscription() {
+    public function form_inscription($token) {
         ?>
         <div>
             <link rel="stylesheet" type="text/css" href="modules/mod_connexion/Css.css">
@@ -20,13 +20,14 @@ class VueConnexion extends VueGenerique {
                 Login: <input type="text" name="login" required><br>
                 Mot de passe: <input type="password" name="mdp" required><br>
                 Photo de profil: <input type="file" name="logo" accept="image/*" ><br>
+                <input type="hidden" name="csrf_token" value="<?= $token ?>">
                 <input type="submit" value="S'inscrire">
             </form>
         </div>
         <?php
     }
 
-    public function form_connexion() {
+    public function form_connexion($token) {
         if (isset($_SESSION['user'])) {
             $utilisateur = $_SESSION['user'];
             ?>
@@ -56,13 +57,14 @@ class VueConnexion extends VueGenerique {
                     <div style="color:red; text-align: center;"><?=$_SESSION['erreur']?></div><br>
                     <?php
                     unset($_SESSION['erreur']);
-                }
+                }   
                 ?>
                 <link rel="stylesheet" type="text/css" href="modules/mod_connexion/Css.css">
 
                 <form class="animationFormulaireConn" method="post" action="index.php?module=connexion&action=connexion">
                     Login: <input type="text" name="login" required><br>
                     Mot de passe: <input type="password" name="mdp" required><br>
+                    <input type="hidden" name="csrf_token" value="<?= $token ?>">
                     <input type="submit" value="Se connecter">
                 </form>
             </div>

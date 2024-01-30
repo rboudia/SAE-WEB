@@ -1,6 +1,8 @@
 <?php
 require_once 'modele_amelioration.php';
 require_once 'vue_amelioration.php';
+require_once 'token.php';
+
 
 class ContAmelioration {
 
@@ -22,13 +24,14 @@ class ContAmelioration {
                 $solde = $this->modele->getSoldeJoueur($utilisateur["id_joueur"]);
                 $this->vue->bienvenue($solde);
                 $def = $this->modele->getDefense();
-                $this->vue->affichageDefense($def);
+                $token = CsrfTokenManager::generateToken();
+                $this->vue->affichageDefense($def, $token);
                 break;
 
                 case "amelioration":
                     $utilisateur = $_SESSION['user'];
                     $solde = $this->modele->getSoldeJoueur($utilisateur["id_joueur"]);
-        
+                    if (CsrfTokenManager::verifyToken($_POST['csrf_token'])) {
                     if ($solde >= 4) {
                        
                         $this->modele->decrementerSoldeJoueur($utilisateur["id_joueur"], 4);
@@ -42,7 +45,16 @@ class ContAmelioration {
                     $solde = $this->modele->getSoldeJoueur($utilisateur["id_joueur"]);
                     $this->vue->bienvenue($solde);
                     $def = $this->modele->getDefense();
-                    $this->vue->affichageDefense($def);
+                    $token = CsrfTokenManager::generateToken();
+                    $this->vue->affichageDefense($def, $token);
+                    } else {
+                        $_SESSION["erreur"] = "Token invalide.";
+                        $solde = $this->modele->getSoldeJoueur($utilisateur["id_joueur"]);
+                        $this->vue->bienvenue($solde);
+                        $token = CsrfTokenManager::generateToken();
+                        $def = $this->modele->getDefense();
+                        $this->vue->affichageDefense($def, $token);
+                    }
                     break;
 
                     case "voir_ameliorations":

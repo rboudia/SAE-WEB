@@ -112,13 +112,22 @@ class VueStrategie extends VueGenerique{
         }
     }
 
-    function affiche_sugg($tab) {
+    function affiche_sugg($tab, $token) {
         ?>
         <head>
             <link rel="stylesheet" href="modules/mod_strategie/Css-Strategie.css">
         </head>
         <div class="section_strategie">
             <h1 class="titre_strategie">Stratégie des ennemis :</h1>
+
+            <?php
+            if(isset($_SESSION['erreur'])){
+                ?>
+                <div class="erreur_strategie" style="color:red"><?=$_SESSION['erreur']?></div><br>
+                <?php
+                unset($_SESSION['erreur']);
+            }
+            ?>
     
             <table class="table_strategie">
                 <tr><th>Suggestion</th><th>Type</th><th>Date</th><th>Proposé par</th><th>Supprimer</th></tr>
@@ -131,6 +140,7 @@ class VueStrategie extends VueGenerique{
                         <td><?= $liste['date'] ?> </td>
                         <td><?= $liste['pseudo'] ?> </td>
                         <td><form action="index.php?module=strategie&action=supprimerSugg&id=<?= $liste['id_suggestion'] ?>" method="post">
+                        <input type="hidden" name="csrf_token" value="<?= $token ?>">
                         <button type="submit" name="supprimerSugg">Supprimer</button>
                         </form></td>
                     </tr>
@@ -142,7 +152,7 @@ class VueStrategie extends VueGenerique{
         <?php
     }
 
-    function affiche_suggestion() {
+    function affiche_suggestion($token) {
         ?>
         <head>
             <link rel="stylesheet" href="modules/mod_strategie/Css-Strategie.css">
@@ -165,7 +175,7 @@ class VueStrategie extends VueGenerique{
                 <input type="text" name="sug" id="sug" class="element-form_strategie">
     
                 <br>
-    
+                <input type="hidden" name="csrf_token" value="<?= $token ?>">
                 <input type="submit" value="Envoyer" class="envoyer_strategie">
             </form>
     

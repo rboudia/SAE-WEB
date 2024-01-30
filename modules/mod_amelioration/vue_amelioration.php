@@ -53,7 +53,7 @@ class VueAmelioration extends VueGenerique {
         <?php
     }
 
-    public function affichageDefense($donneesDefense) {
+    public function affichageDefense($donneesDefense, $token) {
         ?>
         <head>
         <meta charset="UTF-8">
@@ -63,6 +63,13 @@ class VueAmelioration extends VueGenerique {
     </head>
     <body>
         <h1 class = "aff">Affichage de la Défense</h1>
+        <?php if(isset($_SESSION['erreur'])){
+                ?>
+                <div style="color:red; text-align: center;"><?=$_SESSION['erreur']?></div><br>
+                <?php
+                unset($_SESSION['erreur']);
+            }
+            ?>
         <table>
             <tr>
                 <th>Nom de la Défense</th>
@@ -74,6 +81,7 @@ class VueAmelioration extends VueGenerique {
                     <td>
                         <form method="post" action="index.php?module=amelioration&action=amelioration">
                             <input type="hidden" name="id_defense" value="<?php echo $defense['id_defense']; ?>">
+                            <input type="hidden" name="csrf_token" value="<?= $token ?>">
                             <button type="submit" class="button">Améliorer</button>
                         </form>
                     </td>

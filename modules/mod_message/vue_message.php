@@ -82,7 +82,7 @@ class VueMessage extends VueGenerique{
         </head>
 
         <div id="message-form">
-            <form action="index.php?module=message&action=envoyer&id=<?= $ami ?>" method="post">
+             action="index.php?module=message&action=envoyer&id=<?= $ami ?>" method="post">
                 <label for="message">Message:</label>
                 <input type="text" id="message" name="message"><br>
                 <input type="submit" id="submit-btn" value="Envoyer">

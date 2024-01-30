@@ -61,7 +61,7 @@ class VueProfil extends VueGenerique{
 	}
 	
 
-	public function form_changer() {
+	public function form_changer($token) {
 		?>
 		<link rel="stylesheet" type="text/css" href="modules\mod_profil\Css-profil.css">
 		<div class="changementDeMdp">
@@ -85,7 +85,7 @@ class VueProfil extends VueGenerique{
 					<label for="confirmermdp">Confirmer mot de passe:</label>
 					<input type="password" name="confirmermdp" id="confirmermdp" required>
 				</div>
-	
+				<input type="hidden" name="csrf_token" value="<?= $token ?>">
 				<input type="submit" value="Confirmer" class="boutonConfirmation">
 			</form>
 		</div>
@@ -93,7 +93,7 @@ class VueProfil extends VueGenerique{
 	}
 	
 
-	function formulaireModification($detailJoueur) {
+	function formulaireModification($detailJoueur, $token) {
 		if (isset($_SESSION['user'])) {
 			?>
 			<link rel="stylesheet" type="text/css" href="modules\mod_profil\Css-profil.css">
@@ -130,7 +130,7 @@ class VueProfil extends VueGenerique{
 						<label for="jeton">Jeton:</label>
 						<span class="jetonJoueur"><?= $detailJoueur['jeton'] ?></span>
 					</div>
-	
+					<input type="hidden" name="csrf_token" value="<?= $token ?>">
 					<input type="submit" value="Modifier" class="boutonConfirmation">
 				</form>
 			</div>

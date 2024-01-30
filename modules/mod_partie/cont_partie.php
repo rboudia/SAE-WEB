@@ -1,6 +1,7 @@
 <?php 
 require_once 'modele_partie.php';
 require_once 'vue_partie.php';
+require_once 'token.php';
 
 class ContPartie {
 
@@ -16,24 +17,35 @@ class ContPartie {
 
     public function trouvePartie() {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $pseudo = isset($_POST['pseudo']) ? $_POST['pseudo'] : '';
-        
-		    if (!empty($pseudo)) {
-                if(!$this->modele->recherche($pseudo)){
-                    $_SESSION["erreur"] = "Pseudo introuvable";
-                    $this->vue->menu();
-                    $this->vue->affiche_barre();
-                    $this->vue->classement($this->modele->getTop3Players());
+            if (CsrfTokenManager::verifyToken($_POST['csrf_token'])) {
+                $pseudo = isset($_POST['pseudo']) ? $_POST['pseudo'] : '';
+            
+                if (!empty($pseudo)) {
+                    if(!$this->modele->recherche($pseudo)){
+                        $_SESSION["erreur"] = "Pseudo introuvable";
+                        $this->vue->menu();
+                        $token = CsrfTokenManager::generateToken();
+                        $this->vue->affiche_barre($token);
+                        $this->vue->classement($this->modele->getTop3Players());
+                    } else {
+                        $this->vue->menu();
+                        $token = CsrfTokenManager::generateToken();
+                        $this->vue->affiche_barre($token);
+                        $this->vue->affiche_liste($this->modele->partieJoueur($pseudo));
+                        $this->vue->classement($this->modele->getTop3Players());
+                    }
                 } else {
+                    $_SESSION["erreur"] = "Veuillez écrire le pseudo";
                     $this->vue->menu();
-                    $this->vue->affiche_barre();
-                    $this->vue->affiche_liste($this->modele->partieJoueur($pseudo));
+                    $token = CsrfTokenManager::generateToken();
+                    $this->vue->affiche_barre($token);
                     $this->vue->classement($this->modele->getTop3Players());
                 }
             } else {
-                $_SESSION["erreur"] = "Veuillez écrire le pseudo";
+                $_SESSION["erreur"] = "Token invalide.";
                 $this->vue->menu();
-                $this->vue->affiche_barre();
+                $token = CsrfTokenManager::generateToken();
+                $this->vue->affiche_barre($token);
                 $this->vue->classement($this->modele->getTop3Players());
             }
         } else {
@@ -61,7 +73,8 @@ class ContPartie {
             
             case "menu":
                 $this->vue->menu();
-                $this->vue->affiche_barre();
+                $token = CsrfTokenManager::generateToken();
+                $this->vue->affiche_barre($token);
                 $this->vue->classement($this->modele->getTop3Players());
                 break;
 

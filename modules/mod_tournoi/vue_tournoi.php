@@ -3,7 +3,7 @@ require_once 'vue_generique.php';
 
 class VueTournoi extends VueGenerique {
     
-    function affiche_liste($tab) {
+    function affiche_liste($tab, $token) {
         ?>
         <head>
             <meta charset="UTF-8">
@@ -33,6 +33,7 @@ class VueTournoi extends VueGenerique {
                     if (isset($_SESSION['admin'])) {
                         ?>
                     <form action="index.php?module=tournoi&action=supprimer&id=<?= $tournoi['id_tournoi'] ?>" method="post">
+                        <input type="hidden" name="csrf_token" value="<?= $token ?>">
                         <button type="submit" name="supprimerTournoi">Supprimer le tournoi</button>
                     </form>
                     <?php
@@ -40,6 +41,7 @@ class VueTournoi extends VueGenerique {
                     if (isset($_SESSION['user'])) {
                         ?>
                     <form action="index.php?module=tournoi&action=traiterReponse&id=<?= $tournoi['id_tournoi'] ?>" method="post">
+                        <input type="hidden" name="csrf_token" value="<?= $token ?>">
                         <button type="submit" name="envoyerReponse">Rejoindre le tournoi</button>
                     </form>
                     <?php
@@ -60,6 +62,7 @@ class VueTournoi extends VueGenerique {
                 Nom: <input type="text" name="nom" required><br>
                 Nombre de participant: <input type="text" name="nb_max" required><br>
                 Date et heure: <input type="datetime-local" name="date" required><br>
+                <input type="hidden" name="csrf_token" value="<?= $token ?>">
                 <input type="submit" value="Ajouter">
             </form>
             <?php
@@ -80,6 +83,7 @@ class VueTournoi extends VueGenerique {
             ?>
             
             <form action="index.php?module=tournoi&action=supprimerTournoi" method="post">
+                <input type="hidden" name="csrf_token" value="<?= $token ?>">
                 <button type="submit" name="envoyerReponse">Quitter le Tournoi</button>
             </form>
             </div>
